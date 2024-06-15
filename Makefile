@@ -1,23 +1,28 @@
-CXX		  := g++
-CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
+# Diretório de saída
+OUTDIR = bin
+# Nome do arquivo de saída (executável)
+OUTFILE = $(OUTDIR)/program
+# Bibliotecas a serem vinculadas
+LIBRARIES = -lsfml-graphics -lsfml-window -lsfml-system 
+# Compilador a ser usado
+CC = g++
+# Flags do compilador
+CFLAGS = -g -Wall -I./ -Iinclude
+# Arquivos fonte
+SRCS = $(shell find src -name "*.cpp")
+# Arquivos objeto
+OBJS = $(SRCS:.cpp=.o)
 
-BIN		:= bin
-SRC		:= src
-INCLUDE	:= include
-LIB		:= lib
+all: $(OUTFILE)
 
-LIBRARIES	:=
-EXECUTABLE	:= main
+$(OUTFILE): $(OBJS)
+	mkdir -p $(OUTDIR)
+	$(CC) -o $(OUTFILE) $(OBJS) $(LIBRARIES)
 
-
-all: $(BIN)/$(EXECUTABLE)
-
-run: clean all
-	clear
-	./$(BIN)/$(EXECUTABLE)
-
-$(BIN)/$(EXECUTABLE): $(SRC)/*.cpp
-	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
+.cpp.o:
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	-rm $(BIN)/*
+	rm -f $(OBJS) $(OUTFILE)
+
+.PHONY: all clean

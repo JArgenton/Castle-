@@ -1,41 +1,38 @@
-#include "Entities/MovingEntity.h"
-
+#include "Entities/MovingEntity.hpp"
 
 namespace Entities{
+    
+        MovingEntity::MovingEntity(Coordinates::CoordF psize,
+        Coordinates::CoordF pposition,
+        Coordinates::CoordF pvelocity,
+        ID id):
+        Entity(psize, pposition, id),
+        velocity(pvelocity),
+        active(false),
+        facingLeft(false)  { }
 
-    MovingEntity::MovingEntity(Coordinates::CoordF position, Coordinates::CoordF size, EntityType type, Coordinates::CoordF velocity ):
-        Entity(position, size, type),
-        velocity(velocity),
-        active(true),
-        facing_right(true)
-    { }
+        MovingEntity::~MovingEntity(){
 
-    MovingEntity::~MovingEntity() { }
+        }
 
-    const bool MovingEntity::isActive() const{
-        return active;
-    }
+        /*SETs*/
+        void MovingEntity::set_velocity(Coordinates::CoordF pvelocity){
+            velocity = pvelocity;
+        }
+        void MovingEntity::setFacing(bool direction){
+            facingLeft = direction;
+        }
 
-    const bool MovingEntity::isFacingRight() const{
-        return facing_right;
-    }
+        /*GETs*/
+        Coordinates::CoordF MovingEntity::get_velocity(){
+            return velocity;
+        }
 
-    void MovingEntity::setFacingRight(const bool right){
-        facing_right = right;
-    }
-    void MovingEntity::setFacingRight(){
-        facing_right = velocity.x > 0.0f ? false : true;
-    }
-
-
-    void MovingEntity::setActive(const bool active){
-        this->active = active;
-    }
-
-    void MovingEntity::setVelocity(const Coordinates::CoordF velocity){
-        this->velocity = velocity;
-    }
-    Coordinates::CoordF MovingEntity::getVelocity(){
-
-    }
+        /*conditions*/
+        bool MovingEntity::isActive(){
+            return active;
+        }
+        bool MovingEntity::isFacingLeft(){
+            return facingLeft;
+        }
 }

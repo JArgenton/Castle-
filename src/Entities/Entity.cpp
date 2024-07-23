@@ -1,38 +1,42 @@
-#include "Entities/Entity.h"
+#include "Entities/Entity.hpp"
 
 namespace Entities{
 
-Entity::Entity(Coordinates::CoordF position, Coordinates::CoordF size, EntityType Type):
-    position(position),
-    size(size)
-    {
-        type = Type; 
-    }
+        ID id;
+        GraphicBodies::StaticBody* image;
 
-Entity::~Entity(){ 
+        
+        /*general info*/
+        Coordinates::CoordF size;
+        Coordinates::CoordF position;
 
-}
+            Entity::Entity(Coordinates::CoordF psize,
+            Coordinates::CoordF pposition,
+            ID id):
+            size(psize),
+            position(pposition),
+            id(id),
+            image() { } //image vai ser inicializado na funçao initialize, 
 
-/*Position methods*/
-Coordinates::CoordF Entity::getPosition(){
-    return position;
-}
+            Entity::~Entity(){
+                image = nullptr;
+            }
 
-void Entity::setPosition(Coordinates::CoordF position){
-    this->position = position;
-}
-
-/*Size methods*/
-Coordinates::CoordF Entity::getSize(){
-    return size;
-}
-
-void Entity::setSize(Coordinates::CoordF size){
-    this->size = size;
-}
-
-/*Type methods*/    
-EntityType Entity::getType(){
-    return type;
-}
+            /*SETs*/
+            void set_position(Coordinates::CoordF pposition){
+                position = pposition;
+            }
+            void Entity::set_size(Coordinates::CoordF psize){
+                size = psize;
+            }
+            /*GETs*/
+            Coordinates::CoordF Entity::get_size(){
+                return size;
+            }
+            Coordinates::CoordF Entity::get_position(){
+                return position;
+            }
+            ID Entity::get_id(){
+                return id;
+            }
 }

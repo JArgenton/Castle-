@@ -8,7 +8,7 @@
             "program": "${workspaceFolder}/bin/main",
             "preLaunchTask": "Build C++ project",
             "args": [],
-            "stopAtEntry": false,
+            "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": true,

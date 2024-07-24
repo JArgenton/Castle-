@@ -35,7 +35,7 @@ namespace Entities{
             virtual void render() = 0; //atualiza posiçao da imagem
 
             /*Colisions*/
-            virtual void moveOnColision() = 0; /*TODO classe Entity other*/
+            virtual void moveOnColision(Entity* other) = 0; /*TODO classe Entity other*/
 
             /*conditions*/
             bool isActive();

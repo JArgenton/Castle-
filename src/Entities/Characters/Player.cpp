@@ -6,6 +6,7 @@
 #define PLAYER_DMG_COOLDOWN 0.0f
 #define JUMP_HEIGH 3.0f
 
+
 namespace Entities{
     namespace Characters{
 
@@ -61,6 +62,9 @@ namespace Entities{
         void Player::colide(Entity* other, Coordinates::CoordF intersec){
             /*TODO*/
         }
+        void moveOnColision(Entity* other){
+            /*todo*/
+        }
         void Player::jump(){
             if(canJump){
                 velocity.y = GRAVITY * 3;
@@ -76,7 +80,8 @@ namespace Entities{
 
         /*visuals*/
         void Player::initialize(){
-            image->initialize("PLAYERPATH", position, size);
+           const char* path = "/home/argenton/Documentos/Castle ++/Castle-/assets/player.png";
+            image->initialize(path, position, size);
         }
         void Player::render(){
             image->render();

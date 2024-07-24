@@ -1,11 +1,12 @@
 #include <iostream>
 #include "Managers/GraphicManager.hpp"
+#include "Entities/Characters/Player.hpp"
 
 int main() {
     // Obtém a instância do Graphics Manager
     Managers::Graphics* gpManager = Managers::Graphics::get_instance();
-    
-
+    Entities::Characters::Player p1 = Entities::Characters::Player();
+    p1.initialize();
     // Loop principal
     while (gpManager->isWindowOpen()) {
         sf::Event event;

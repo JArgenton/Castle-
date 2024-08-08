@@ -1,4 +1,5 @@
 #include "Entities/Characters/Player.hpp"
+#include "Entities/Weapons/Weapon.hpp"
 #define PLAYER_SIZE_X 100.0f
 #define PLAYER_SIZE_Y 100.0f
 #define PLAYER_VELOCITY 5.0f
@@ -6,97 +7,112 @@
 #define PLAYER_DMG_COOLDOWN 0.0f
 #define JUMP_HEIGH 3.0f
 
-
-namespace Entities{
-    namespace Characters{
-
-        Player::Player(Coordinates::CoordF pposition, Weapons::Weapon* pWeapon):
-        Character(Coordinates::CoordF(PLAYER_SIZE_X, PLAYER_SIZE_Y), pposition, Coordinates::CoordF(PLAYER_VELOCITY, 0.0f), PLAYER_HEALT, 0.0f, 0.0f, 0.0f, 0, PLAYER),
-        weapon(pWeapon),
-        canJump(false),
-        isMoving(false),
-        canReciveDmg(false),
-        dmgCooldown(PLAYER_DMG_COOLDOWN)
-        { 
-
-            if(weapon != nullptr){
-                set_atkCooldown(weapon->atkCooldown());
-                set_atkDuration(weapon->atkDuration());
-                set_atkRange(weapon->atkRange());
-                set_atkDamage(weapon->atkDamage());
-            }
-            dmgTimer = 0;            
+namespace Entities
+{
+    namespace Characters
+    {
+        Player::Player() : Character(Coordinates::CoordF(100.0f, 100.0f), PLAYER),
+                           weapon(nullptr),
+                           dmgCooldown(PLAYER_DMG_COOLDOWN),
+                           canWalk(true),
+                           canReciveDmg(true),
+                           canJump(true),
+                           isMoving(false),
+                           dmgTimer(0)
+        {
+            initialize();
         }
-
-        Player::~Player(){
+        Player::~Player()
+        {
             weapon = nullptr;
         }
 
         /*SETs*/
-        void Player::set_weapon(Weapons::Weapon* pweapon){
+        void Player::set_weapon(Weapons::Weapon *pweapon)
+        {
             weapon = pweapon;
         }
 
         /*GETs*/
-        Weapons::Weapon* Player::get_weapon(){
+        Weapons::Weapon *Player::get_weapon()
+        {
             return weapon;
         }
-        
+
         /*actions*/
-        void Player::atack(){
-            if(weapon != nullptr){
+        void Player::atack()
+        {
+            if (weapon != nullptr)
+            {
                 weapon->atack();
             }
         }
 
-        void Player::reciveDmg(int dmg){
-            if(canReciveDmg){
+        void Player::reciveDmg(int dmg)
+        {
+            if (canReciveDmg)
+            {
                 health -= dmg;
-                if(health <= 0){
-                 active = false;
+                if (health <= 0)
+                {
+                    active = false;
                 }
                 dmgTimer = 0;
             }
-            
         }
-        void Player::colide(Entity* other, Coordinates::CoordF intersec){
+        void Player::colide(Entity *other, Coordinates::CoordF intersec)
+        {
             /*TODO*/
         }
-        void moveOnColision(Entity* other){
+        void moveOnColision(Entity *other)
+        {
             /*todo*/
         }
-        void Player::jump(){
-            if(canJump){
+        void Player::jump()
+        {
+            if (canJump)
+            {
                 velocity.y = GRAVITY * 3;
             }
         }
-        void Player::walk(bool toLeft){
+        void Player::walk(bool toLeft)
+        {
             isMoving = true;
             facingLeft = toLeft;
         }
-        void Player::stop(){
+        void Player::stop()
+        {
             isMoving = false;
         }
 
         /*visuals*/
-        void Player::initialize(){
-           const char* path = "/home/argenton/Documentos/Castle ++/Castle-/assets/player.png";
-            image->initialize(path, position, size);
+        void Player::initialize()
+        {
+            if (weapon)
+            {
+                weapon->initialize(this); // todo
+            }
+            const char *texturepath = "assets/player.png";
+            image.initialize(texturepath, position, size);
         }
-        void Player::render(){
-            image->render();
+        void Player::render()
+        {
+            image.render();
         }
 
         /*Colisions*/
-        void Player::moveOnColision(Entity* other){
-                /*TODO*/
+        void Player::moveOnColision(Entity *other)
+        {
+            /*TODO*/
         }
-        
+
         /*GAME*/
-        void Player::update(const float dt){
+        void Player::update(const float dt)
+        {
             incrementAtkTimer(dt);
 
-            if (isMoving) {
+            if (isMoving)
+            {
                 velocity.x = PLAYER_VELOCITY;
 
                 if (facingLeft)
@@ -104,12 +120,12 @@ namespace Entities{
             }
             else
                 velocity.x *= 0.5;
-            velocity.y += GRAVITY * dt;
+            velocity.y += GRAVITY * dt * 0;
 
             position.x += velocity.x * dt;
             position.y += velocity.y * dt;
 
-            image->update(position);
+            image.update(position);
             render();
 
             dmgTimer += dt;
@@ -118,5 +134,5 @@ namespace Entities{
                 active = false;
         }
 
- }
+    }
 }

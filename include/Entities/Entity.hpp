@@ -6,52 +6,52 @@
 using namespace std;
 using namespace Utilis;
 
-namespace Entities{
+namespace Entities
+{
 
-    #define GRAVITY 9.81f
-    enum ID{
+#define GRAVITY 9.81f
+    enum ID
+    {
         empty = 0,
-        PLAYER
+        PLAYER,
+        WEAPON
     };
-    class Entity{
+    class Entity
+    {
 
-     protected:
-        ID id;
-        GraphicBodies::StaticBody* image;
-
-        
+    protected:
         /*general info*/
         Coordinates::CoordF size;
         Coordinates::CoordF position;
 
-     public:
-            Entity(Coordinates::CoordF psize = Coordinates::CoordF(0.0f, 0.0f),
-            Coordinates::CoordF pposition = Coordinates::CoordF(0.0f, 0.0f), ID id = empty);
+        ID id;
+        GraphicBodies::StaticBody image;
 
-            ~Entity();
+    public:
+        Entity(Coordinates::CoordF _position = Coordinates::CoordF(0.0f, 0.0f), ID id = empty);
 
-            /*SETs*/
-            void set_position(Coordinates::CoordF pposition);
-            void set_size(Coordinates::CoordF psize);
+        virtual ~Entity();
 
-            /*GETs*/
-            Coordinates::CoordF get_size();
-            Coordinates::CoordF get_position();
-            ID get_id();
+        /*SETs*/
+        void set_position(Coordinates::CoordF _position);
+        void set_size(Coordinates::CoordF _size);
 
-            /*actions*/
-            virtual void colide(Entity* other, Coordinates::CoordF intersec) = 0;
+        /*GETs*/
+        Coordinates::CoordF get_size();
+        Coordinates::CoordF get_position();
+        ID get_id();
 
-            /*visuals*/
-            virtual void initialize() = 0; //carrega as texturas
-            virtual void render() = 0; //atualiza posiçao da imagem
+        /*actions*/
+        virtual void colide(Entity *other, Coordinates::CoordF intersec) = 0;
 
-            /*Colisions*/
-            virtual void moveOnColision(Entity* other) = 0; /*TODO classe Entity other*/
-            
-            /*update*/
-            virtual void update(const float dt) = 0;
-        
+        /*visuals*/
+        virtual void initialize() = 0; // carrega as texturas
+        virtual void render() = 0;     // atualiza posiçao da imagem
 
+        /*Colisions*/
+        virtual void moveOnColision(Entity *other) = 0; /*TODO classe Entity other*/
+
+        /*update*/
+        virtual void update(const float dt) = 0;
     };
 }

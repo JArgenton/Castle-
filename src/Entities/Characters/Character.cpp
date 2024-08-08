@@ -1,86 +1,90 @@
 #include "Entities/Characters/Character.hpp"
 
-namespace Entities{
+namespace Entities
+{
 
-    namespace Characters{
+    namespace Characters
+    {
 
-        Character::Character(Coordinates::CoordF psize,
-        Coordinates::CoordF pposition,
-        Coordinates::CoordF pvelocity,
-        float phealth,
-        float patkCooldown,
-        float patkDuration,
-        float patkRange,
-        int patkDamage,
-        Entities::ID id
-        ): 
-        MovingEntity(psize, pposition, pvelocity, id),
-        health(phealth),
-        atkCooldown(patkCooldown),
-        atkDuration(patkDuration),
-        atkRange(patkRange),
-        atkDamage(patkDamage),
-        flagcanAtk(true)
-        { }
+        Character::Character(Coordinates::CoordF _position, Entities::ID _id) : MovingEntity(_position, _id),
+                                                                                health(),
+                                                                                atkCooldown(),
+                                                                                atkDuration(),
+                                                                                atkRange(),
+                                                                                atkDamage(),
+                                                                                flagcanAtk(true)
+        {
+        }
 
-        Character::~Character(){ }
+        Character::~Character() {}
 
         /*SETs*/
-        void Character::set_health(int phealth){
-            health = phealth;
+        void Character::set_health(int _health)
+        {
+            health = _health;
         }
-        void Character::set_atkCooldown(float pCooldown){
-            atkCooldown = pCooldown;
+        void Character::set_atkCooldown(float _Cooldown)
+        {
+            atkCooldown = _Cooldown;
         }
-        void Character::set_atkDuration(float pDuration){
-            atkDuration = pDuration;
+        void Character::set_atkDuration(float _Duration)
+        {
+            atkDuration = _Duration;
         }
-        void Character::set_atkRange(float pRange){
-            atkRange = pRange;
+        void Character::set_atkRange(float _Range)
+        {
+            atkRange = _Range;
         }
-        void Character::set_atkDamage(int pdamage){
-            atkDamage = pdamage;
+        void Character::set_atkDamage(int _damage)
+        {
+            atkDamage = _damage;
         }
-        
+
         /*gets*/
-        int Character::get_health(){
+        int Character::get_health()
+        {
             return health;
         }
 
         /*Actions*/
-        void Character::atack(){
-            if(canAtk()){
+        void Character::atack()
+        {
+            if (canAtk())
+            {
                 flagIsAtking = true;
             }
-            
-
         }
-        void Character::reciveDmg(int dmg){
+        void Character::reciveDmg(int dmg)
+        {
             health = health - dmg;
-            if(health <= 0){
+            if (health <= 0)
+            {
                 active = false;
             }
         }
-        
-
 
         /*timers & conditions*/
-        void Character::incrementAtkTimer(const float dt){
-            if (flagIsAtking) {
+        void Character::incrementAtkTimer(const float dt)
+        {
+            if (flagIsAtking)
+            {
                 coolDownTimer = 0;
                 atkTimer += dt;
                 if (atkTimer > atkDuration)
                     flagIsAtking = false;
             } //
-            else {
+            else
+            {
                 coolDownTimer += dt;
                 atkTimer = 0;
             }
         }
-        const bool Character::canAtk(){
+        const bool Character::canAtk()
+        {
             return coolDownTimer > atkCooldown ? true : false;
         }
-        bool Character::isAtking(){
+        bool Character::isAtking()
+        {
             return flagIsAtking;
         }
     }

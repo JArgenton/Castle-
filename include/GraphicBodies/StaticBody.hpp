@@ -1,5 +1,9 @@
+#ifndef STATIC_BODY_HPP
+#define STATIC_BODY_HPP
+
 #include "Body.hpp"
 #include "Utilis/Coord.hpp"
+#include <SFML/Graphics.hpp>
 using namespace Utilis;
 
 namespace GraphicBodies{
@@ -7,8 +11,7 @@ namespace GraphicBodies{
     class StaticBody : public Body{
 
      private:
-        sf::Texture* texture;
-
+     
      public:
      StaticBody();
      ~StaticBody();
@@ -18,3 +21,4 @@ namespace GraphicBodies{
     };
 
 }
+#endif // STATIC_BODY_HPP

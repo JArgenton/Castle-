@@ -1,6 +1,15 @@
 {
   "files.associations": {
-    "*.tpp": "cpp"
+    "*.tpp": "cpp",
+    "iostream": "cpp",
+    "functional": "cpp",
+    "memory": "cpp",
+    "optional": "cpp",
+    "sstream": "cpp",
+    "*.tcc": "cpp",
+    "iomanip": "cpp",
+    "istream": "cpp",
+    "ostream": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

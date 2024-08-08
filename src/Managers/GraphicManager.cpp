@@ -51,11 +51,11 @@ namespace Managers{
             exit(1);
         }     
         fontsMap.insert(std::make_pair(filepath, font));
-
+ 
         return font;
     }
 
-    sf::Texture* Graphics::loadTexture(const std::string& filepath){
+    sf::Texture* Graphics::loadTexture(const char* filepath){
 
         auto iterator = texturesMap.find(filepath);
         if(iterator != texturesMap.end()){

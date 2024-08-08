@@ -3,31 +3,40 @@
 #include <iostream>
 using namespace std;
 
-namespace Entities{
-    
-    namespace Weapons{
+namespace Entities
+{
 
-        enum Type{
+    namespace Weapons
+    {
+
+        enum Type
+        {
             empty = 0,
             sword,
             spear,
             bow
         };
-
-        class Weapon
+        class Weapon : public MovingEntity
         {
         protected:
             /*Cooldowns (const)*/
+            Characters::Player *pPlayer;
             Type type;
+            float AtkCooldown;
+            float AtkDuration;
+            float AtkRange;
+            int AtkDamage;
+
         public:
             Weapon();
-            ~Weapon();
+            virtual ~Weapon();
             virtual void atack() = 0;
-            virtual void drop() = 0;
-            virtual const float atkCooldown() = 0; // tempo para atacar novamente
-            virtual const float atkDuration() = 0; // tempo para atacar novamente
-            virtual const float atkRange() = 0;
-            virtual const int atkDamage() = 0;
-        };    
+            virtual const float getAtkCooldown(); // tempo para atacar novamente
+            virtual const float getAtkDuration(); // tempo para atacar novamente
+            virtual const float getAtkRange();
+            virtual const int getAtkDamage();
+            void setPlayer(Characters::Player *pP);
+            virtual void initialize(Characters::Player *pP) = 0;
+        };
     }
 }

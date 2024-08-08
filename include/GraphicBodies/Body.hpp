@@ -1,5 +1,7 @@
+#ifndef BODY_HPP
+#define BODY_HPP
+
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include "Managers/GraphicManager.hpp"
 using namespace std;
 
@@ -7,9 +9,9 @@ namespace GraphicBodies{
     class Body
     {
     protected:
-        sf::RectangleShape shape;
+        sf::RectangleShape* selfbody;
 
-        static Managers::Graphics* grapicManager;
+        static Managers::Graphics* graphicManager;
 
      public:
         Body();
@@ -17,3 +19,4 @@ namespace GraphicBodies{
         virtual void render();
     };
 }
+#endif

@@ -15,7 +15,7 @@ namespace Managers{
         sf::RenderWindow *window; // janela que o jogo passara
 
         std::unordered_map<std::string, sf::Font*> fontsMap; // Mapa de fontes (ED2), carregar e organizar fontes de maneira eficiente
-        std::unordered_map<std::string, sf::Texture*> texturesMap; // Mapa de texturas (ED2), carregar, organizar as texturas utilizadas
+        std::unordered_map<const char*, sf::Texture*> texturesMap; // Mapa de texturas (ED2), carregar, organizar as texturas utilizadas
 
         // clock para processamento
         sf::Clock clock; 
@@ -40,7 +40,7 @@ namespace Managers{
         sf::Font*  loadFont(const std::string& filepath);
 
         //funçoes destinadas a carregar e manipular texturas
-        sf::Texture* loadTexture(const std::string& filepath);
+        sf::Texture* loadTexture(const char* filepath);
 
         //funçoes destinadas a carregar e centralizar a tela.
         void centerViewOn(Coordinates::CoordF position);

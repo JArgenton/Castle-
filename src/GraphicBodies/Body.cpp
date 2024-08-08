@@ -3,16 +3,18 @@
 
 namespace GraphicBodies {
 
-    Managers::Graphics* Body::grapicManager = Managers::Graphics::get_instance();
+    Managers::Graphics* Body::graphicManager = Managers::Graphics::get_instance();
     /*Pegar instancia de gerenciador grafico*/
-    Body::Body() :
-    shape()
-    { }
+    Body::Body():
+    selfbody()
+    { 
+        selfbody = new sf::RectangleShape();
+    }
 
     Body::~Body() { }
 
     void Body::render() {
-        grapicManager->render(&shape);
+        graphicManager->render(selfbody);
     }
 
 } // namespace GraphicalElements

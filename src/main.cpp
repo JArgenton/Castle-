@@ -6,11 +6,16 @@ int main() {
     // Obtém a instância do Graphics Manager
     Managers::Graphics* gpManager = Managers::Graphics::get_instance();
     Entities::Characters::Player p1 = Entities::Characters::Player();
-    p1.initialize();
     // Loop principal
+        Utilis::Coordinates::CoordF* pos;
+        pos = new Utilis::Coordinates::CoordF(110.0f, 110.0f);
+        p1.set_position(*pos);
+        
+        delete pos;
     while (gpManager->isWindowOpen()) {
         sf::Event event;
         // Processa eventos
+
 
         while (gpManager->pullEvent(event)) {
             // Verifica o tipo de evento
@@ -24,17 +29,15 @@ int main() {
                     gpManager->closeWindow();
                 }
             }
-        }
-
-        // Lógica do jogo aqui
-
-        // Limpa a janela com uma cor específica (preto neste caso)
-        gpManager->clear(sf::Color::Black);
-
-        // Desenha tudo que precisar na janela
-
+        p1.update(4);
+        gpManager->updateDeltaTime();
         // Atualiza a janela
         gpManager->display();
+        gpManager->clear();
+
+           
+        }
+
     }
 
     std::cout << "Janela fechada" << std::endl;

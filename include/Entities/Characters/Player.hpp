@@ -4,6 +4,10 @@ using namespace Utilis;
 
 namespace Entities
 {
+    namespace Weapons
+    {
+        class Weapon; // Declaração de classe avançada
+    }
 
     namespace Characters
     {
@@ -11,8 +15,7 @@ namespace Entities
         class Player : public Character
         {
         private:
-            /*weapon*/
-            Weapons::Weapon *weapon;
+            const float dmgCooldown; // tempo para tomar dano novamente
 
             /*actions*/
             bool canWalk;
@@ -23,10 +26,12 @@ namespace Entities
             bool isMoving;
 
             /*cooldowns*/
-            const float dmgCooldown; // tempo para tomar dano novamente
 
             /*timers*/
             float dmgTimer; // timer para tomar dano novamente
+
+            /*weapon*/
+            Weapons::Weapon *weapon;
 
         public:
             Player();
@@ -47,8 +52,8 @@ namespace Entities
             void stop();
 
             /*visuals*/
-            void initialize(); // carrega as texturas
-            void render();     // atualiza posiçao da imagem
+            void initialize() override; // carrega as texturas
+            void render();              // atualiza posiçao da imagem
 
             /*Colisions*/
             void moveOnColision(Entity *other); /*TODO classe Entity other*/

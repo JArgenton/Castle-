@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Entity.hpp"
 
 namespace Entities
@@ -29,8 +31,8 @@ namespace Entities
         virtual void colide(Entity *other, Coordinates::CoordF intersec) = 0;
 
         /*visuals*/
-        virtual void initialize() = 0; // carrega as texturas
-        virtual void render() = 0;     // atualiza posiçao da imagem
+        virtual void initialize(); // carrega as texturas
+        virtual void render() = 0; // atualiza posiçao da imagem
 
         /*Colisions*/
         virtual void moveOnColision(Entity *other) = 0; /*TODO classe Entity other*/

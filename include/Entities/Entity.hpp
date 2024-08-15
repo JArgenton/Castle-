@@ -2,14 +2,13 @@
 #include <iostream>
 #include "Utilis/Coord.hpp"
 #include "GraphicBodies/StaticBody.hpp"
-#include "Weapons/Weapon.hpp"
 using namespace std;
 using namespace Utilis;
 
 namespace Entities
 {
 
-#define GRAVITY 9.81f
+#define GRAVITY 2.81f
     enum ID
     {
         empty = 0,
@@ -46,7 +45,8 @@ namespace Entities
 
         /*visuals*/
         virtual void initialize() = 0; // carrega as texturas
-        virtual void render() = 0;     // atualiza posiçao da imagem
+
+        virtual void render() = 0; // atualiza posiçao da imagem
 
         /*Colisions*/
         virtual void moveOnColision(Entity *other) = 0; /*TODO classe Entity other*/

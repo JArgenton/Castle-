@@ -15,8 +15,7 @@ namespace Entities
                                                             id(_id),
                                                             image()
     {
-        initialize();
-    } // image vai ser inicializado na funçao initialize,
+    }
 
     Entity::~Entity()
     {

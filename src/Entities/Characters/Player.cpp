@@ -12,13 +12,14 @@ namespace Entities
     namespace Characters
     {
         Player::Player() : Character(Coordinates::CoordF(100.0f, 100.0f), PLAYER),
-                           weapon(nullptr),
                            dmgCooldown(PLAYER_DMG_COOLDOWN),
                            canWalk(true),
                            canReciveDmg(true),
                            canJump(true),
                            isMoving(false),
-                           dmgTimer(0)
+                           dmgTimer(0),
+                           weapon(nullptr)
+
         {
             initialize();
         }
@@ -90,7 +91,7 @@ namespace Entities
         {
             if (weapon)
             {
-                weapon->initialize(this); // todo
+                weapon->WeaponInitialize(this); // todo
             }
             const char *texturepath = "assets/player.png";
             image.initialize(texturepath, position, size);

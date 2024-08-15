@@ -8,11 +8,15 @@ namespace Entities
 
         Character::Character(Coordinates::CoordF _position, Entities::ID _id) : MovingEntity(_position, _id),
                                                                                 health(),
-                                                                                atkCooldown(),
-                                                                                atkDuration(),
+                                                                                flagcanAtk(true),
+                                                                                flagIsAtking(false),
+                                                                                coolDownTimer(0.0f),
+                                                                                atkTimer(0.0f),
                                                                                 atkRange(),
                                                                                 atkDamage(),
-                                                                                flagcanAtk(true)
+                                                                                atkCooldown(),
+                                                                                atkDuration()
+
         {
         }
 

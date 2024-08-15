@@ -39,4 +39,7 @@ namespace Entities
     {
         return facingLeft;
     }
+    void MovingEntity::initialize()
+    {
+    }
 }

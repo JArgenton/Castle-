@@ -1,27 +1,21 @@
 #pragma once
-#include "Entities/Entity.hpp"
 #include <iostream>
+#include "Entities/MovingEntity.hpp"
 using namespace std;
 
 namespace Entities
 {
-
+    namespace Characters
+    {
+        class Player; // Declaração de classe avançada
+    }
     namespace Weapons
     {
-
-        enum Type
-        {
-            empty = 0,
-            sword,
-            spear,
-            bow
-        };
-        class Weapon : public MovingEntity
+        class Weapon : public Entities::MovingEntity
         {
         protected:
             /*Cooldowns (const)*/
-            Characters::Player *pPlayer;
-            Type type;
+            Characters::Player *owner;
             float AtkCooldown;
             float AtkDuration;
             float AtkRange;
@@ -36,7 +30,7 @@ namespace Entities
             virtual const float getAtkRange();
             virtual const int getAtkDamage();
             void setPlayer(Characters::Player *pP);
-            virtual void initialize(Characters::Player *pP) = 0;
+            virtual void WeaponInitialize(Characters::Player *pP) = 0;
         };
     }
 }

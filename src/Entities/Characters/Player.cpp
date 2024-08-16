@@ -2,7 +2,7 @@
 #include "Entities/Weapons/Weapon.hpp"
 #define PLAYER_SIZE_X 100.0f
 #define PLAYER_SIZE_Y 100.0f
-#define PLAYER_VELOCITY 5.0f
+#define PLAYER_VELOCITY 0.1f
 #define PLAYER_HEALT 100
 #define PLAYER_DMG_COOLDOWN 0.0f
 #define JUMP_HEIGH 3.0f
@@ -11,14 +11,14 @@ namespace Entities
 {
     namespace Characters
     {
-        Player::Player() : Character(Coordinates::CoordF(100.0f, 100.0f), PLAYER),
-                           dmgCooldown(PLAYER_DMG_COOLDOWN),
-                           canWalk(true),
-                           canReciveDmg(true),
-                           canJump(true),
-                           isMoving(false),
-                           dmgTimer(0),
-                           weapon(nullptr)
+        Player::Player(Weapons::Weapon *pW) : Character(Coordinates::CoordF(100.0f, 100.0f), PLAYER),
+                                              dmgCooldown(PLAYER_DMG_COOLDOWN),
+                                              canWalk(true),
+                                              canReciveDmg(true),
+                                              canJump(true),
+                                              isMoving(true),
+                                              dmgTimer(0),
+                                              weapon(pW)
 
         {
             initialize();
@@ -31,7 +31,15 @@ namespace Entities
         /*SETs*/
         void Player::set_weapon(Weapons::Weapon *pweapon)
         {
-            weapon = pweapon;
+            if (weapon == nullptr)
+            {
+                weapon = pweapon;
+                weapon->WeaponInitialize(this);
+            }
+            else
+            {
+                weapon = pweapon;
+            }
         }
 
         /*GETs*/
@@ -128,6 +136,10 @@ namespace Entities
             position.y += velocity.y * dt;
 
             image.update(position);
+            if (weapon)
+            {
+                weapon->update(dt);
+            }
             render();
 
             dmgTimer += dt;

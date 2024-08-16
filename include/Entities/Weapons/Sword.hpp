@@ -14,9 +14,13 @@ namespace Entities
         private:
             /* data */
         public:
-            Sword(/* args */);
+            Sword();
             ~Sword();
+            void atack();
             void WeaponInitialize(Characters::Player *pP);
+            void setPosition();
+            void update(const float dt);
+            void render();
         };
 
     }

@@ -34,7 +34,7 @@ namespace Entities
             Weapons::Weapon *weapon;
 
         public:
-            Player();
+            Player(Weapons::Weapon *pW = nullptr);
             ~Player();
 
             /*SETs*/

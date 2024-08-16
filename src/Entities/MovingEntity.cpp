@@ -5,6 +5,7 @@ namespace Entities
 
     MovingEntity::MovingEntity(Coordinates::CoordF _position, ID id) : Entity(_position, id),
                                                                        velocity(),
+                                                                       image(),
                                                                        active(false),
                                                                        facingLeft(false)
     {

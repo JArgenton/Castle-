@@ -16,21 +16,19 @@ namespace Entities
         protected:
             /*Cooldowns (const)*/
             Characters::Player *owner;
-            float AtkCooldown;
-            float AtkDuration;
-            float AtkRange;
-            int AtkDamage;
+            Coordinates::CoordF ownerPosition;
 
         public:
             Weapon();
             virtual ~Weapon();
             virtual void atack() = 0;
-            virtual const float getAtkCooldown(); // tempo para atacar novamente
-            virtual const float getAtkDuration(); // tempo para atacar novamente
-            virtual const float getAtkRange();
-            virtual const int getAtkDamage();
             void setPlayer(Characters::Player *pP);
             virtual void WeaponInitialize(Characters::Player *pP) = 0;
+            virtual void setPosition() = 0;
+            void colide(Entity *other, Coordinates::CoordF intersec) override {}
+            void moveOnColision(Entity *other) override {}
+            virtual void update(const float dt) = 0;
+            virtual void render() = 0;
         };
     }
 }

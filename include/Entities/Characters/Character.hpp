@@ -22,7 +22,6 @@ namespace Entities
             float atkTimer;      // timer para finalizar animaçao de ataque
 
             /*Attack propreties*/
-            float atkRange;
             int atkDamage;
 
             /*Cooldowns (const)*/

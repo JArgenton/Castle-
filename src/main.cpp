@@ -1,15 +1,17 @@
 #include <iostream>
 #include "Managers/GraphicManager.hpp"
 #include "Entities/Characters/Player.hpp"
+#include "Entities/Weapons/Sword.hpp"
 
 int main()
 {
     // Obtém a instância do Graphics Manager
     Managers::Graphics *gpManager = Managers::Graphics::get_instance();
-    Entities::Characters::Player p1 = Entities::Characters::Player();
+    Entities::Characters::Player p1;
     // Loop principal
     Utilis::Coordinates::CoordF pos = Utilis::Coordinates::CoordF(110.0f, 110.0f);
-
+    Entities::Weapons::Sword *pW = new Entities::Weapons::Sword;
+    p1.set_weapon(pW);
     while (gpManager->isWindowOpen())
     {
         sf::Event event;

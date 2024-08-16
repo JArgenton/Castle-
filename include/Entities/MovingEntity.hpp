@@ -9,7 +9,7 @@ namespace Entities
     protected:
         /*geral info*/
         Coordinates::CoordF velocity;
-
+        GraphicBodies::StaticBody image;
         /*Flags*/
         bool active;
         bool facingLeft;

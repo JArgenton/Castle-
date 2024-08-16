@@ -12,7 +12,6 @@ namespace Entities
                                                                                 flagIsAtking(false),
                                                                                 coolDownTimer(0.0f),
                                                                                 atkTimer(0.0f),
-                                                                                atkRange(),
                                                                                 atkDamage(),
                                                                                 atkCooldown(),
                                                                                 atkDuration()
@@ -34,10 +33,6 @@ namespace Entities
         void Character::set_atkDuration(float _Duration)
         {
             atkDuration = _Duration;
-        }
-        void Character::set_atkRange(float _Range)
-        {
-            atkRange = _Range;
         }
         void Character::set_atkDamage(int _damage)
         {

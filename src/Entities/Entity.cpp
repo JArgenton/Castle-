@@ -12,8 +12,7 @@ namespace Entities
 
     Entity::Entity(Coordinates::CoordF _position, ID _id) : size(),
                                                             position(_position),
-                                                            id(_id),
-                                                            image()
+                                                            id(_id)
     {
     }
 

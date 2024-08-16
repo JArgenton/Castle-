@@ -1,19 +1,19 @@
 #include "GraphicBodies/Body.hpp"
 
+namespace GraphicBodies
+{
 
-namespace GraphicBodies {
-
-    Managers::Graphics* Body::graphicManager = Managers::Graphics::get_instance();
+    Managers::Graphics *Body::graphicManager = Managers::Graphics::get_instance();
     /*Pegar instancia de gerenciador grafico*/
-    Body::Body():
-    selfbody()
-    { 
+    Body::Body() : selfbody()
+    {
         selfbody = new sf::RectangleShape();
     }
 
-    Body::~Body() { }
+    Body::~Body() {}
 
-    void Body::render() {
+    void Body::render()
+    {
         graphicManager->render(selfbody);
     }
 

@@ -89,6 +89,7 @@ namespace Entities
         /*visuals*/
         void Player::initialize()
         {
+            set_size(Coordinates::CoordF(PLAYER_SIZE_X, PLAYER_SIZE_Y));
             if (weapon)
             {
                 weapon->WeaponInitialize(this); // todo
@@ -120,8 +121,8 @@ namespace Entities
                     velocity.x *= -1;
             }
             else
-                velocity.x *= 0.5;
-            velocity.y += GRAVITY * dt * 0;
+                velocity.x *= 0.05;
+            velocity.y += 0;
 
             position.x += velocity.x * dt;
             position.y += velocity.y * dt;

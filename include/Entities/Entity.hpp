@@ -24,7 +24,6 @@ namespace Entities
         Coordinates::CoordF position;
 
         ID id;
-        GraphicBodies::StaticBody image;
 
     public:
         Entity(Coordinates::CoordF _position = Coordinates::CoordF(0.0f, 0.0f), ID id = empty);

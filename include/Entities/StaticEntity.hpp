@@ -3,12 +3,12 @@
 namespace Entities
 {
 
-    class StaticEntity : Entity
+    class StaticEntity : public Entity
     {
-    private:
+    protected:
         GraphicBodies::StaticBody image;
 
-    protected:
+    public:
         StaticEntity(Coordinates::CoordF _position = Coordinates::CoordF(0.0f, 0.0f), ID _id = empty);
         virtual ~StaticEntity();
         void render();

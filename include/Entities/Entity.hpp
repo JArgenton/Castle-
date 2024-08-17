@@ -13,7 +13,8 @@ namespace Entities
     {
         empty = 0,
         PLAYER,
-        WEAPON
+        WEAPON,
+        plataforma,
     };
     class Entity
     {

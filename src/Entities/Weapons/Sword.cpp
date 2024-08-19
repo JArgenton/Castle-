@@ -33,7 +33,7 @@ namespace Entities
             {
                 std::cout << "erro em SWORD, owner nulo " << std::endl;
             }
-            const char *texturepath = "/home/argenton/Documentos/Castle ++/Castle-/assets/sword.png";
+            const char *texturepath = "assets/sword.png";
             image.initialize(texturepath, position, size);
         }
         void Sword::atack()

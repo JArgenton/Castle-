@@ -17,21 +17,13 @@ namespace Entities
         {
         }
 
-        void Plataforma::update(float dt)
-        {
-            image.update(position);
-        }
-
         void Plataforma::initialize()
         {
+            const char *path;
+            path = "assets/freetileset/png/Tiles/2.png";
             set_size(Utilis::Coordinates::CoordF(WIDGHT, HEIGHT));
-            image.initialize(PATH_PLATAFORMA, position, size);
+            image.initialize(path, position, size);
         }
-
-        void Plataforma::colide(Entity *other, Coordinates::CoordF intersec)
-        {
-        }
-
     } // namespace Obstacles
 
 } // namespace Entities

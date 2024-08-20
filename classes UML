@@ -2,7 +2,7 @@
 Ent
 -------------------
 -graphicManager: Graphics* (static)
--body: sf::RectangleShape*
+#body: sf::RectangleShape*
 -------------------
 +<<create>> Ent(): void
 +<<destroy>> ~Ent(): void
@@ -17,7 +17,7 @@ Ent
 <<class>>
 Entity : Ent
 -------------------
--id: ID
+#id: ID
 -------------------
 +<<create>> Entity(_position: TupleF = TupleF(0.0f, 0.0f), id: ID = empty): void
 +<<destroy>> ~Entity(): void
@@ -33,10 +33,10 @@ Entity : Ent
 <<class>>
 MovingEntity : Entity
 -------------------
--velocity: TupleF
--active: bool
--facingLeft: bool
--animationId: int
+#velocity: TupleF
+#active: bool
+#facingLeft: bool
+#animationId: int
 -------------------
 +<<create>> MovingEntity(_position: TupleF = TupleF(0.0f, 0.0f), id: ID = empty): void
 +<<destroy>> ~MovingEntity(): void
@@ -72,14 +72,14 @@ StaticEntity : Entity
 <<class>>
 Character : MovingEntity
 -------------------
--health: int
--flagcanAtk: bool
--flagIsAtking: bool
--coolDownTimer: float
--atkTimer: float
--atkDamage: int
--atkCooldown: float
--atkDuration: float
+#health: int
+#flagcanAtk: bool
+#flagIsAtking: bool
+#coolDownTimer: float
+#atkTimer: float
+#atkDamage: int
+#atkCooldown: float
+#atkDuration: float
 -------------------
 +<<create>> Character(_position: TupleF = TupleF(0.0f, 0.0f), id: ID = empty): void
 +<<destroy>> ~Character(): void
@@ -104,13 +104,13 @@ Character : MovingEntity
 <<class>>
 Entities::Characters::Player : Character
 -------------------
--dmgCooldown: float
--canWalk: bool
--canReciveDmg: bool
--canJump: bool
--isMoving: bool
--dmgTimer: float
--weapon: Weapon*
+#dmgCooldown: float
+#canWalk: bool
+#canReciveDmg: bool
+#canJump: bool
+#isMoving: bool
+#dmgTimer: float
+#weapon: Weapon*
 -------------------
 +<<create>> Player(pW: Weapon* = nullptr): void
 +<<destroy>> ~Player(): void
@@ -134,7 +134,7 @@ Entities::Characters::Player : Character
 <<class>>
 Weapon : MovingEntity
 -------------------
--owner: Player*
+#owner: Player*
 -------------------
 +<<create>> Weapon(): void
 +<<destroy>> ~Weapon(): void
@@ -279,8 +279,8 @@ Node<T_ELEM>
 
 <<template>>
 Tuple<TIPO>
-- x: TIPO
-- y: TIPO
++ x: TIPO
++ y: TIPO
 + <<create>> Tuple(x: TIPO, y: TIPO)
 + <<create>> Tuple()
 + <<destroy>> ~Tuple()

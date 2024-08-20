@@ -1,7 +1,7 @@
 <<class>>
 Ent
 -------------------
--graphicManager: Managers::Graphics* (static)
+-graphicManager: Graphics* (static)
 -body: sf::RectangleShape*
 -------------------
 +Ent(): void
@@ -15,30 +15,30 @@ Ent
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 <<class>>
-Entities::Entity : Ent
+Entity : Ent
 -------------------
--id: Entities::ID
+-id: ID
 -------------------
-+Entity(_position: TupleF = TupleF(0.0f, 0.0f), id: Entities::ID = empty): void
++Entity(_position: TupleF = TupleF(0.0f, 0.0f), id: ID = empty): void
 +~Entity(): void
 +setPosition(_position: TupleF): void
 +setSize(height: float, width: float): void
 +getSize(): TupleF
 +getPosition(): TupleF
-+getId(): Entities::ID
++getId(): ID
 +initialize(): void = 0
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 <<class>>
-Entities::MovingEntity : Entity
+MovingEntity : Entity
 -------------------
 -velocity: TupleF
 -active: bool
 -facingLeft: bool
 -animationId: int
 -------------------
-+MovingEntity(_position: TupleF = TupleF(0.0f, 0.0f), id: Entities::ID = empty): void
++MovingEntity(_position: TupleF = TupleF(0.0f, 0.0f), id: ID = empty): void
 +~MovingEntity(): void
 +set_velocity(pvelocity: TupleF): void
 +setFacing(direction: bool): void
@@ -58,10 +58,10 @@ Entities::MovingEntity : Entity
 #include "Entities/Entity.hpp"
 
 <<class>>
-Entities::StaticEntity : Entity
+StaticEntity : Entity
 -------------------
 -------------------
-+StaticEntity(_position: TupleF = TupleF(0.0f, 0.0f), _id: Entities::ID = empty): void
++StaticEntity(_position: TupleF = TupleF(0.0f, 0.0f), _id: ID = empty): void
 +~StaticEntity(): void
 +initialize(): void = 0
 +execute(): void
@@ -70,7 +70,7 @@ Entities::StaticEntity : Entity
 
 
 <<class>>
-Entities::Characters::Character : MovingEntity
+Character : MovingEntity
 -------------------
 -health: int
 -flagcanAtk: bool
@@ -81,7 +81,7 @@ Entities::Characters::Character : MovingEntity
 -atkCooldown: float
 -atkDuration: float
 -------------------
-+Character(_position: TupleF = TupleF(0.0f, 0.0f), id: Entities::ID = empty): void
++Character(_position: TupleF = TupleF(0.0f, 0.0f), id: ID = empty): void
 +~Character(): void
 +set_health(_healt: int): void
 +set_atkCooldown(_Cooldown: float): void
@@ -110,12 +110,12 @@ Entities::Characters::Player : Character
 -canJump: bool
 -isMoving: bool
 -dmgTimer: float
--weapon: Weapons::Weapon*
+-weapon: Weapon*
 -------------------
-+Player(pW: Weapons::Weapon* = nullptr): void
++Player(pW: Weapon* = nullptr): void
 +~Player(): void
-+set_weapon(pweapon: Weapons::Weapon*): void
-+get_weapon(): Weapons::Weapon*
++set_weapon(pweapon: Weapon*): void
++get_weapon(): Weapon*
 +atack(): void
 +reciveDmg(dmg: int): void
 +jump(): void
@@ -132,15 +132,15 @@ Entities::Characters::Player : Character
 
 
 <<class>>
-Entities::Weapons::Weapon : MovingEntity
+Weapon : MovingEntity
 -------------------
--owner: Characters::Player*
+-owner: Player*
 -------------------
 +Weapon(): void
 +~Weapon(): void
 +atack(): void = 0
-+setPlayer(pP: Characters::Player*): void
-+WeaponInitialize(pP: Characters::Player*): void = 0
++setPlayer(pP: Player*): void
++WeaponInitialize(pP: Player*): void = 0
 +updateSprite(dt: float): void = 0
 +update(dt: float): void = 0
 +colide(other: Entity*, intersec: TupleF): void
@@ -151,31 +151,31 @@ Entities::Weapons::Weapon : MovingEntity
 
 
 <<class>>
-Entities::Weapons::Sword : Weapon
+Sword : Weapon
 -------------------
 -------------------
 +Sword(): void
 +~Sword(): void
 +atack(): void
-+WeaponInitialize(pP: Characters::Player*): void
++WeaponInitialize(pP: Player*): void
 +updateSprite(dt: float): void
 +update(dt: float): void
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 <<class>>
-Entities::Obstacles::Plataforma : StaticEntity
+Plataforma : StaticEntity
 -------------------
 -------------------
 +Plataforma(_position: TupleF = TupleF(80.0f, 100.0f)): void
 +~Plataforma(): void
-+initialize(): void
++initialize(): void+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 <<class>>
-flyweight::Factory<Resource>
+Factory<Resource>
 -------------------
 -FlyweightMap: unordered_map<string, Resource*>
 -------------------
@@ -187,11 +187,11 @@ flyweight::Factory<Resource>
 <<class>>
 managers::Collision
 -------------------
--StaticEntities: List::EntityList*
--MovingEntities: List::EntityList*
+-StaticEntities: EntityList*
+-MovingEntities: EntityList*
 -instance: Collision*
 -------------------
-+Collision(StaticEntities: List::EntityList*, MovingEntities: List::EntityList*): void
++Collision(StaticEntities: EntityList*, MovingEntities: EntityList*): void
 +~Collision(): void
 +check_collision(body1: sf::RectangleShape*, body2: sf::RectangleShape*): TupleF
 +exec(): void
@@ -199,32 +199,32 @@ managers::Collision
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 <<class>>
-Managers::Graphics
+Graphics
 -------------------
 -window: sf::RenderWindow*
--textureFactory: flyweight::Factory<sf::Texture>
--fontFactory: flyweight::Factory<sf::Font>
+-textureFactory: Factory<sf::Texture>
+-fontFactory: Factory<sf::Font>
 -clock: sf::Clock
 -view: sf::View
 -frameRateLimit: unsigned int
 -dt: float
--instance: Managers::Graphics*
+-instance: Graphics*
 -------------------
 +Graphics(): void
 +~Graphics(): void
-+loadFont(filepath: const string&): sf::Font*
-+loadTexture(filepath: const string&): sf::Texture*
++loadFont(filepath: const string&): Font*
++loadTexture(filepath: const string&): Texture*
 +centerViewOn(position: TupleF): void
-+getWindowSize(): sf::Vector2u
-+getViewBounds(): sf::FloatRect
++getWindowSize(): Vector2u
++getViewBounds(): FloatRect
 +isWindowOpen(): bool
-+clear(color: const sf::Color& = sf::Color::Black): void
-+render(body: sf::RectangleShape*): void
-+render(text: sf::Text*): void
++clear(color: const Color& = Color::Black): void
++render(body: RectangleShape*): void
++render(text: Text*): void
 +display(): void
 +closeWindow(): void
 +updateDeltaTime(): void
-+pullEvent(pEvent: sf::Event&): bool
++pullEvent(pEvent: Event&): bool
 +get_instance(): Graphics*
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////

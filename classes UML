@@ -6,9 +6,9 @@ Ent
 -------------------
 +<<create>> Ent(): void
 +<<destroy>> ~Ent(): void
-+render(): void
-+initialize(): void = 0
-+execute(): void = 0
++render(): virtual void
++initialize(): virtual void = 0
++execute(): virtual void = 0
 +SetTexture(path: string&): void
 +setOrigem(width: float, height: float): void
 
@@ -20,13 +20,15 @@ Entity : Ent
 #id: ID
 -------------------
 +<<create>> Entity(_position: TupleF = TupleF(0.0f, 0.0f), id: ID = empty): void
-+<<destroy>> ~Entity(): void
++<<destroy>> ~Entity(): virtual void
 +setPosition(_position: TupleF): void
 +setSize(height: float, width: float): void
 +getSize(): TupleF
 +getPosition(): TupleF
 +getId(): ID
-+initialize(): void = 0
++initialize(): virtual void = 0
++execute(): virtual void = 0
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -39,19 +41,19 @@ MovingEntity : Entity
 #animationId: int
 -------------------
 +<<create>> MovingEntity(_position: TupleF = TupleF(0.0f, 0.0f), id: ID = empty): void
-+<<destroy>> ~MovingEntity(): void
++<<destroy>> ~MovingEntity(): virtual void
 +set_velocity(pvelocity: TupleF): void
 +setFacing(direction: bool): void
 +get_velocity(): TupleF
 +get_id(): Entities::ID
 +getDamage(): int
-+initialize(): void
-+colide(other: Entity*, intersec: TupleF): void = 0
-+moveOnColision(other: Entity*): void = 0
++initialize(): virtual void = 0
++colide(other: Entity*, intersec: TupleF): virtual void = 0
++moveOnColision(other: Entity*): virtual void = 0
 +isActive(): bool
 +isFacingLeft(): bool
-+update(dt: float): void = 0
-+updateSprite(dt: float): void = 0
++update(dt: float): virtual void = 0
++updateSprite(dt: float): virtual void = 0
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -62,9 +64,9 @@ StaticEntity : Entity
 -------------------
 -------------------
 +<<create>> StaticEntity(_position: TupleF = TupleF(0.0f, 0.0f), _id: ID = empty): void
-+<<destroy>> ~StaticEntity(): void
++<<destroy>> ~StaticEntity(): virtual void
 +initialize(): void = 0
-+execute(): void
++execute(): virtual void = 0
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 

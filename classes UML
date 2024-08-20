@@ -290,3 +290,35 @@ Tuple<TIPO>
 + operator/(escalar: double): Tuple<TIPO>
 
 ///////////////////////////////////////////////////////////////////////////////////////
+
+
+Inheritance:
+
+Entity inherits from Ent
+MovingEntity inherits from Entity
+StaticEntity inherits from Entity
+Character inherits from MovingEntity
+Player inherits from Character
+Weapon inherits from MovingEntity
+Sword inherits from Weapon
+Plataforma inherits from StaticEntity
+Aggregation:
+
+Player has an aggregation relationship with Weapon
+Weapon has an aggregation relationship with Player
+Graphics has an aggregation relationship with Factory<sf::Texture> and Factory<sf::Font>
+Collision has an aggregation relationship with EntityList
+EntityList has an aggregation relationship with List<Entity>
+List<T_LIST> has an aggregation relationship with Node<T_LIST>
+Composition:
+
+Node<T_ELEM> has a composition relationship with T_ELEM
+Association:
+
+Factory<Resource> has an association with Resource
+Graphics has an association with sf::RenderWindow, sf::Clock, sf::View
+Dependency:
+
+Tuple<TIPO> has a dependency on TIPO
+List<T_LIST> has a dependency on T_LIST
+Node<T_ELEM> has a dependency on T_ELEM

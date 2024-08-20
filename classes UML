@@ -82,22 +82,22 @@ Character : MovingEntity
 #atkDuration: float
 -------------------
 +<<create>> Character(_position: TupleF = TupleF(0.0f, 0.0f), id: ID = empty): void
-+<<destroy>> ~Character(): void
++<<destroy>> ~Character(): virtual void
 +set_health(_healt: int): void
 +set_atkCooldown(_Cooldown: float): void
 +set_atkDuration(_Duration: float): void
 +set_atkRange(_Range: float): void
 +set_atkDamage(_damage: int): void
 +get_health(): int
-+atack(): void
-+reciveDmg(dmg: int): void
-+colide(other: Entity*, intersec: TupleF): void = 0
-+initialize(): void = 0
-+moveOnColision(other: Entity*): void = 0
++atack(): virtual void
++reciveDmg(dmg: int): virtual void
++colide(other: Entity*, intersec: TupleF): virtual void = 0
++initialize(): virtual void = 0
++moveOnColision(other: Entity*): virtual void = 0
 +incrementAtkTimer(dt: float): void
 +canAtk(): bool
 +isAtking(): bool
-+update(dt: float): void = 0
++update(dt: float): virtual void = 0
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -137,12 +137,12 @@ Weapon : MovingEntity
 #owner: Player*
 -------------------
 +<<create>> Weapon(): void
-+<<destroy>> ~Weapon(): void
-+atack(): void = 0
++<<destroy>> ~Weapon(): virtual void
++atack(): virtual void = 0
 +setPlayer(pP: Player*): void
-+WeaponInitialize(pP: Player*): void = 0
-+updateSprite(dt: float): void = 0
-+update(dt: float): void = 0
++WeaponInitialize(pP: Player*): virtual void = 0
++updateSprite(dt: float): virtual void = 0
++update(dt: float): virtual void = 0
 +colide(other: Entity*, intersec: TupleF): void
 +moveOnColision(other: Entity*): void
 +execute(): void
@@ -168,8 +168,8 @@ Plataforma : StaticEntity
 -------------------
 -------------------
 +<<create>> Plataforma(_position: TupleF = TupleF(80.0f, 100.0f)): void
-+<<destroy>> ~Plataforma(): void
-+initialize(): void
++<<destroy>> ~Plataforma(): virtual void
++initialize(): virtual void =0
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 

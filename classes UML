@@ -193,7 +193,7 @@ managers::Collision
 -------------------
 +Collision(StaticEntities: EntityList*, MovingEntities: EntityList*): void
 +~Collision(): void
-+check_collision(body1: sf::RectangleShape*, body2: sf::RectangleShape*): TupleF
++check_collision(body1: RectangleShape*, body2: RectangleShape*): TupleF
 +exec(): void
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -228,3 +228,65 @@ Graphics
 +get_instance(): Graphics*
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+<<class>>
+EntityList
+-------------------
+-list: List<Entity>
+-------------------
++EntityList(): void
++~EntityList(): void
++add(pE: Entity*): void
++remove(pE: Entity*): Entity*
++remove(index: int): Entity*
++deleteEntity(pE: Entity*): void
++deleteEntity(index: int): void
++getSize(): int
++operator[](index: int): Entity*
++cleanList(): void
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+<<template>>
+List<T_LIST>
+- head: Node<T_LIST>*
+- tail: Node<T_LIST>*
+- size: int
++ List()
++ ~List()
++ push(elem: T_LIST*)
++ clear(): void
++ getsize(): int
++ pop(elem: T_LIST*): T_LIST*
++ pop(index: int): T_LIST*
++ operator[](index: int): T_LIST*
+
+<<template>>
+Node<T_ELEM>
+- data: T_ELEM*
+- next: Node<T_ELEM>*
+- prev: Node<T_ELEM>*
++ Node()
++ ~Node()
++ setData(Data: T_ELEM*)
++ getData(): T_ELEM*
++ setNext(newNode: Node<T_ELEM>*)
++ setPrev(newNode: Node<T_ELEM>*)
++ getNext(): Node<T_ELEM>*
++ getPrev(): Node<T_ELEM>*
+
+
+<<template>>
+Tuple<TIPO>
+- x: TIPO
+- y: TIPO
++ Tuple(x: TIPO, y: TIPO)
++ Tuple()
++ ~Tuple()
++ operator=(Tuple: Tuple<TIPO>)
++ operator+(other: Tuple<TIPO>): Tuple<TIPO>
++ operator-(other: Tuple<TIPO>): Tuple<TIPO>
++ operator/(escalar: double): Tuple<TIPO>
+
+///////////////////////////////////////////////////////////////////////////////////////

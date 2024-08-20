@@ -1,40 +1,39 @@
 #pragma once
 
 #include "Entity.hpp"
-
+using namespace Tuples;
 namespace Entities
 {
     class MovingEntity : public Entity
     {
     protected:
         /*geral info*/
-        Coordinates::CoordF velocity;
-        GraphicBodies::StaticBody image;
+        TupleF velocity;
         /*Flags*/
         bool active;
         bool facingLeft;
 
+        int animationId;
+
     public:
-        MovingEntity(Coordinates::CoordF _position = Coordinates::CoordF(0.0f, 0.0f), ID id = empty);
+        MovingEntity(TupleF _position = TupleF(0.0f, 0.0f), ID id = empty);
 
         virtual ~MovingEntity();
 
         /*SETs*/
-        void set_velocity(Coordinates::CoordF pvelocity);
+        void set_velocity(TupleF pvelocity);
         void setFacing(bool direction);
 
         /*GETs*/
-        Coordinates::CoordF get_velocity();
+        TupleF get_velocity();
         ID get_id();
-
-        /*actions*/
-        virtual void colide(Entity *other, Coordinates::CoordF intersec) = 0;
+        int getDamage();
 
         /*visuals*/
         virtual void initialize(); // carrega as texturas
-        virtual void render() = 0; // atualiza posiçao da imagem
 
         /*Colisions*/
+        virtual void colide(Entity *other, TupleF intersec) = 0;
         virtual void moveOnColision(Entity *other) = 0; /*TODO classe Entity other*/
 
         /*conditions*/
@@ -43,5 +42,6 @@ namespace Entities
 
         /*update*/
         virtual void update(const float dt) = 0;
+        virtual void updateSprite(const float dt) = 0;
     };
 }

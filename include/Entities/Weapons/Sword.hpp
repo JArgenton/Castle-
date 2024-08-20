@@ -18,9 +18,8 @@ namespace Entities
             ~Sword();
             void atack();
             void WeaponInitialize(Characters::Player *pP);
-            void setPosition();
+            void updateSprite(const float dt);
             void update(const float dt);
-            void render();
         };
 
     }

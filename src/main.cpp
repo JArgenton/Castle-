@@ -3,6 +3,7 @@
 #include "Entities/Characters/Player.hpp"
 #include "Entities/Weapons/Sword.hpp"
 #include "Entities/Obstacles/Plataforma.hpp"
+#include "Utilis/Tuple.hpp"
 
 int main()
 {
@@ -10,10 +11,10 @@ int main()
     Managers::Graphics *gpManager = Managers::Graphics::get_instance();
     Entities::Characters::Player p1;
     // Loop principal
-    Utilis::Coordinates::CoordF pos = Utilis::Coordinates::CoordF(110.0f, 110.0f);
+    TupleF pos = TupleF(110.0f, 110.0f);
     Entities::Weapons::Sword *pW = new Entities::Weapons::Sword;
     p1.set_weapon(pW);
-    Entities::Obstacles::Plataforma plat = Entities::Obstacles::Plataforma(Utilis::Coordinates::CoordF(200.0f, 200.0f));
+    Entities::Obstacles::Plataforma plat = Entities::Obstacles::Plataforma(TupleF(200.0f, 200.0f));
 
     while (gpManager->isWindowOpen())
     {

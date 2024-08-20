@@ -8,8 +8,8 @@ namespace Managers
     Graphics *Graphics::instance = nullptr;
 
     Graphics::Graphics() : window(new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game")),
-                           fontsMap(),
-                           texturesMap(),
+                           textureFactory(),
+                           fontFactory(),
                            clock(),
                            view(window->getDefaultView()),
                            frameRateLimit(FRAME_RATE_LIMIT),
@@ -30,60 +30,20 @@ namespace Managers
 
     Graphics::~Graphics()
     {
-        for (auto &MapElement : texturesMap)
-        {
-            delete MapElement.second;
-        }
-        for (auto &MapElement : fontsMap)
-        {
-            delete MapElement.second;
-        }
         delete window;
     }
 
     sf::Font *Graphics::loadFont(const std::string &filepath)
     {
-
-        auto iterator = fontsMap.find(filepath);
-        if (iterator != fontsMap.end())
-        {
-            return (iterator->second);
-        }
-        sf::Font *font = new sf::Font;
-        if (!font->loadFromFile(filepath))
-        {
-            delete font;
-            std::cout << "ERROR LOADING FILE" << filepath << std::endl;
-            exit(1);
-        }
-        fontsMap.insert(std::make_pair(filepath, font));
-
-        return font;
+        return fontFactory.getResource(filepath);
     }
 
-    sf::Texture *Graphics::loadTexture(const char *filepath)
+    sf::Texture *Graphics::loadTexture(const std::string &filepath)
     {
-
-        auto iterator = texturesMap.find(filepath);
-        if (iterator != texturesMap.end())
-        {
-            return (iterator->second);
-        }
-
-        sf::Texture *texture = new sf::Texture;
-        // verifica se o filepath corresponde a uma fonte, caso nao encontre-a, delete o obj e sai do programa (erro)
-        if (!texture->loadFromFile(filepath))
-        {
-            delete texture;
-            std::cout << "ERROR LOADING FILE" << filepath << std::endl;
-            exit(1);
-        }
-
-        texturesMap.insert(std::make_pair(filepath, texture));
-        return texture;
+        return textureFactory.getResource(filepath);
     }
 
-    void Graphics::centerViewOn(Coordinates::CoordF position)
+    void Graphics::centerViewOn(TupleF position)
     {
         view.setCenter(sf::Vector2f(position.x, position.y));
         window->setView(view);

@@ -3,16 +3,11 @@
 namespace Entities
 {
 
-    StaticEntity::StaticEntity(Coordinates::CoordF _position, ID _id) : Entity(_position, _id),
-                                                                        image()
+    StaticEntity::StaticEntity(TupleF _position, ID _id) : Entity(_position, _id)
     {
     }
     StaticEntity::~StaticEntity()
     {
-    }
-    void StaticEntity::render()
-    {
-        image.render();
     }
 
 } // fim namespace Entities

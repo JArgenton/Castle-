@@ -29,7 +29,7 @@ namespace Entities
             float atkDuration; // tempo para finalizar a animaçao de ataque
 
         public:
-            Character(Coordinates::CoordF _position = Coordinates::CoordF(0.0f, 0.0f), Entities::ID id = empty);
+            Character(TupleF _position = TupleF(0.0f, 0.0f), Entities::ID id = empty);
 
             virtual ~Character();
 
@@ -46,11 +46,10 @@ namespace Entities
             /*Actions*/
             virtual void atack();
             virtual void reciveDmg(int dmg);
-            virtual void colide(Entity *other, Coordinates::CoordF intersec) = 0;
+            virtual void colide(Entity *other, TupleF intersec) = 0;
 
             /*visuals*/
             virtual void initialize() = 0; // carrega as texturas
-            virtual void render() = 0;     // atualiza posiçao da imagem
 
             /*Colisions*/
             virtual void moveOnColision(Entity *other) = 0; /*TODO classe Entity other*/

@@ -3,11 +3,10 @@
 namespace Entities
 {
 
-    MovingEntity::MovingEntity(Coordinates::CoordF _position, ID id) : Entity(_position, id),
-                                                                       velocity(),
-                                                                       image(),
-                                                                       active(false),
-                                                                       facingLeft(false)
+    MovingEntity::MovingEntity(TupleF _position, ID id) : Entity(_position, id),
+                                                          velocity(),
+                                                          active(false),
+                                                          facingLeft(false)
     {
     }
 
@@ -16,7 +15,7 @@ namespace Entities
     }
 
     /*SETs*/
-    void MovingEntity::set_velocity(Coordinates::CoordF pvelocity)
+    void MovingEntity::set_velocity(TupleF pvelocity)
     {
         velocity = pvelocity;
     }
@@ -26,7 +25,7 @@ namespace Entities
     }
 
     /*GETs*/
-    Coordinates::CoordF MovingEntity::get_velocity()
+    TupleF MovingEntity::get_velocity()
     {
         return velocity;
     }

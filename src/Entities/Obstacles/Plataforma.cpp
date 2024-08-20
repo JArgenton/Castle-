@@ -8,7 +8,7 @@ namespace Entities
 {
     namespace Obstacles
     {
-        Plataforma::Plataforma(Coordinates::CoordF _position) : StaticEntity(_position, ID::plataforma)
+        Plataforma::Plataforma(TupleF _position) : StaticEntity(_position, ID::plataforma)
         {
             initialize();
         }
@@ -19,10 +19,9 @@ namespace Entities
 
         void Plataforma::initialize()
         {
-            const char *path;
-            path = "assets/freetileset/png/Tiles/2.png";
-            set_size(Utilis::Coordinates::CoordF(WIDGHT, HEIGHT));
-            image.initialize(path, position, size);
+            setSize(WIDGHT, HEIGHT);
+            std::string texturepath = "assets/freetileset/png/Tiles/2.png";
+            SetTexture(texturepath);
         }
     } // namespace Obstacles
 

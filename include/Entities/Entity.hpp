@@ -20,7 +20,7 @@ namespace Entities
     {
 
     protected:
-        ID id;
+                ID id;
 
     public:
         Entity(TupleF = TupleF(0.0f, 0.0f), ID id = empty);

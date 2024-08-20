@@ -10,7 +10,7 @@ int main()
     // Obtém a instância do Graphics Manager
     Managers::Graphics *gpManager = Managers::Graphics::get_instance();
     Entities::Characters::Player p1;
-    // Loop principal
+    //  Loop principal
     TupleF pos = TupleF(110.0f, 110.0f);
     Entities::Weapons::Sword *pW = new Entities::Weapons::Sword;
     p1.set_weapon(pW);

@@ -5,6 +5,7 @@ namespace Entities
     Entity::Entity(TupleF _position, ID _id) : Ent(),
                                                id(_id)
     {
+
         setPosition(_position);
     }
 
@@ -31,7 +32,10 @@ namespace Entities
     }
     TupleF Entity::getPosition()
     {
-        return TupleF(getPosition().x, getPosition().y);
+        float x = body->getPosition().x;
+        float y = body->getPosition().y;
+        TupleF pos = TupleF(x, y);
+        return pos;
     }
     ID Entity::getId()
     {

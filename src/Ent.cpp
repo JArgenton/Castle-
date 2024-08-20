@@ -3,6 +3,7 @@ Managers::Graphics *Ent::graphicManager(Managers::Graphics::get_instance());
 
 Ent::Ent() : body()
 {
+    body = new sf::RectangleShape;
 }
 
 Ent::~Ent()

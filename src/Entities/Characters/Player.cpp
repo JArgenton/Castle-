@@ -6,12 +6,13 @@
 #define PLAYER_HEALT 100
 #define PLAYER_DMG_COOLDOWN 0.0f
 #define JUMP_HEIGH 3.0f
+using namespace std;
 
 namespace Entities
 {
     namespace Characters
     {
-        Player::Player(Weapons::Weapon *pW) : Character(Coordinates::CoordF(100.0f, 100.0f), PLAYER),
+        Player::Player(Weapons::Weapon *pW) : Character(TupleF(100.0f, 100.0f), PLAYER),
                                               dmgCooldown(PLAYER_DMG_COOLDOWN),
                                               canWalk(true),
                                               canReciveDmg(true),
@@ -69,7 +70,7 @@ namespace Entities
                 dmgTimer = 0;
             }
         }
-        void Player::colide(Entity *other, Coordinates::CoordF intersec)
+        void Player::colide(Entity *other, TupleF intersec)
         {
             /*TODO*/
         }
@@ -97,19 +98,19 @@ namespace Entities
         /*visuals*/
         void Player::initialize()
         {
-            set_size(Coordinates::CoordF(PLAYER_SIZE_X, PLAYER_SIZE_Y));
+            setSize(PLAYER_SIZE_X, PLAYER_SIZE_Y); // chama a set Origin
+            std::string texturepath = "assets/player.png";
+            SetTexture(texturepath);
+
             if (weapon)
             {
                 weapon->WeaponInitialize(this); // todo
             }
-            const char *texturepath = "assets/player.png";
-            image.initialize(texturepath, position, size);
         }
-        void Player::render()
+        void Player::execute()
         {
-            image.render();
+            /*TODO*/
         }
-
         /*Colisions*/
         void Player::moveOnColision(Entity *other)
         {
@@ -117,9 +118,15 @@ namespace Entities
         }
 
         /*GAME*/
+        void Player::updateSprite(const float dt)
+        {
+            /*TODO*/
+        }
+
         void Player::update(const float dt)
         {
             incrementAtkTimer(dt);
+            TupleF position = getPosition();
 
             if (isMoving)
             {
@@ -135,12 +142,13 @@ namespace Entities
             position.x += velocity.x * dt;
             position.y += velocity.y * dt;
 
-            image.update(position);
+            setPosition(position); // atualiza a posiçao da imagem
+
             if (weapon)
             {
                 weapon->update(dt);
             }
-            render();
+            render(); // desenha player
 
             dmgTimer += dt;
 

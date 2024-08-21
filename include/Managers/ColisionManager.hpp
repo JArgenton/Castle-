@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Utilis/Coord.hpp"
+#include "Utilis/Tuple.hpp"
 #include "Utilis/EntityList.hpp"
 namespace managers
 {
@@ -14,7 +14,7 @@ namespace managers
 
     public:
         ~Collision();
-        Utilis::Coordinates::CoordF check_collision(sf::RectangleShape *body1, sf::RectangleShape *body2);
+        TupleF check_collision(sf::RectangleShape *body1, sf::RectangleShape *body2);
         void exec();
     };
 }

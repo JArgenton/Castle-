@@ -2,18 +2,11 @@
 
 namespace Entities
 {
-
-    ID id;
-    GraphicBodies::StaticBody *image;
-
-    /*general info*/
-    Coordinates::CoordF size;
-    Coordinates::CoordF position;
-
-    Entity::Entity(Coordinates::CoordF _position, ID _id) : size(),
-                                                            position(_position),
-                                                            id(_id)
+    Entity::Entity(TupleF _position, ID _id) : Ent(),
+                                               id(_id)
     {
+
+        setPosition(_position);
     }
 
     Entity::~Entity()
@@ -21,24 +14,30 @@ namespace Entities
     }
 
     /*SETs*/
-    void Entity::set_position(Coordinates::CoordF _position)
+    void Entity::setPosition(TupleF _position)
     {
-        position = _position;
+        body->setPosition(sf::Vector2f(_position.x, _position.y));
     }
-    void Entity::set_size(Coordinates::CoordF _size)
+    void Entity::setSize(float height, float width)
     {
-        size = _size;
+
+        body->setSize(sf::Vector2f(height, width));
+        setOrigem(height, width);
     }
+
     /*GETs*/
-    Coordinates::CoordF Entity::get_size()
+    TupleF Entity::getSize()
     {
-        return size;
+        return TupleF(body->getSize().x, body->getSize().y);
     }
-    Coordinates::CoordF Entity::get_position()
+    TupleF Entity::getPosition()
     {
-        return position;
+        float x = body->getPosition().x;
+        float y = body->getPosition().y;
+        TupleF pos = TupleF(x, y);
+        return pos;
     }
-    ID Entity::get_id()
+    ID Entity::getId()
     {
         return id;
     }

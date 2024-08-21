@@ -18,23 +18,22 @@ namespace Entities
         }
         void Sword::WeaponInitialize(Characters::Player *pP)
         {
-            set_size(Utilis::Coordinates::CoordF(WIDITH, HIGHT));
+            setSize(WIDITH, HIGHT);
 
             setPlayer(pP);
             if (owner)
             {
-                ownerPosition = owner->get_position();
                 owner->set_atkDamage(DAMAGE);
                 owner->set_atkCooldown(ATKCOOLDOWN);
                 owner->set_atkDuration(ATKDURATION);
-                setPosition();
+                setPosition(owner->getPosition());
             }
             else
             {
                 std::cout << "erro em SWORD, owner nulo " << std::endl;
             }
-            const char *texturepath = "assets/sword.png";
-            image.initialize(texturepath, position, size);
+            std::string texturepath = "assets/sword.png";
+            SetTexture(texturepath);
         }
         void Sword::atack()
         {
@@ -43,23 +42,22 @@ namespace Entities
             retornar para o valor padrao dps do final do ataque
             fazer na update*/
         }
-        void Sword::setPosition()
+        void Sword::update(const float dt)
         {
             if (owner)
             {
-                position = Coordinates::CoordF(ownerPosition.x + owner->get_size().x + 10.0f, ownerPosition.y + owner->get_size().y + 10.0f);
+                TupleF position;
+                position = owner->getPosition();
+                position.x = position.x + owner->getSize().x;
+                setPosition(position);
             }
-        }
-        void Sword::update(const float dt)
-        {
-            setPosition();
-            image.update(position);
             render();
         }
-        void Sword::render()
+        void Sword::updateSprite(const float dt)
         {
-            image.render();
+            /*TODO */
         }
+
     }
 
 } // namespace Entities

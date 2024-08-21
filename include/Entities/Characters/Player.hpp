@@ -1,6 +1,6 @@
 #include "Character.hpp"
-#include "Utilis/Coord.hpp"
-using namespace Utilis;
+#include "Utilis/Tuple.hpp"
+using namespace Tuples;
 
 namespace Entities
 {
@@ -46,19 +46,19 @@ namespace Entities
             /*actions*/
             void atack();
             void reciveDmg(int dmg);
-            void colide(Entity *other, Coordinates::CoordF intersec);
             void jump();
             void walk(bool toLeft);
             void stop();
 
             /*visuals*/
-            void initialize() override; // carrega as texturas
-            void render();              // atualiza posiçao da imagem
-
+            void execute();
+            void initialize(); // carrega as texturas
             /*Colisions*/
+            void colide(Entity *other, TupleF intersec);
             void moveOnColision(Entity *other); /*TODO classe Entity other*/
 
             /*GAME*/
+            void updateSprite(const float dt);
             void update(const float dt);
         };
     }

@@ -15,26 +15,26 @@ namespace managers
         MovingEntities = nullptr;
     }
 
-    Utilis::Coordinates::CoordF Collision::check_collision(sf::RectangleShape *body1, sf::RectangleShape *body2)
+    TupleF Collision::check_collision(sf::RectangleShape *body1, sf::RectangleShape *body2)
     {
         Entity *entt1 = nullptr;
         Entity *entt2 = nullptr;
-        Utilis::Coordinates::CoordF intersection;
-        Utilis::Coordinates::CoordF centerDistance;
+        TupleF intersection;
+        TupleF centerDistance;
         int i, j;
 
-        for (i = 0; i < StaticEntities->getsize(); i++)
+        for (i = 0; i < StaticEntities->getSize(); i++)
         {
             entt1 = StaticEntities->operator[](i);
-            for (j = i + 1; j < MovingEntities->getsize(); j++)
+            for (j = i + 1; j < MovingEntities->getSize(); j++)
             {
                 entt2 = MovingEntities->operator[](j);
 
-                centerDistance.x = entt2->get_position().x - entt1->get_position().x;
-                centerDistance.y = entt2->get_position().y - entt1->get_position().y;
+                centerDistance.x = entt2->getPosition().x - entt1->getPosition().x;
+                centerDistance.y = entt2->getPosition().y - entt1->getPosition().y;
 
-                intersection.x = abs(centerDistance.x) - (entt1->get_size().x / 2.0f + entt2->get_size().x) / 2.0f;
-                intersection.y = abs(centerDistance.y) - (entt1->get_size().y / 2.0f + entt2->get_size().y) / 2.0f;
+                intersection.x = abs(centerDistance.x) - (entt1->getSize().x / 2.0f + entt2->getSize().x) / 2.0f;
+                intersection.y = abs(centerDistance.y) - (entt1->getSize().y / 2.0f + entt2->getSize().y) / 2.0f;
 
                 if (intersection.x < 0.0f && intersection.y < 0.0f)
                 {
@@ -42,18 +42,18 @@ namespace managers
                 }
             }
         }
-        for (i = 0; i < MovingEntities->getsize(); i++)
+        for (i = 0; i < MovingEntities->getSize(); i++)
         {
             entt1 = MovingEntities->operator[](i);
-            for (j = i + 1; j < StaticEntities->getsize(); j++)
+            for (j = i + 1; j < StaticEntities->getSize(); j++)
             {
                 entt2 = StaticEntities->operator[](j);
 
-                centerDistance.x = entt2->get_position().x - entt1->get_position().x;
-                centerDistance.y = entt2->get_position().y - entt1->get_position().y;
+                centerDistance.x = entt2->getPosition().x - entt1->getPosition().x;
+                centerDistance.y = entt2->getPosition().y - entt1->getPosition().y;
 
-                intersection.x = abs(centerDistance.x) - (entt1->get_size().x / 2.0f + entt2->get_size().x) / 2.0f;
-                intersection.y = abs(centerDistance.y) - (entt1->get_size().y / 2.0f + entt2->get_size().y) / 2.0f;
+                intersection.x = abs(centerDistance.x) - (entt1->getSize().x / 2.0f + entt2->getSize().x) / 2.0f;
+                intersection.y = abs(centerDistance.y) - (entt1->getSize().y / 2.0f + entt2->getSize().y) / 2.0f;
 
                 if (intersection.x < 0.0f && intersection.y < 0.0f)
                 {

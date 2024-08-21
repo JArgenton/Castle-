@@ -3,17 +3,20 @@
 #include "Entities/Characters/Player.hpp"
 #include "Entities/Weapons/Sword.hpp"
 #include "Entities/Obstacles/Plataforma.hpp"
+#include "Entities/Obstacles/Lava.hpp"
+#include "Utilis/Tuple.hpp"
 
 int main()
 {
     // Obtém a instância do Graphics Manager
     Managers::Graphics *gpManager = Managers::Graphics::get_instance();
     Entities::Characters::Player p1;
-    // Loop principal
-    Utilis::Coordinates::CoordF pos = Utilis::Coordinates::CoordF(110.0f, 110.0f);
+    //  Loop principal
+    TupleF pos = TupleF(110.0f, 110.0f);
     Entities::Weapons::Sword *pW = new Entities::Weapons::Sword;
     p1.set_weapon(pW);
-    Entities::Obstacles::Plataforma plat = Entities::Obstacles::Plataforma(Utilis::Coordinates::CoordF(200.0f, 200.0f));
+    Entities::Obstacles::Plataforma plat = Entities::Obstacles::Plataforma(TupleF(200.0f, 200.0f));
+    Entities::Obstacles::Lava lava = Entities::Obstacles::Lava(TupleF(300.0f, 200.0f));
 
     while (gpManager->isWindowOpen())
     {
@@ -38,6 +41,7 @@ int main()
             }
             p1.update(4);
             plat.render();
+            lava.render();
             gpManager->updateDeltaTime();
             // Atualiza a janela
             p1.update(0.1);

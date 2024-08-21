@@ -5,10 +5,8 @@ namespace Entities
 {
     namespace Weapons
     {
-        Weapon::Weapon() : MovingEntity(Coordinates::CoordF(0.0f, 0.0f), WEAPON),
-                           owner(nullptr),
-                           ownerPosition(position)
-
+        Weapon::Weapon() : MovingEntity(TupleF(0.0f, 0.0f), WEAPON),
+                           owner(nullptr)
         {
         }
         Weapon::~Weapon()

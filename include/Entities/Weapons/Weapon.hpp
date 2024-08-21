@@ -16,7 +16,6 @@ namespace Entities
         protected:
             /*Cooldowns (const)*/
             Characters::Player *owner;
-            Coordinates::CoordF ownerPosition;
 
         public:
             Weapon();
@@ -24,11 +23,12 @@ namespace Entities
             virtual void atack() = 0;
             void setPlayer(Characters::Player *pP);
             virtual void WeaponInitialize(Characters::Player *pP) = 0;
-            virtual void setPosition() = 0;
-            void colide(Entity *other, Coordinates::CoordF intersec) override {}
-            void moveOnColision(Entity *other) override {}
+            void updateSprite(const float dt) = 0;
             virtual void update(const float dt) = 0;
-            virtual void render() = 0;
+
+            void colide(Entity *other, TupleF intersec) override {}
+            void moveOnColision(Entity *other) override {}
+            void execute() override {}
         };
     }
 }

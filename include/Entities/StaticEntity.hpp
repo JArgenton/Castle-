@@ -1,8 +1,8 @@
+#pragma once
 #include "Entities/Entity.hpp"
 
 namespace Entities
 {
-
     class StaticEntity : public Entity
     {
     protected:

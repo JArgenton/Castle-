@@ -14,13 +14,15 @@ namespace Entities
         empty = 0,
         PLAYER,
         WEAPON,
+        lava,
         plataforma,
+        armadilha,
     };
     class Entity : public Ent
     {
 
     protected:
-                ID id;
+        ID id;
 
     public:
         Entity(TupleF = TupleF(0.0f, 0.0f), ID id = empty);

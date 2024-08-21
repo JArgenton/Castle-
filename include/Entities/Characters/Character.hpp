@@ -46,13 +46,10 @@ namespace Entities
             /*Actions*/
             virtual void atack();
             virtual void reciveDmg(int dmg);
-            virtual void colide(Entity *other, TupleF intersec) = 0;
+            virtual void collide(Entity *other, TupleF intersec) = 0;
 
             /*visuals*/
             virtual void initialize() = 0; // carrega as texturas
-
-            /*Colisions*/
-            virtual void moveOnColision(Entity *other) = 0; /*TODO classe Entity other*/
 
             /*timers & conditions*/
             void incrementAtkTimer(const float dt); // necessario devido a decisao de separ o tempo atacando e de cooldown do atk, add o dt no contador correto

@@ -54,9 +54,7 @@ namespace Entities
             void execute();
             void initialize(); // carrega as texturas
             /*Colisions*/
-            void colide(Entity *other, TupleF intersec);
-            void moveOnColision(Entity *other); /*TODO classe Entity other*/
-
+            void collide(Entity *other, TupleF intersec);
             /*GAME*/
             void updateSprite(const float dt);
             void update(const float dt);

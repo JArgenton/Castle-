@@ -2,16 +2,21 @@
 
 namespace Entities
 {
+    List::EntityList Entities::MovingEntity::MovingEntities;
 
     MovingEntity::MovingEntity(TupleF _position, ID id) : Entity(_position, id),
                                                           velocity(),
                                                           active(false),
                                                           facingLeft(false)
     {
+        MovingEntities.add(static_cast<Entity *>(this));
     }
 
     MovingEntity::~MovingEntity()
     {
+        Entity *aux = nullptr;
+        aux = MovingEntities.remove(this);
+        aux = nullptr;
     }
 
     /*SETs*/
@@ -42,4 +47,39 @@ namespace Entities
     void MovingEntity::initialize()
     {
     }
+    void MovingEntity::moveOnColision(Entity *other, TupleF intersection)
+    {
+        TupleF aux = getPosition();
+        if (intersection.x > intersection.y)
+        {
+            velocity.x = 0;
+            if (other->getPosition().x < aux.x)
+            {
+                aux.x -= intersection.x;
+                setPosition(aux);
+            }
+            else
+            {
+                aux.x += intersection.x;
+                cout << aux.x << endl;
+
+                setPosition(aux);
+            }
+        }
+        else
+        {
+            velocity.y = 0;
+            if (other->getPosition().y < aux.y)
+            {
+                aux.y -= intersection.y;
+                setPosition(aux);
+            }
+            else
+            {
+                aux.y += intersection.y;
+                setPosition(aux);
+            }
+        }
+    }
+
 }

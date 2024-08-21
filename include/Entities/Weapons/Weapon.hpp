@@ -26,8 +26,7 @@ namespace Entities
             void updateSprite(const float dt) = 0;
             virtual void update(const float dt) = 0;
 
-            void colide(Entity *other, TupleF intersec) override {}
-            void moveOnColision(Entity *other) override {}
+            void collide(Entity *other, TupleF intersec) override {}
             void execute() override {}
         };
     }

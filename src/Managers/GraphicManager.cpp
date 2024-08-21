@@ -31,6 +31,7 @@ namespace Managers
     Graphics::~Graphics()
     {
         delete window;
+        instance = nullptr;
     }
 
     sf::Font *Graphics::loadFont(const std::string &filepath)

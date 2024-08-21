@@ -1,5 +1,9 @@
-#include "Entities/Entity.hpp"
+#pragma once
 #include "Utilis/ListTemplate.hpp"
+namespace Entities
+{
+    class Entity;
+}
 namespace List
 {
     class EntityList

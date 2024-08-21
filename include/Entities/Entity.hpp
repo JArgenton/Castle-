@@ -2,21 +2,23 @@
 #include <iostream>
 #include "Utilis/Tuple.hpp"
 #include "Ent.hpp"
+#include "Utilis/EntityList.hpp"
+
 using namespace std;
 using namespace Tuples;
 
 namespace Entities
 {
 
-#define GRAVITY 2.81f
+#define GRAVITY 0.1f
     enum ID
     {
         empty = 0,
         PLAYER,
         WEAPON,
-        lava,
-        plataforma,
-        armadilha,
+        LAVA,
+        PLATAFORMA,
+        ARMADILHA,
     };
     class Entity : public Ent
     {
@@ -39,5 +41,6 @@ namespace Entities
         ID getId();
         /*visuals*/
         virtual void initialize() = 0; // carrega as texturas
+        virtual void collide(Entity *other, TupleF intersec) = 0;
     };
 }

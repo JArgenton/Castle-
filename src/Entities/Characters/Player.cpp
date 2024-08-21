@@ -2,7 +2,7 @@
 #include "Entities/Weapons/Weapon.hpp"
 #define PLAYER_SIZE_X 100.0f
 #define PLAYER_SIZE_Y 100.0f
-#define PLAYER_VELOCITY 0.1f
+#define PLAYER_VELOCITY 0.8f
 #define PLAYER_HEALT 100
 #define PLAYER_DMG_COOLDOWN 0.0f
 #define JUMP_HEIGH 3.0f
@@ -17,7 +17,7 @@ namespace Entities
                                               canWalk(true),
                                               canReciveDmg(true),
                                               canJump(true),
-                                              isMoving(true),
+                                              isMoving(false),
                                               dmgTimer(0),
                                               weapon(pW)
 
@@ -70,14 +70,33 @@ namespace Entities
                 dmgTimer = 0;
             }
         }
-        void Player::colide(Entity *other, TupleF intersec)
+        void Player::collide(Entity *other, TupleF intersec)
         {
-            /*TODO*/
+            moveOnColision(other, intersec);
+
+            switch (other->getId())
+            {
+            case ID::PLATAFORMA:
+            {
+                canJump = true;
+                break;
+            }
+
+            case ID::ARMADILHA:
+            {
+                /*TODO*/
+                break;
+            }
+            case ID::LAVA:
+            {
+                /*TODO*/
+                break;
+            }
+            default:
+                break;
+            }
         }
-        void moveOnColision(Entity *other)
-        {
-            /*todo*/
-        }
+
         void Player::jump()
         {
             if (canJump)
@@ -111,11 +130,6 @@ namespace Entities
         {
             /*TODO*/
         }
-        /*Colisions*/
-        void Player::moveOnColision(Entity *other)
-        {
-            /*TODO*/
-        }
 
         /*GAME*/
         void Player::updateSprite(const float dt)
@@ -137,7 +151,7 @@ namespace Entities
             }
             else
                 velocity.x *= 0.05;
-            velocity.y += 0;
+            velocity.y += GRAVITY;
 
             position.x += velocity.x * dt;
             position.y += velocity.y * dt;

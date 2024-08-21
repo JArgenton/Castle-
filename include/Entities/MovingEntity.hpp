@@ -16,6 +16,8 @@ namespace Entities
         int animationId;
 
     public:
+        static List::EntityList MovingEntities;
+
         MovingEntity(TupleF _position = TupleF(0.0f, 0.0f), ID id = empty);
 
         virtual ~MovingEntity();
@@ -33,8 +35,8 @@ namespace Entities
         virtual void initialize(); // carrega as texturas
 
         /*Colisions*/
-        virtual void colide(Entity *other, TupleF intersec) = 0;
-        virtual void moveOnColision(Entity *other) = 0; /*TODO classe Entity other*/
+        virtual void collide(Entity *other, TupleF intersec) = 0;
+        virtual void moveOnColision(Entity *other, TupleF intersection);
 
         /*conditions*/
         bool isActive();

@@ -1,12 +1,17 @@
 #include "Entities/Entity.hpp"
 #include "Managers/ColisionManager.hpp"
+#include "Entities/MovingEntity.hpp"
+#include "Entities/StaticEntity.hpp"
 using namespace Entities;
-namespace managers
+namespace Managers
 {
+    Collision *Collision::instance = nullptr;
 
-    Collision::Collision(List::EntityList *StaticEntities, List::EntityList *MovingEntities) : StaticEntities(StaticEntities),
-                                                                                               MovingEntities(MovingEntities)
+    Collision::Collision() : StaticEntities(),
+                             MovingEntities()
     {
+        StaticEntities = &StaticEntity::StaticEntities;
+        MovingEntities = &MovingEntity::MovingEntities;
     }
 
     Collision::~Collision()
@@ -14,52 +19,63 @@ namespace managers
         StaticEntities = nullptr;
         MovingEntities = nullptr;
     }
-
-    TupleF Collision::check_collision(sf::RectangleShape *body1, sf::RectangleShape *body2)
+    Collision *Collision::getInstance()
     {
-        Entity *entt1 = nullptr;
-        Entity *entt2 = nullptr;
+        if (instance == nullptr)
+        {
+            instance = new Collision;
+        }
+
+        return instance;
+    }
+
+    void Collision::check_collision()
+    {
+        Entity *entity1 = nullptr;
+        Entity *entity2 = nullptr;
         TupleF intersection;
         TupleF centerDistance;
         int i, j;
 
         for (i = 0; i < StaticEntities->getSize(); i++)
         {
-            entt1 = StaticEntities->operator[](i);
-            for (j = i + 1; j < MovingEntities->getSize(); j++)
+            entity1 = StaticEntities->operator[](i);
+            for (j = 0; j < MovingEntities->getSize(); j++)
             {
-                entt2 = MovingEntities->operator[](j);
+                cout << j << endl;
 
-                centerDistance.x = entt2->getPosition().x - entt1->getPosition().x;
-                centerDistance.y = entt2->getPosition().y - entt1->getPosition().y;
+                entity2 = MovingEntities->operator[](j);
 
-                intersection.x = abs(centerDistance.x) - (entt1->getSize().x / 2.0f + entt2->getSize().x) / 2.0f;
-                intersection.y = abs(centerDistance.y) - (entt1->getSize().y / 2.0f + entt2->getSize().y) / 2.0f;
+                centerDistance.x = entity2->getPosition().x - entity1->getPosition().x;
+                centerDistance.y = entity2->getPosition().y - entity1->getPosition().y;
+
+                intersection.x = abs(centerDistance.x) - (entity1->getSize().x / 2.0f + entity2->getSize().x) / 2.0f;
+                intersection.y = abs(centerDistance.y) - (entity1->getSize().y / 2.0f + entity2->getSize().y) / 2.0f;
 
                 if (intersection.x < 0.0f && intersection.y < 0.0f)
                 {
-                    return intersection;
+
+                    entity2->collide(entity1, intersection);
                 }
             }
         }
         for (i = 0; i < MovingEntities->getSize(); i++)
         {
-            entt1 = MovingEntities->operator[](i);
+            entity1 = MovingEntities->operator[](i);
             for (j = i + 1; j < StaticEntities->getSize(); j++)
             {
-                entt2 = StaticEntities->operator[](j);
+                entity2 = StaticEntities->operator[](j);
 
-                centerDistance.x = entt2->getPosition().x - entt1->getPosition().x;
-                centerDistance.y = entt2->getPosition().y - entt1->getPosition().y;
+                centerDistance.x = entity2->getPosition().x - entity1->getPosition().x;
+                centerDistance.y = entity2->getPosition().y - entity1->getPosition().y;
 
-                intersection.x = abs(centerDistance.x) - (entt1->getSize().x / 2.0f + entt2->getSize().x) / 2.0f;
-                intersection.y = abs(centerDistance.y) - (entt1->getSize().y / 2.0f + entt2->getSize().y) / 2.0f;
+                intersection.x = abs(centerDistance.x) - (entity1->getSize().x / 2.0f + entity2->getSize().x) / 2.0f;
+                intersection.y = abs(centerDistance.y) - (entity1->getSize().y / 2.0f + entity2->getSize().y) / 2.0f;
 
                 if (intersection.x < 0.0f && intersection.y < 0.0f)
                 {
-                    /*TODO*/
-                    // entt2->collide(entt1, intersect);
-                    // entt1->collide(entt2, intersect);
+                    entity2->collide(entity1, intersection);
+                    entity1->collide(entity2, intersection);
                 }
             }
         }

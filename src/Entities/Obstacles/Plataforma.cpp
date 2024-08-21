@@ -7,7 +7,7 @@ namespace Entities
 {
     namespace Obstacles
     {
-        Plataforma::Plataforma(TupleF _position) : StaticEntity(_position, Entities::ID::plataforma)
+        Plataforma::Plataforma(TupleF _position) : StaticEntity(_position, Entities::ID::PLATAFORMA)
         {
             initialize();
         }

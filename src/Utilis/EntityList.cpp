@@ -1,4 +1,5 @@
 #include "Utilis/EntityList.hpp"
+#include "Entities/Entity.hpp"
 namespace List
 {
     EntityList::EntityList() {}

@@ -10,7 +10,7 @@ namespace Entities
 {
     namespace Obstacles
     {
-        Lava::Lava(TupleF _position) : StaticEntity(_position, Entities::ID::lava)
+        Lava::Lava(TupleF _position) : StaticEntity(_position, Entities::ID::LAVA)
         {
             initialize();
         }

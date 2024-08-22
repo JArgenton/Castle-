@@ -39,6 +39,8 @@ namespace Entities
 
             /*SETs*/
             void set_weapon(Weapons::Weapon *pweapon);
+            void setJump(bool jump);
+            void setWalk(bool walk);
 
             /*GETs*/
             Weapons::Weapon *get_weapon();

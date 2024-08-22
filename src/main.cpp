@@ -4,6 +4,7 @@
 #include "Entities/Weapons/Sword.hpp"
 #include "Entities/Obstacles/Plataforma.hpp"
 #include "Entities/Obstacles/Lava.hpp"
+#include "Entities/Obstacles/Armadilha.hpp"
 #include "Utilis/Tuple.hpp"
 #include "Managers/ColisionManager.hpp"
 
@@ -19,6 +20,7 @@ int main()
     p1.set_weapon(pW);
     Entities::Obstacles::Plataforma plat = Entities::Obstacles::Plataforma(TupleF(100.0f, 200.0f));
     Entities::Obstacles::Lava lava = Entities::Obstacles::Lava(TupleF(300.0f, 200.0f));
+    Entities::Obstacles::Armadilha arm = Entities::Obstacles::Armadilha(TupleF(500.0f, 200.0f));
     int size = Entities::MovingEntity::MovingEntities.getSize();
     int sizes = Entities::StaticEntity::StaticEntities.getSize();
 
@@ -49,6 +51,7 @@ int main()
             p1.update(4);
             plat.render();
             lava.render();
+            arm.render();
             gpManager->updateDeltaTime();
             // Atualiza a janela
             p1.update(0.1);

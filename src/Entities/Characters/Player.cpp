@@ -1,5 +1,6 @@
 #include "Entities/Characters/Player.hpp"
 #include "Entities/Weapons/Weapon.hpp"
+
 #define PLAYER_SIZE_X 100.0f
 #define PLAYER_SIZE_Y 100.0f
 #define PLAYER_VELOCITY 0.8f
@@ -41,6 +42,16 @@ namespace Entities
             {
                 weapon = pweapon;
             }
+        }
+
+        void Player::setJump(bool jump)
+        {
+            canJump = jump;
+        }
+
+        void Player::setWalk(bool walk)
+        {
+            canWalk = walk;
         }
 
         /*GETs*/

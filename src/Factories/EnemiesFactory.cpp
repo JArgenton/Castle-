@@ -2,7 +2,6 @@
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Characters/Enemies/Soldier.hpp"
 #include "Entities/Characters/Enemies/Dumb.hpp"
-
 namespace Factories
 {
     EnemiesFactory::EnemiesFactory()
@@ -27,16 +26,16 @@ namespace Factories
         Entity *pE = nullptr;
         switch (enemy)
         {
-        case SOLDIER:
-            pE = new Entities::Characters::Enemies::Soldier(_position);
+        case ID::SOLDIER:
+            pE = new Characters::Enemies::Soldier(_position);
 
             break;
-        case ARCHER:
-            pE = new Entities::Characters::Enemies::Archer(_position);
+        case ID::ARCHER:
+            pE = new Characters::Enemies::Archer(_position);
 
             break;
-        case DUMB:
-            pE = new Entities::Characters::Enemies::Dumb(_position);
+        case ID::DUMB:
+            pE = new Characters::Enemies::Dumb(_position);
             break;
 
         default:

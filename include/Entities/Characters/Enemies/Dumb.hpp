@@ -10,7 +10,7 @@ namespace Entities
             class Dumb : public Enemy
             {
             private:
-                static string texturepath;
+                static std::string texturepath;
 
             public:
                 Dumb(TupleF _position);

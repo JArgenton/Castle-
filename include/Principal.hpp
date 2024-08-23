@@ -4,8 +4,11 @@
 #include "Managers/ColisionManager.hpp"
 #include "Managers/GraphicManager.hpp"
 #include "Entities/Characters/Player.hpp"
-
 #include "Utilis/EntityList.hpp"
+#include <nlohmann/json.hpp>
+#include <fstream>
+
+using json = nlohmann::json;
 
 namespace Factories
 {
@@ -46,8 +49,6 @@ namespace Factories
         eFactory = new EnemiesFactory;
         pFactory = new PlayerFactory;
         oFactory = new ObstaclesFactory;
-
-        this->exec();
     }
 
     Principal::~Principal()
@@ -92,9 +93,9 @@ namespace Factories
                         gpManager->closeWindow();
                     }
                 }
-                for (int i = 0; i <= 9; i++)
-                {
 
+                for (int i = 0; i < StaticEntities.getSize(); i++)
+                {
                     StaticEntities[i]->render();
                 }
                 ClManager.check_collision();
@@ -117,29 +118,48 @@ namespace Factories
 
     void Principal::createFase(/*.JSON*/)
     {
-        cout << "dsdsdfs" << endl;
 
-        TupleF position = TupleF(100.0f, 100.0f);
-        Player1 = static_cast<Characters::Player *>(Create(pFactory, position, ID::PLAYER1));
-        MovingEntities.add(Player1);
-        Entities::Entity *pE = nullptr;
-        position = TupleF(0.0f, 200.0f);
-        cout << "xececa" << endl;
-        for (int i = 0; i <= 9; i++)
+        // Cria um objeto ifstream para ler o arquivo
+        std::ifstream i("map.tmj");
+
+        // Cria um objeto json
+        json j;
+
+        // Lê o arquivo json para o objeto json
+        i >> j;
+
+        // Agora você pode acessar os valores no json como se fossem membros de um objeto
+        std::vector<int> layerData = j["layers"][0]["data"];
+        int width = j["layers"][0]["width"];
+        int height = j["layers"][0]["height"];
+
+        TupleF pos = TupleF(100.0f, 100.0f);
+        // Itera sobre os dados da camada
+        Entity *pE = nullptr;
+        for (int y = 0; y < height; ++y)
         {
-
-            position += (TupleF(50.0f, 0.0f));
-
-            pE = Create((EntityFactory *)oFactory, position, ID::PLATAFORMA);
-            if (pE)
+            pos.y += 100;
+            for (int x = 0; x < width; ++x)
             {
-                cout << i << endl;
-                StaticEntities.add(pE);
-                cout << StaticEntities[i]->getPosition().x << endl;
+                pos.x += 10;
+                int value = layerData[y * width + x];
+                // Se o valor for 1 ou 2, cria uma plataforma
+                if (value == 1 || value == 2)
+                {
+                    pE = Create(oFactory, pos, ID::PLATAFORMA);
+                    if (pE)
+                    {
+
+                        StaticEntities.add(pE);
+                    }
+                }
             }
         }
-        position += (TupleF(100.0f, 100.0f));
-        StaticEntities.add(Create((EntityFactory *)oFactory, position, ID::PLATAFORMA));
+        Player1 = static_cast<Characters::Player *>(Create(pFactory, TupleF(200.0f, 200.0f), ID::PLAYER1));
+        if (Player1)
+        {
+            MovingEntities.add(Player1);
+        }
+        printf("%d", StaticEntities.getSize());
     }
-
 } // namespace Factory

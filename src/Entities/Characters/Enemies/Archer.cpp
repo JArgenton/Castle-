@@ -1,6 +1,4 @@
 #include "Entities/Characters/Enemies/Archer.hpp"
-<<<<<<< HEAD
-=======
 #include "Entities/Weapons/Projectile.hpp"
 
 #define ARCHER_DMG 10.0f
@@ -12,8 +10,7 @@
 #define ARCHER_POINTS 200
 #define ARCHER_RANGE 150.0f
 
-string ARCHER_PATH = "assets/freetileset/png/Object/Crate.png";
->>>>>>> ComEnemies
+std::string ARCHER_PATH = "assets/freetileset/png/Object/Crate.png";
 
 namespace Entities
 {
@@ -21,39 +18,9 @@ namespace Entities
     {
         namespace Enemies
         {
-<<<<<<< HEAD
-
-            std::string Archer::texturepath("assets/freetileset/png/Tiles/17.png");
-
-            Archer::Archer(TupleF _position) : Enemy(_position)
-            {
-            }
-            Archer::~Archer()
-            {
-            }
-            void Archer::collide(Entity *other, TupleF intersec)
-            {
-            }
-            void Archer::initialize()
-            {
-            }
-            void Archer::update(const float dt)
-            {
-            }
-            void Archer::execute()
-            {
-            }
-
-        } // namespace Enemies
-
-    } // namespace Characters
-
-} // namespace Entities
-=======
             Archer::Archer(TupleF position, Player *pP)
                 : Enemy(position, ARCHER, ARCHER_HEALTH, pP, ARCHER_ATK_COOLDOWN, ARCHER_TIME, ARCHER_POINTS)
             {
-                initialize();
                 set_atkDamage(ARCHER_DMG);
             }
 
@@ -117,4 +84,3 @@ namespace Entities
         }
     }
 }
->>>>>>> ComEnemies

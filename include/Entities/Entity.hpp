@@ -5,7 +5,6 @@
 #include "Ent.hpp"
 #include "Utilis/EntityList.hpp"
 
-using namespace std;
 using namespace Tuples;
 
 namespace Entities
@@ -23,7 +22,9 @@ namespace Entities
         ARMADILHA,
         ENEMY,
         ARCHER,
-        PROJECTILE
+        PROJECTILE,
+        SOLDIER,
+        DUMB,
     };
     class Entity : public Ent
     {

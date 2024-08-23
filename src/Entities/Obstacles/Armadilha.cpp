@@ -10,7 +10,6 @@ namespace Entities
     {
         Armadilha::Armadilha(TupleF _position) : StaticEntity(_position, Entities::ID::ARMADILHA)
         {
-            initialize();
         }
 
         Armadilha::~Armadilha()

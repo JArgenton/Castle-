@@ -1,6 +1,6 @@
 #include "Managers/GraphicManager.hpp"
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 1000
+#define WINDOW_HEIGHT 800
 #define FRAME_RATE_LIMIT 60
 namespace Managers
 {

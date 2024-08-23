@@ -1,8 +1,4 @@
 #pragma once
-<<<<<<< HEAD
-=======
-
->>>>>>> ComEnemies
 #include "Entities/StaticEntity.hpp"
 
 namespace Entities

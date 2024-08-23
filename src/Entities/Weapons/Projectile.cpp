@@ -66,10 +66,10 @@ namespace Entities
         // Implementar a lógica de colisão
     }
 
-    void Projectile::updateSprite(const float dt)
+    /*void Projectile::updateSprite(const float dt)
     {
         // Atualizar a aparência do projétil se necessário
-    }
+    }*/
 
     void Projectile::execute()
     {

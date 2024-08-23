@@ -12,7 +12,6 @@ namespace Entities
     {
         Lava::Lava(TupleF _position) : StaticEntity(_position, Entities::ID::LAVA)
         {
-            initialize();
         }
 
         Lava::~Lava()

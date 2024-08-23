@@ -2,21 +2,16 @@
 
 namespace Entities
 {
-    List::EntityList Entities::MovingEntity::MovingEntities;
 
     MovingEntity::MovingEntity(TupleF _position, ID id) : Entity(_position, id),
                                                           velocity(),
                                                           active(false),
                                                           facingLeft(false)
     {
-        MovingEntities.add(static_cast<Entity *>(this));
     }
 
     MovingEntity::~MovingEntity()
     {
-        Entity *aux = nullptr;
-        aux = MovingEntities.remove(this);
-        aux = nullptr;
     }
 
     /*SETs*/
@@ -81,5 +76,4 @@ namespace Entities
             }
         }
     }
-
 }

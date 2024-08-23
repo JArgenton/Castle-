@@ -23,7 +23,7 @@ namespace Entities
             virtual void atack() = 0;
             void setPlayer(Characters::Player *pP);
             virtual void WeaponInitialize(Characters::Player *pP) = 0;
-            void updateSprite(const float dt) = 0;
+            // void updateSprite(const float dt);
             virtual void update(const float dt) = 0;
 
             void collide(Entity *other, TupleF intersec) override {}

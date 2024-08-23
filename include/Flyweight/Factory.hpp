@@ -5,23 +5,23 @@ using namespace std;
 namespace flyweight
 {
     template <typename Resource>
-    class Factory
+    class Flyweight
     {
     private:
         unordered_map<string, Resource *> FlyweightMap; // Mapa de texturas (ED2), carregar, organizar as texturas utilizadas
 
     public:
-        Factory();
-        ~Factory();
+        Flyweight();
+        ~Flyweight();
         Resource *getResource(const string &filepath);
     };
 
     template <typename Resource>
-    Factory<Resource>::Factory()
+    Flyweight<Resource>::Flyweight()
     {
     }
     template <typename Resource>
-    Factory<Resource>::~Factory()
+    Flyweight<Resource>::~Flyweight()
     {
         for (auto &MapElement : FlyweightMap)
         {
@@ -30,7 +30,7 @@ namespace flyweight
     }
 
     template <typename Resource>
-    Resource *Factory<Resource>::getResource(const string &filepath)
+    Resource *Flyweight<Resource>::getResource(const string &filepath)
     {
         auto iterator = FlyweightMap.find(filepath);
         if (iterator != FlyweightMap.end())

@@ -9,7 +9,6 @@ namespace Entities
     {
         Plataforma::Plataforma(TupleF _position) : StaticEntity(_position, Entities::ID::PLATAFORMA)
         {
-            initialize();
         }
 
         Plataforma::~Plataforma()

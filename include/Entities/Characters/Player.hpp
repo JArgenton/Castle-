@@ -1,3 +1,4 @@
+#pragma once
 #include "Character.hpp"
 #include "Utilis/Tuple.hpp"
 using namespace Tuples;
@@ -25,8 +26,6 @@ namespace Entities
             /*conditions*/
             bool isMoving;
 
-            /*cooldowns*/
-
             /*timers*/
             float dmgTimer; // timer para tomar dano novamente
 
@@ -34,7 +33,7 @@ namespace Entities
             Weapons::Weapon *weapon;
 
         public:
-            Player(Weapons::Weapon *pW = nullptr);
+            Player(Weapons::Weapon *pW = nullptr, ID _id = PLAYER1);
             ~Player();
 
             /*SETs*/

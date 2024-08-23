@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <iostream>
 #include "Managers/GraphicManager.hpp"
 #include "Entities/Characters/Player.hpp"
@@ -7,9 +8,13 @@
 #include "Entities/Obstacles/Armadilha.hpp"
 #include "Utilis/Tuple.hpp"
 #include "Managers/ColisionManager.hpp"
+=======
+>>>>>>> Factory_patern
 
+#include "Factories/Creator.hpp"
 int main()
 {
+<<<<<<< HEAD
     // Obtém a instância do Graphics Manager
     Managers::Graphics *gpManager = Managers::Graphics::get_instance();
     Managers::Collision *ClManager = Managers::Collision::getInstance();
@@ -61,6 +66,9 @@ int main()
     }
 
     std::cout << "Janela fechada" << std::endl;
+=======
+    Factories::Principal p;
+>>>>>>> Factory_patern
 
     return 0;
 }

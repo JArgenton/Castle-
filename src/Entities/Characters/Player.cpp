@@ -13,20 +13,20 @@ namespace Entities
 {
     namespace Characters
     {
-        Player::Player(Weapons::Weapon *pW) : Character(TupleF(100.0f, 100.0f), PLAYER),
-                                              dmgCooldown(PLAYER_DMG_COOLDOWN),
-                                              canWalk(true),
-                                              canReciveDmg(true),
-                                              canJump(true),
-                                              isMoving(false),
-                                              dmgTimer(0),
-                                              weapon(pW)
+        Player::Player(Weapons::Weapon *pW, ID _id) : Character(TupleF(100.0f, 100.0f), _id),
+                                                      dmgCooldown(PLAYER_DMG_COOLDOWN),
+                                                      canWalk(true),
+                                                      canReciveDmg(true),
+                                                      canJump(true),
+                                                      isMoving(true),
+                                                      dmgTimer(0),
+                                                      weapon(pW)
 
         {
-            initialize();
         }
         Player::~Player()
         {
+            delete weapon;
             weapon = nullptr;
         }
 
@@ -37,10 +37,6 @@ namespace Entities
             {
                 weapon = pweapon;
                 weapon->WeaponInitialize(this);
-            }
-            else
-            {
-                weapon = pweapon;
             }
         }
 

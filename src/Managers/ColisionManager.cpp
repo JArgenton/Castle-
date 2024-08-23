@@ -5,28 +5,15 @@
 using namespace Entities;
 namespace Managers
 {
-    Collision *Collision::instance = nullptr;
-
-    Collision::Collision() : StaticEntities(),
-                             MovingEntities()
+    Collision::Collision(List::EntityList *_staticEntities, List::EntityList *_movingEntities) : StaticEntities(_staticEntities),
+                                                                                                 MovingEntities(_movingEntities)
     {
-        StaticEntities = &StaticEntity::StaticEntities;
-        MovingEntities = &MovingEntity::MovingEntities;
     }
 
     Collision::~Collision()
     {
         StaticEntities = nullptr;
         MovingEntities = nullptr;
-    }
-    Collision *Collision::getInstance()
-    {
-        if (instance == nullptr)
-        {
-            instance = new Collision;
-        }
-
-        return instance;
     }
 
     void Collision::check_collision()
@@ -42,8 +29,6 @@ namespace Managers
             entity1 = StaticEntities->operator[](i);
             for (j = 0; j < MovingEntities->getSize(); j++)
             {
-                cout << j << endl;
-
                 entity2 = MovingEntities->operator[](j);
 
                 centerDistance.x = entity2->getPosition().x - entity1->getPosition().x;

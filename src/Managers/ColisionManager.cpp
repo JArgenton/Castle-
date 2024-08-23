@@ -29,8 +29,6 @@ namespace Managers
             entity1 = StaticEntities->operator[](i);
             for (j = 0; j < MovingEntities->getSize(); j++)
             {
-                cout << j << endl;
-
                 entity2 = MovingEntities->operator[](j);
 
                 centerDistance.x = entity2->getPosition().x - entity1->getPosition().x;

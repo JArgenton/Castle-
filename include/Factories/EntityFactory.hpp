@@ -12,6 +12,6 @@ namespace Factories
     public:
         EntityFactory();
         virtual ~EntityFactory();
-        virtual Entity *FactoryMethood(TupleF _position, ID _id = empty) = 0;
+        virtual Entity *FactoryMethood(TupleF _position, ID _id) = 0;
     }; // classe geral, sera utilizada para polimorfismo
 }

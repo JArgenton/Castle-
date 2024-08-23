@@ -8,7 +8,7 @@ namespace Factories
     public:
         ObstaclesFactory(/* args */);
         ~ObstaclesFactory();
-        Entity *FactoryMethood(TupleF _position, ID _id = empty);
+        Entity *FactoryMethood(TupleF _position, ID _id);
     };
 
 } // namespace Factories

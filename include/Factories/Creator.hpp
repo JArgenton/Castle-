@@ -65,6 +65,8 @@ namespace Factories
         pFactory = nullptr;
         oFactory = nullptr;
         Player1 = nullptr;
+        MovingEntities.cleanList();
+        StaticEntities.cleanList();
     }
     void Principal::exec()
     {
@@ -90,6 +92,11 @@ namespace Factories
                         gpManager->closeWindow();
                     }
                 }
+                for (int i = 0; i <= 9; i++)
+                {
+
+                    StaticEntities[i]->render();
+                }
                 ClManager.check_collision();
                 Player1->update(0.5);
 
@@ -110,15 +117,26 @@ namespace Factories
 
     void Principal::createFase(/*.JSON*/)
     {
+        cout << "dsdsdfs" << endl;
 
         TupleF position = TupleF(100.0f, 100.0f);
         Player1 = static_cast<Characters::Player *>(Create(pFactory, position, ID::PLAYER1));
         MovingEntities.add(Player1);
-
+        Entities::Entity *pE = nullptr;
+        position = TupleF(0.0f, 200.0f);
+        cout << "xececa" << endl;
         for (int i = 0; i <= 9; i++)
         {
-            position += (TupleF(100.0f, 100.0f));
-            StaticEntities.add(Create((EntityFactory *)oFactory, position, ID::PLATAFORMA));
+
+            position += (TupleF(50.0f, 0.0f));
+
+            pE = Create((EntityFactory *)oFactory, position, ID::PLATAFORMA);
+            if (pE)
+            {
+                cout << i << endl;
+                StaticEntities.add(pE);
+                cout << StaticEntities[i]->getPosition().x << endl;
+            }
         }
         position += (TupleF(100.0f, 100.0f));
         StaticEntities.add(Create((EntityFactory *)oFactory, position, ID::PLATAFORMA));

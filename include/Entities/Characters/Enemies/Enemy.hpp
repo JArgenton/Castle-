@@ -13,15 +13,13 @@ namespace Entities
         {
             class Enemy : public Character
             {
-            private:
-                Player *pPlayer;
-
             protected:
                 float playerDistance;
                 const unsigned int points;
+                Player *pPlayer;
 
             public:
-                Enemy(TupleF _position = TupleF(0.0f, 0.0f),
+                Enemy(TupleF _position = TupleF(400.0f, 100.0f),
                       ID id = empty,
                       int life = 1,
                       Entities::Characters::Player *pP = nullptr,

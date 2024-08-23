@@ -15,12 +15,15 @@ int main()
     Managers::Graphics *gpManager = Managers::Graphics::get_instance();
     Managers::Collision *ClManager = Managers::Collision::getInstance();
     Entities::Characters::Player p1;
+    Entities::Characters::Enemies::Archer arc;
     //  Loop principal
     TupleF pos = TupleF(110.0f, 110.0f);
     Entities::Weapons::Sword *pW = new Entities::Weapons::Sword;
     p1.set_weapon(pW);
     Entities::Obstacles::Plataforma plat1 = Entities::Obstacles::Plataforma(TupleF(200.0f, 200.0f));
-    Entities::Obstacles::Plataforma plat2 = Entities::Obstacles::Plataforma(TupleF(400.0f, 200.0f));
+    Entities::Obstacles::Plataforma plat2 = Entities::Obstacles::Plataforma(TupleF(500.0f, 200.0f));
+
+    Entities::Projectile projectile(TupleF(450.0f, 100.0f), TupleF(-20.0f, 0.0f), sf::Color::Blue); // Projétil vermelho
 
     // Entities::Obstacles::Lava lava = Entities::Obstacles::Lava(TupleF(300.0f, 200.0f));
     Entities::Obstacles::Armadilha arm = Entities::Obstacles::Armadilha(TupleF(500.0f, 200.0f));
@@ -51,14 +54,20 @@ int main()
                 }
             }
             ClManager->check_collision();
+            sf::RectangleShape shape = projectile.getShape();
+            gpManager->render(&shape);
             p1.update(4);
+            arc.render();
             plat1.render();
             plat2.render();
             // lava.render();
             arm.render();
             gpManager->updateDeltaTime();
+
             // Atualiza a janela
+            projectile.update(0.1);
             p1.update(0.1);
+            arc.update(0.1);
             gpManager->display();
             gpManager->clear();
         }

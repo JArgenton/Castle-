@@ -22,6 +22,7 @@ namespace Entities
         ARMADILHA,
         ENEMY,
         ARCHER,
+        PROJECTILE
     };
     class Entity : public Ent
     {

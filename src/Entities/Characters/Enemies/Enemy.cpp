@@ -23,16 +23,6 @@ namespace Entities
                 pPlayer = nullptr;
             }
 
-            TupleF Enemy::getPlayerPosition()
-            {
-                if (!pPlayer)
-                {
-                    cout << "ERRO player nulo em getPlayerPosition" << endl;
-                    exit(1);
-                }
-                return pPlayer->getPosition();
-            }
-
             void Enemy::setpPlayer(Entities::Characters::Player *pP)
             {
                 if (!pP)
@@ -41,6 +31,16 @@ namespace Entities
                     exit(1);
                 }
                 pPlayer = pP;
+            }
+
+            TupleF Enemy::getPlayerPosition()
+            {
+                if (!pPlayer)
+                {
+                    cout << "ERRO player nulo em getPlayerPosition" << endl;
+                    exit(1);
+                }
+                return pPlayer->getPosition();
             }
 
             void Enemy::receiveDamage(const int damage)
@@ -58,11 +58,12 @@ namespace Entities
 
             void Enemy::collide(Entity *otherEntity, TupleF intersect)
             {
+                moveOnColision(otherEntity, intersect);
+
                 switch (otherEntity->getId())
                 {
                 case ID::PLATAFORMA:
                 {
-                    moveOnColision(otherEntity, intersect);
                     break;
                 }
                 case ID::PLAYER:

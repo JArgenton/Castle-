@@ -1,4 +1,8 @@
 #pragma once
+<<<<<<< HEAD
+=======
+
+>>>>>>> ComEnemies
 #include "Entities/MovingEntity.hpp"
 
 namespace Entities

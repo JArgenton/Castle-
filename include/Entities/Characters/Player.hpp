@@ -1,4 +1,8 @@
 #pragma once
+<<<<<<< HEAD
+=======
+
+>>>>>>> ComEnemies
 #include "Character.hpp"
 #include "Utilis/Tuple.hpp"
 using namespace Tuples;
@@ -17,6 +21,7 @@ namespace Entities
         {
         private:
             const float dmgCooldown; // tempo para tomar dano novamente
+            unsigned int points;
 
             /*actions*/
             bool canWalk;
@@ -43,6 +48,7 @@ namespace Entities
 
             /*GETs*/
             Weapons::Weapon *get_weapon();
+            const int getPoints() const;
 
             /*actions*/
             void atack();
@@ -50,6 +56,7 @@ namespace Entities
             void jump();
             void walk(bool toLeft);
             void stop();
+            void incrementPoints(const int points);
 
             /*visuals*/
             void execute();

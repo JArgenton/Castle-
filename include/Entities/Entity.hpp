@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 #include "Utilis/Tuple.hpp"
 #include "Ent.hpp"
@@ -20,9 +21,15 @@ namespace Entities
         LAVA,
         PLATAFORMA,
         ARMADILHA,
+<<<<<<< HEAD
         SOLDIER,
         ARCHER,
         DUMB,
+=======
+        ENEMY,
+        ARCHER,
+        PROJECTILE
+>>>>>>> ComEnemies
     };
     class Entity : public Ent
     {

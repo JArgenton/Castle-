@@ -1,6 +1,6 @@
 #include "Entities/Obstacles/Plataforma.hpp"
 
-#define WIDGHT 50.0f
+#define WIDGHT 250.0f
 #define HEIGHT 50.0f
 
 namespace Entities
@@ -17,7 +17,7 @@ namespace Entities
 
         void Plataforma::initialize()
         {
-            setSize(HEIGHT, WIDGHT);
+            setSize(WIDGHT, HEIGHT);
             std::string texturepath = "assets/freetileset/png/Tiles/2.png";
             SetTexture(texturepath);
         }

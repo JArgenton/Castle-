@@ -1,31 +1,13 @@
 #include "Entities/Characters/Enemies/Enemy.hpp"
 
-<<<<<<< HEAD
-=======
 #include "Entities/Characters/Player.hpp"
 
->>>>>>> ComEnemies
 namespace Entities
 {
     namespace Characters
     {
         namespace Enemies
         {
-<<<<<<< HEAD
-
-            Player *pPlayer;
-
-            Enemy::Enemy(TupleF _position) : Character(_position),
-                                             playerDistance(0.0f)
-            {
-            }
-            Enemy::~Enemy()
-            {
-                active = false;
-                pPlayer = nullptr;
-            }
-
-=======
             Enemy::Enemy(TupleF _position,
                          ID id,
                          int life,
@@ -84,7 +66,7 @@ namespace Entities
                 {
                     break;
                 }
-                case ID::PLAYER:
+                case ID::PLAYER1:
                 {
                     if (pPlayer != nullptr)
                     {
@@ -105,7 +87,6 @@ namespace Entities
                 }
             }
 
->>>>>>> ComEnemies
         }
     }
 }

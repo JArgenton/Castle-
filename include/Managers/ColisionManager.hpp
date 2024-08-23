@@ -10,11 +10,10 @@ namespace Managers
         List::EntityList *StaticEntities;
         List::EntityList *MovingEntities;
         static Collision *instance;
-        Collision();
 
     public:
+        Collision(List::EntityList *_staticEntities, List::EntityList *_movingEntities);
         ~Collision();
         void check_collision();
-        static Collision *getInstance();
     };
 }

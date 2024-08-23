@@ -16,8 +16,6 @@ namespace Entities
         int animationId;
 
     public:
-        static List::EntityList MovingEntities;
-
         MovingEntity(TupleF _position = TupleF(0.0f, 0.0f), ID id = empty);
 
         virtual ~MovingEntity();
@@ -44,6 +42,6 @@ namespace Entities
 
         /*update*/
         virtual void update(const float dt) = 0;
-        virtual void updateSprite(const float dt) = 0;
+        // virtual void updateSprite(const float dt) = 0;
     };
 }

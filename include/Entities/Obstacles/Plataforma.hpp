@@ -1,3 +1,4 @@
+#pragma once
 #include "Entities/StaticEntity.hpp"
 
 namespace Entities

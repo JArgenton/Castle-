@@ -52,9 +52,7 @@ namespace Tuples
     Tuple<TIPO>::~Tuple()
     {
     }
-    // Remove this
-    // Tuple<float>::~Tuple(){
-    // }
+
     template <typename TIPO>
     void Tuple<TIPO>::operator=(Tuple<TIPO> Tuple)
     {
@@ -77,6 +75,13 @@ namespace Tuples
     Tuple<TIPO> Tuple<TIPO>::operator/(double escalar)
     {
         return Tuple<TIPO>(this->x / escalar, this->y / escalar);
+    }
+
+    template <typename TIPO>
+    void Tuple<TIPO>::operator+=(Tuple<TIPO> Tuple)
+    {
+        this->x += Tuple.x;
+        this->y += Tuple.y;
     }
 
 }

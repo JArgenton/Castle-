@@ -14,11 +14,15 @@ namespace Entities
     enum ID
     {
         empty = 0,
-        PLAYER,
+        PLAYER1,
+        PLAYER2,
         WEAPON,
         LAVA,
         PLATAFORMA,
         ARMADILHA,
+        SOLDIER,
+        ARCHER,
+        DUMB,
     };
     class Entity : public Ent
     {

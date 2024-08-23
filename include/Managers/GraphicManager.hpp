@@ -14,8 +14,8 @@ namespace Managers
     private:
         sf::RenderWindow *window; // janela que o jogo passara
 
-        flyweight::Factory<sf::Texture> textureFactory;
-        flyweight::Factory<sf::Font> fontFactory;
+        flyweight::Flyweight<sf::Texture> textureFactory;
+        flyweight::Flyweight<sf::Font> fontFactory;
 
         // clock para processamento
         sf::Clock clock;

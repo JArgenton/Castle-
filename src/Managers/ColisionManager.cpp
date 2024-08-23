@@ -5,28 +5,15 @@
 using namespace Entities;
 namespace Managers
 {
-    Collision *Collision::instance = nullptr;
-
-    Collision::Collision() : StaticEntities(),
-                             MovingEntities()
+    Collision::Collision(List::EntityList *_staticEntities, List::EntityList *_movingEntities) : StaticEntities(_staticEntities),
+                                                                                                 MovingEntities(_movingEntities)
     {
-        StaticEntities = &StaticEntity::StaticEntities;
-        MovingEntities = &MovingEntity::MovingEntities;
     }
 
     Collision::~Collision()
     {
         StaticEntities = nullptr;
         MovingEntities = nullptr;
-    }
-    Collision *Collision::getInstance()
-    {
-        if (instance == nullptr)
-        {
-            instance = new Collision;
-        }
-
-        return instance;
     }
 
     void Collision::check_collision()

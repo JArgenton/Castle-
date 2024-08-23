@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 #include "Utilis/Tuple.hpp"
 #include "Ent.hpp"
@@ -19,6 +20,8 @@ namespace Entities
         LAVA,
         PLATAFORMA,
         ARMADILHA,
+        ENEMY,
+        ARCHER,
     };
     class Entity : public Ent
     {

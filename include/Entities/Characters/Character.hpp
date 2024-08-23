@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Entities/MovingEntity.hpp"
 
 namespace Entities

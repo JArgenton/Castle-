@@ -7,6 +7,7 @@
 #include "Entities/Obstacles/Armadilha.hpp"
 #include "Utilis/Tuple.hpp"
 #include "Managers/ColisionManager.hpp"
+#include "Entities/Characters/Enemies/Archer.hpp"
 
 int main()
 {
@@ -18,8 +19,10 @@ int main()
     TupleF pos = TupleF(110.0f, 110.0f);
     Entities::Weapons::Sword *pW = new Entities::Weapons::Sword;
     p1.set_weapon(pW);
-    Entities::Obstacles::Plataforma plat = Entities::Obstacles::Plataforma(TupleF(100.0f, 200.0f));
-    Entities::Obstacles::Lava lava = Entities::Obstacles::Lava(TupleF(300.0f, 200.0f));
+    Entities::Obstacles::Plataforma plat1 = Entities::Obstacles::Plataforma(TupleF(200.0f, 200.0f));
+    Entities::Obstacles::Plataforma plat2 = Entities::Obstacles::Plataforma(TupleF(400.0f, 200.0f));
+
+    // Entities::Obstacles::Lava lava = Entities::Obstacles::Lava(TupleF(300.0f, 200.0f));
     Entities::Obstacles::Armadilha arm = Entities::Obstacles::Armadilha(TupleF(500.0f, 200.0f));
     int size = Entities::MovingEntity::MovingEntities.getSize();
     int sizes = Entities::StaticEntity::StaticEntities.getSize();
@@ -49,8 +52,9 @@ int main()
             }
             ClManager->check_collision();
             p1.update(4);
-            plat.render();
-            lava.render();
+            plat1.render();
+            plat2.render();
+            // lava.render();
             arm.render();
             gpManager->updateDeltaTime();
             // Atualiza a janela

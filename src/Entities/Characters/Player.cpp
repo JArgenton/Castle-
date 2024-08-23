@@ -60,6 +60,11 @@ namespace Entities
             return weapon;
         }
 
+        const int Player::getPoints() const
+        {
+            return points;
+        }
+
         /*actions*/
         void Player::atack()
         {
@@ -81,6 +86,12 @@ namespace Entities
                 dmgTimer = 0;
             }
         }
+
+        void Player::incrementPoints(const int points)
+        {
+            this->points += points;
+        }
+
         void Player::collide(Entity *other, TupleF intersec)
         {
             moveOnColision(other, intersec);

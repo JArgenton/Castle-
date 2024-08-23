@@ -1,8 +1,4 @@
 #pragma once
-<<<<<<< HEAD
-=======
-
->>>>>>> ComEnemies
 #include "Character.hpp"
 #include "Utilis/Tuple.hpp"
 using namespace Tuples;

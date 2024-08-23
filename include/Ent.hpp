@@ -14,6 +14,6 @@ public:
     virtual void render();
     virtual void initialize() = 0;
     virtual void execute() = 0;
-    void SetTexture(std::string &path);
+    void SetTexture(string &path);
     void setOrigem(float width, float height);
 };

@@ -1,12 +1,8 @@
 #pragma once
-<<<<<<< HEAD
-#include "Entities/Characters/Enemies/Enemy.hpp"
-=======
 
 #include "Entities/Characters/Enemies/Enemy.hpp"
 #include "Entities/Weapons/Projectile.hpp"
 #include "Entities/Characters/Player.hpp"
->>>>>>> ComEnemies
 
 namespace Entities
 {
@@ -17,18 +13,6 @@ namespace Entities
             class Archer : public Enemy
             {
             private:
-<<<<<<< HEAD
-                static std::string texturepath;
-
-            public:
-                Archer(TupleF _position);
-                ~Archer();
-                void collide(Entity *other, TupleF intersec);
-                void initialize();
-                void update(const float dt);
-                void execute();
-            };
-=======
                 std::vector<Projectile> projectiles; // Lista de projéteis
                 void addProjectile(const Projectile &projectile);
                 const std::vector<Projectile> &getProjectiles() const;
@@ -51,7 +35,6 @@ namespace Entities
                 // void updateSprite(const float dt);
             };
 
->>>>>>> ComEnemies
         } // namespace Enemies
 
     } // namespace Characters

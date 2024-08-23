@@ -10,7 +10,7 @@ namespace Entities
             class Soldier : public Enemy
             {
             private:
-                static std::string texturepath;
+                static string texturepath;
 
             public:
                 Soldier(TupleF _position);

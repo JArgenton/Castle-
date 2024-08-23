@@ -1,90 +1,9 @@
-<<<<<<< HEAD
-#include <iostream>
-#include "Managers/GraphicManager.hpp"
-#include "Entities/Characters/Player.hpp"
-#include "Entities/Weapons/Sword.hpp"
-#include "Entities/Obstacles/Plataforma.hpp"
-#include "Entities/Obstacles/Lava.hpp"
-#include "Entities/Obstacles/Armadilha.hpp"
-#include "Utilis/Tuple.hpp"
-#include "Managers/ColisionManager.hpp"
-<<<<<<< HEAD
-=======
->>>>>>> Factory_patern
-=======
-#include "Entities/Characters/Enemies/Archer.hpp"
->>>>>>> ComEnemies
 
 #include "Factories/Creator.hpp"
 int main()
 {
-<<<<<<< HEAD
-    // Obtém a instância do Graphics Manager
-    Managers::Graphics *gpManager = Managers::Graphics::get_instance();
-    Managers::Collision *ClManager = Managers::Collision::getInstance();
-    Entities::Characters::Player p1;
-    Entities::Characters::Enemies::Archer arc;
-    //  Loop principal
-    TupleF pos = TupleF(110.0f, 110.0f);
-    Entities::Weapons::Sword *pW = new Entities::Weapons::Sword;
-    p1.set_weapon(pW);
-    Entities::Obstacles::Plataforma plat1 = Entities::Obstacles::Plataforma(TupleF(200.0f, 200.0f));
-    Entities::Obstacles::Plataforma plat2 = Entities::Obstacles::Plataforma(TupleF(500.0f, 200.0f));
 
-    Entities::Projectile projectile(TupleF(450.0f, 100.0f), TupleF(-20.0f, 0.0f), sf::Color::Blue); // Projétil vermelho
-
-    // Entities::Obstacles::Lava lava = Entities::Obstacles::Lava(TupleF(300.0f, 200.0f));
-    Entities::Obstacles::Armadilha arm = Entities::Obstacles::Armadilha(TupleF(500.0f, 200.0f));
-    int size = Entities::MovingEntity::MovingEntities.getSize();
-    int sizes = Entities::StaticEntity::StaticEntities.getSize();
-
-    printf("%d, %d \n", size, sizes);
-
-    while (gpManager->isWindowOpen())
-    {
-        sf::Event event;
-        // Processa eventos
-
-        while (gpManager->pullEvent(event))
-        {
-            // Verifica o tipo de evento
-
-            if (event.type == sf::Event::Closed)
-            {
-                gpManager->closeWindow();
-            }
-
-            if (event.type == sf::Event::KeyPressed)
-            {
-                if (event.key.code == sf::Keyboard::Space)
-                {
-                    gpManager->closeWindow();
-                }
-            }
-            ClManager->check_collision();
-            sf::RectangleShape shape = projectile.getShape();
-            gpManager->render(&shape);
-            p1.update(4);
-            arc.render();
-            plat1.render();
-            plat2.render();
-            // lava.render();
-            arm.render();
-            gpManager->updateDeltaTime();
-
-            // Atualiza a janela
-            projectile.update(0.1);
-            p1.update(0.1);
-            arc.update(0.1);
-            gpManager->display();
-            gpManager->clear();
-        }
-    }
-
-    std::cout << "Janela fechada" << std::endl;
-=======
     Factories::Principal p;
->>>>>>> Factory_patern
 
     return 0;
 }

@@ -21,15 +21,9 @@ namespace Entities
         LAVA,
         PLATAFORMA,
         ARMADILHA,
-<<<<<<< HEAD
-        SOLDIER,
-        ARCHER,
-        DUMB,
-=======
         ENEMY,
         ARCHER,
         PROJECTILE
->>>>>>> ComEnemies
     };
     class Entity : public Ent
     {

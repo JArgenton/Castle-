@@ -29,7 +29,7 @@ namespace Entities
         sf::RectangleShape getShape() const;
 
         void collide(Entity *otherEntity, TupleF intersect) override;
-        void updateSprite(const float dt) override;
+        // void updateSprite(const float dt) override;
         void execute() override;
     };
 }

@@ -105,6 +105,7 @@ namespace Factories
                 {
                     StaticEntities[i]->render();
                 }
+                Arc->setpPlayer(Player1);
                 ClManager.check_collision();
                 Player1->update(0.5);
                 Arc->update(0.5);

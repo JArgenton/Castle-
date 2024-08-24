@@ -13,7 +13,6 @@ namespace Entities
 
     public:
         Projectile(TupleF _position, TupleF _velocity, sf::Color color);
-        ~Projectile();
         void update(float dt) override;
 
         const float getDamage();

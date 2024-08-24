@@ -29,7 +29,6 @@ namespace Entities
             {
                 if (!pP)
                 {
-                    cout << "ERRO player nulo em  Enemy::setpPlayer." << endl;
                     exit(1);
                 }
                 pPlayer = pP;
@@ -39,7 +38,6 @@ namespace Entities
             {
                 if (!pPlayer)
                 {
-                    cout << "ERRO player nulo em getPlayerPosition" << endl;
                     exit(1);
                 }
                 return pPlayer->getPosition();

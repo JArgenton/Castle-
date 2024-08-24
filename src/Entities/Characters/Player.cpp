@@ -127,6 +127,7 @@ namespace Entities
                     reciveDmg(proj->getDamage());
                 }
                 printf("colidiu flecha");
+                break;
             }
             default:
                 break;

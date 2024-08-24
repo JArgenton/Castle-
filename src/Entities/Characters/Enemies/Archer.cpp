@@ -1,5 +1,7 @@
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Weapons/Projectile.hpp"
+#include <iostream>
+#include <cmath>
 
 #define ARCHER_DMG 10.0f
 #define ARCHER_TIME 10.0f
@@ -31,14 +33,29 @@ namespace Entities
             void Archer::shoot()
             {
                 TupleF archerPosition = getPosition();
-                TupleF archerSize = getSize(); // Assume que getSize retorna o tamanho do arqueiro
+                TupleF archerSize = getSize();
 
                 // Calcule a posição central do arqueiro
                 TupleF projectilePosition = {
                     archerPosition.x - archerSize.x / 2.0f,
                     archerPosition.y - archerSize.y / 2.0f};
 
-                TupleF projectileVelocity = {-5254.0f, 0.0f};   // Velocidade do projétil
+                // Mira no jogador
+                TupleF playerPosition = pPlayer->getPosition();
+
+                // Calcule a direção do projétil para o jogador
+                float dx = playerPosition.x - projectilePosition.x;
+                float dy = playerPosition.y - projectilePosition.y;
+                float distance = sqrt(dx * dx + dy * dy);
+
+                // Normaliza a direção
+                TupleF direction = {dx / distance, dy / distance};
+
+                // Define a velocidade do projétil
+                float projectileSpeedX = 8.0f;
+                float projectileSpeedY = 15.0f;
+
+                TupleF projectileVelocity = {direction.x * projectileSpeedX, direction.y * projectileSpeedY};
                 sf::Color projectileColor = sf::Color::Blue; // Cor do projétil
 
                 // Cria um novo projétil
@@ -78,7 +95,7 @@ namespace Entities
 
                 // Atualiza posição do archer
                 TupleF position = getPosition();
-                velocity.y += GRAVITY;
+                velocity.y += (GRAVITY);
                 position.x += velocity.x * dt;
                 position.y += velocity.y * dt;
                 setPosition(position);

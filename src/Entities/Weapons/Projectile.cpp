@@ -12,9 +12,13 @@ namespace Entities
         set_velocity(_velocity); // Define a velocidade
 
         // Configura o RectangleShape do projétil
-        projectileShape.setSize(sf::Vector2f(10.0f, 5.0f)); // Define o tamanho do projétil
-        projectileShape.setFillColor(color);                // Define a cor do projétil
+        projectileShape.setSize(sf::Vector2f(30.0f, 30.0f)); // Define o tamanho do projétil
+        projectileShape.setFillColor(color);                 // Define a cor do projétil
         projectileShape.setPosition(_position.x, _position.y);
+    }
+
+    Projectile::Projectile()
+    {
     }
 
     Projectile::~Projectile()
@@ -36,13 +40,25 @@ namespace Entities
             active = false;
         }
 
+        if (!active)
+        {
+            return;
+        }
+
         // Atualiza a posição do projétil com base na velocidade e delta time
         TupleF velocity = get_velocity();
         TupleF newPosition = getPosition();
-        velocity.y += GRAVITY;
+
+        // Atualiza a velocidade vertical com a gravidade
+        velocity.y += GRAVITY * dt;
+
+        // Atualiza a posição com base na velocidade
         newPosition.x += velocity.x * dt;
-        newPosition.y += velocity.y * dt * 3;
+        newPosition.y += velocity.y * dt;
+
+        // Define a nova posição e velocidade
         setPosition(newPosition);
+        set_velocity(velocity);
 
         // Atualiza a posição do RectangleShape do projétil
         projectileShape.setPosition(newPosition.x, newPosition.y);
@@ -87,34 +103,20 @@ namespace Entities
     {
         moveOnColision(otherEntity, intersect);
 
-        switch (otherEntity->getId())
+        if (active)
         {
-        case ID::PLAYER1:
-        {
-            active = false;
-            break;
-        }
-        case ID::PLAYER2:
-        {
-            active = false;
-            break;
-        }
-        case ID::PLATAFORMA:
-        {
-            active = false;
-            break;
-        }
-        case ID::LAVA:
-        {
-            active = false;
-            break;
-        }
-
-        default:
-        {
-            this->active = false;
-            break;
-        }
+            switch (otherEntity->getId())
+            {
+            case ID::PLAYER1:
+            case ID::PLAYER2:
+            case ID::PLATAFORMA:
+            case ID::LAVA:
+                active = false;
+                break;
+            default:
+                active = false;
+                break;
+            }
         }
     }
 

@@ -1,5 +1,7 @@
 #include "Entities/Characters/Player.hpp"
 #include "Entities/Weapons/Weapon.hpp"
+#include "Entities/Obstacles/Lava.hpp"
+#include "Entities/Obstacles/Armadilha.hpp"
 
 #define PLAYER_SIZE_X 100.0f
 #define PLAYER_SIZE_Y 100.0f
@@ -11,6 +13,8 @@ using namespace std;
 
 namespace Entities
 {
+    using namespace Obstacles;
+
     namespace Characters
     {
         Player::Player(Weapons::Weapon *pW, ID _id) : Character(TupleF(100.0f, 100.0f), _id),
@@ -107,7 +111,11 @@ namespace Entities
             }
             case ID::LAVA:
             {
-                /*TODO*/
+                Lava *lava = dynamic_cast<Lava *>(other);
+                if (lava)
+                {
+                    reciveDmg(lava->getDamage());
+                }
                 break;
             }
             default:

@@ -76,7 +76,7 @@ namespace Entities
         // Executar a lógica específica do projétil
     }
 
-    sf::RectangleShape Projectile::getShape() const
+    const sf::RectangleShape Projectile::getShape() const
     {
         return projectileShape;
     }

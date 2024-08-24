@@ -41,7 +41,10 @@ namespace Factories
         default:
             break;
         }
-        pE->initialize();
+        if (pE != nullptr)
+        {
+            pE->initialize();
+        }
         return pE;
     }
 } // namespace Factories

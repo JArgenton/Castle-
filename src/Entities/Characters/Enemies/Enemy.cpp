@@ -1,9 +1,11 @@
 #include "Entities/Characters/Enemies/Enemy.hpp"
-
+#include "Entities/Obstacles/Lava.hpp"
 #include "Entities/Characters/Player.hpp"
 
 namespace Entities
 {
+    using namespace Obstacles;
+
     namespace Characters
     {
         namespace Enemies
@@ -71,12 +73,18 @@ namespace Entities
                     if (pPlayer != nullptr)
                     {
                         moveOnColision(otherEntity, intersect);
-                        receiveDamage(10); // player ainda não tem arma, dessa forma o inimigo vai tomar o proprio dano que causaria ao player quando se encostarem
+                        receiveDamage(10); // player ainda não tem arma
                     }
                 }
                 case ID::LAVA:
                 {
                     moveOnColision(otherEntity, intersect);
+
+                    Lava *lava = dynamic_cast<Lava *>(otherEntity);
+                    if (lava)
+                    {
+                        receiveDamage(lava->getDamage());
+                    }
                     break;
                 }
                 case ID::ARMADILHA:

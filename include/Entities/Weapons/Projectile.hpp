@@ -26,7 +26,7 @@ namespace Entities
         // Retorna o status de ativação do projétil
         bool isActive() const;
 
-        sf::RectangleShape getShape() const;
+        const sf::RectangleShape getShape() const;
 
         void collide(Entity *otherEntity, TupleF intersect) override;
         // void updateSprite(const float dt) override;

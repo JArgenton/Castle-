@@ -1,9 +1,13 @@
+#pragma once
+
 #include "Factories/EnemiesFactory.hpp"
 #include "Factories/ObstaclesFactory.hpp"
 #include "Factories/PlayerFactory.hpp"
 #include "Managers/ColisionManager.hpp"
 #include "Managers/GraphicManager.hpp"
 #include "Entities/Characters/Player.hpp"
+#include "Entities/Characters/Enemies/Enemy.hpp"
+#include "Entities/Characters/Enemies/Archer.hpp"
 #include "Utilis/EntityList.hpp"
 #include <nlohmann/json.hpp>
 #include <fstream>
@@ -25,6 +29,8 @@ namespace Factories
         Characters::Player *Player1;
         Characters::Player *Player2;
 
+        Characters::Enemies::Archer *Arc;
+
         Managers::Collision ClManager;
         Managers::Graphics *gpManager;
 
@@ -43,6 +49,7 @@ namespace Factories
                              oFactory(),
                              Player1(),
                              Player2(),
+                             Arc(),
                              ClManager(&StaticEntities, &MovingEntities),
                              gpManager(Managers::Graphics::get_instance())
     {
@@ -100,6 +107,7 @@ namespace Factories
                 }
                 ClManager.check_collision();
                 Player1->update(0.5);
+                // Arc->update(0.5);
 
                 gpManager->updateDeltaTime();
                 // Atualiza a janela
@@ -159,6 +167,12 @@ namespace Factories
         if (Player1)
         {
             MovingEntities.add(Player1);
+        }
+
+        Arc = static_cast<Characters::Enemies::Archer *>(Create(pFactory, TupleF(400.0f, 200.0f), ID::ARCHER));
+        if (Arc)
+        {
+            MovingEntities.add(Arc);
         }
         printf("%d", StaticEntities.getSize());
     }

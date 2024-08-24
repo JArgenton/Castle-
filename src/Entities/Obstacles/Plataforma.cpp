@@ -1,6 +1,6 @@
 #include "Entities/Obstacles/Plataforma.hpp"
 
-#define WIDGHT 250.0f
+#define WIDGHT 100.0f
 #define HEIGHT 50.0f
 
 namespace Entities

@@ -30,16 +30,19 @@ namespace Entities
 
             void Archer::shoot()
             {
-                if (pPlayer)
-                {
-                    TupleF playerPos = pPlayer->getPosition();
-                    TupleF archerPos = getPosition();
-                    TupleF direction = {(playerPos.x - archerPos.x) / 100.0f, (playerPos.y - archerPos.y) / 100.0f};
+                TupleF projectilePosition = this->getPosition(); // A posição do arqueiro
+                TupleF projectileVelocity = {0.0f, -300.0f};     // Velocidade do projétil
+                sf::Color projectileColor = sf::Color::Red;      // Cor do projétil
 
-                    // Cria um novo projétil
-                    Projectile newProjectile(archerPos, direction, sf::Color::Red);
-                    projectiles.push_back(newProjectile);
-                }
+                // Cria um novo projétil
+                Projectile newProjectile(projectilePosition, projectileVelocity, projectileColor);
+
+                // Adiciona o projétil à lista de projéteis
+                addProjectile(newProjectile);
+            }
+            void Archer::addProjectile(const Projectile &projectile)
+            {
+                projectiles.push_back(projectile);
             }
 
             void Archer::update(const float dt)
@@ -75,6 +78,11 @@ namespace Entities
             void Archer::execute()
             {
                 // TODO
+            }
+
+            const std::vector<Projectile> &Archer::getProjectiles() const
+            {
+                return projectiles;
             }
 
             void Archer::updateSprite(const float dt)

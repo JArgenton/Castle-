@@ -2,6 +2,7 @@
 #include "Entities/Weapons/Weapon.hpp"
 #include "Entities/Obstacles/Lava.hpp"
 #include "Entities/Obstacles/Armadilha.hpp"
+#include "Entities/Weapons/Projectile.hpp"
 
 #define PLAYER_SIZE_X 100.0f
 #define PLAYER_SIZE_Y 100.0f
@@ -117,6 +118,15 @@ namespace Entities
                     reciveDmg(lava->getDamage());
                 }
                 break;
+            }
+            case ID::PROJECTILE:
+            {
+                Projectile *proj = dynamic_cast<Projectile *>(other);
+                if (proj)
+                {
+                    reciveDmg(proj->getDamage());
+                }
+                printf("colidiu flecha");
             }
             default:
                 break;

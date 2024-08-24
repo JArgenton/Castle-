@@ -107,7 +107,7 @@ namespace Factories
                 }
                 ClManager.check_collision();
                 Player1->update(0.5);
-                // Arc->update(0.5);
+                Arc->update(0.5);
 
                 gpManager->updateDeltaTime();
                 // Atualiza a janela
@@ -169,11 +169,12 @@ namespace Factories
             MovingEntities.add(Player1);
         }
 
-        Arc = static_cast<Characters::Enemies::Archer *>(Create(pFactory, TupleF(400.0f, 200.0f), ID::ARCHER));
+        Arc = static_cast<Characters::Enemies::Archer *>(Create(eFactory, TupleF(400.0f, 200.0f), ID::ARCHER));
         if (Arc)
         {
             MovingEntities.add(Arc);
         }
+
         printf("%d", StaticEntities.getSize());
     }
 } // namespace Factory

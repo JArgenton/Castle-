@@ -9,11 +9,14 @@ namespace Entities
     private:
         sf::RectangleShape projectileShape; // Forma usada para desenhar o projétil
         bool active;                        // Estado de ativação do projétil
+        float timeInScreen;
 
     public:
         Projectile(TupleF _position, TupleF _velocity, sf::Color color);
         ~Projectile();
         void update(float dt) override;
+
+        const float getDamage();
 
         void render(sf::RenderWindow &window) const;
 

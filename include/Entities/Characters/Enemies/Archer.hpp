@@ -16,6 +16,7 @@ namespace Entities
                 std::vector<Projectile> projectiles; // Lista de projéteis
                 void addProjectile(const Projectile &projectile);
                 const std::vector<Projectile> &getProjectiles() const;
+                float timer;
 
             public:
                 Archer(TupleF position = TupleF(400.0f, 100.0f), Player *pP = nullptr);

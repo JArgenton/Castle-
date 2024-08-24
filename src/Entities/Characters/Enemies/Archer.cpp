@@ -38,7 +38,7 @@ namespace Entities
                     archerPosition.x - archerSize.x / 2.0f,
                     archerPosition.y - archerSize.y / 2.0f};
 
-                TupleF projectileVelocity = {-5.0f, 0.0f};   // Velocidade do projétil
+                TupleF projectileVelocity = {-5254.0f, 0.0f};   // Velocidade do projétil
                 sf::Color projectileColor = sf::Color::Blue; // Cor do projétil
 
                 // Cria um novo projétil

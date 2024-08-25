@@ -1,10 +1,13 @@
 
 #include "Principal.hpp"
+
+#include "States/Jogo.hpp"
+
 int main()
 {
 
-    Factories::Principal p;
-    p.exec();
+    States::Jogo j;
+    j.exec();
 
     return 0;
 }

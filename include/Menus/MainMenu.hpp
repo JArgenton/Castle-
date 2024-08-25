@@ -3,9 +3,9 @@
 #include "Menus/Menu.hpp"
 #include "States/State.hpp"
 
-namespace Factories
+namespace States
 {
-    class Principal;
+    class Jogo;
 }
 
 namespace Menus
@@ -14,11 +14,11 @@ namespace Menus
     class MainMenuState : public Menu, public States::State
     {
     private:
-        Factories::Principal *pPrin;
+        States::Jogo *pJogo;
         GraphicalElements::Text title;
 
     public:
-        MainMenuState(Factories::Principal *pP = nullptr);
+        MainMenuState(States::Jogo *pG = nullptr);
 
         ~MainMenuState();
 

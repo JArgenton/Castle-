@@ -1,14 +1,13 @@
 #include "Menus/MainMenu.hpp"
-#include "Principal.hpp"
+#include "States/Jogo.hpp"
 
 namespace Menus
 {
 
-    MainMenuState::MainMenuState(Factories::Principal *pP = nullptr) : Menu(),
-
-                                                                       State(static_cast<States::StateMachine *>(pPrin), States::stateID::MAINMENU),
-                                                                       pPrin(pP),
-                                                                       title()
+    MainMenuState::MainMenuState(States::Jogo *pG) : Menu(),
+                                                     State(static_cast<States::StateMachine *>(pG), States::stateID::MAINMENU),
+                                                     pJogo(pG),
+                                                     title()
     {
         Managers::Graphics *GM = Managers::Graphics::get_instance();
         GraphicalElements::Button *bt = NULL;

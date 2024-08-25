@@ -1,8 +1,8 @@
 #include "GraphElements/Button.hpp"
 
 #define BUTTON_PATH_DEFAULT "assets/Botoes/buttonStock1.png"
-#define BUTTON_PATH_SELECTED "assets/Botoes/buttonStock3.png"
-#define BUTTON_HEIGHT 80
+#define BUTTON_PATH_SELECTED "assets/Botoes/buttonStock1h.png"
+#define BUTTON_HEIGHT 150
 #define BUTTON_WIDTH 300
 #define BUTTON_TEXT_COLOR 77.6, 68.2, 44.3 // R, G, B
 #define FONT_SIZE 30

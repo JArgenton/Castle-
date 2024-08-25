@@ -21,6 +21,9 @@ namespace GraphicalElements
         void select(const bool isSelected);
 
         void render();
+
+        void execute() override {}
+        void initialize() override {}
     };
 
 } // namespace GraphicalElements

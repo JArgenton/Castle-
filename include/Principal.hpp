@@ -3,14 +3,20 @@
 #include "Factories/EnemiesFactory.hpp"
 #include "Factories/ObstaclesFactory.hpp"
 #include "Factories/PlayerFactory.hpp"
+
 #include "Managers/ColisionManager.hpp"
 #include "Managers/GraphicManager.hpp"
+#include "Managers/EventsManager.hpp"
+
 #include "Entities/Characters/Player.hpp"
 #include "Entities/Characters/Enemies/Enemy.hpp"
 #include "Entities/Characters/Enemies/Archer.hpp"
+
 #include "Utilis/EntityList.hpp"
 
 #include "Menus/MainMenu.hpp"
+
+#include "States/StateMachine.hpp"
 
 #include <nlohmann/json.hpp>
 #include <fstream>
@@ -36,6 +42,7 @@ namespace Factories
 
         Managers::Collision ClManager;
         Managers::Graphics *gpManager;
+        Managers::EventsManager *EvManager;
 
     public:
         Principal();
@@ -44,6 +51,7 @@ namespace Factories
         void createFase();
         Entity *Create(EntityFactory *pFactory, TupleF _position, ID _id = empty);
     };
+
     List::EntityList Principal::MovingEntities;
     List::EntityList Principal::StaticEntities;
 
@@ -54,7 +62,8 @@ namespace Factories
                              Player2(),
                              Arc(),
                              ClManager(&StaticEntities, &MovingEntities),
-                             gpManager(Managers::Graphics::get_instance())
+                             gpManager(Managers::Graphics::get_instance()),
+                             EvManager(Managers::EventsManager::getInstance())
     {
         eFactory = new EnemiesFactory;
         pFactory = new PlayerFactory;

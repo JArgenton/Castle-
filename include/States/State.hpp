@@ -9,6 +9,7 @@ namespace States
     {
         UNKNOWN = -1,
         MAINMENU = 0,
+        PLAYING = 1
     };
 
     class State

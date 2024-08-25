@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
 #include "Managers/GraphicManager.hpp"
 using namespace std;

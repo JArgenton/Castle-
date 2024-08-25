@@ -9,6 +9,9 @@
 #include "Entities/Characters/Enemies/Enemy.hpp"
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Utilis/EntityList.hpp"
+
+#include "Menus/MainMenu.hpp"
+
 #include <nlohmann/json.hpp>
 #include <fstream>
 

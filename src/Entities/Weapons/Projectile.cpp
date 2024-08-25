@@ -12,13 +12,9 @@ namespace Entities
         set_velocity(_velocity); // Define a velocidade
 
         // Configura o RectangleShape do projétil
-        projectileShape.setSize(sf::Vector2f(30.0f, 30.0f)); // Define o tamanho do projétil
+        projectileShape.setSize(sf::Vector2f(20.0f, 10.0f)); // Define o tamanho do projétil
         projectileShape.setFillColor(color);                 // Define a cor do projétil
         projectileShape.setPosition(_position.x, _position.y);
-    }
-
-    Projectile::Projectile()
-    {
     }
 
     Projectile::~Projectile()

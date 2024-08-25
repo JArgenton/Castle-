@@ -99,4 +99,9 @@ namespace Managers
         this->dt = clock.getElapsedTime().asSeconds();
         clock.restart();
     }
+
+    sf::RenderWindow *Graphics::getWindow() const
+    {
+        return window;
+    }
 }

@@ -76,5 +76,7 @@ namespace Managers
         Graphics &operator=(const Graphics &) = delete;
 
         static Graphics *get_instance();
+
+        sf::RenderWindow *getWindow() const;
     };
 }

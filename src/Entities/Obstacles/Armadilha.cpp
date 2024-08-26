@@ -28,7 +28,7 @@ namespace Entities
             return TRAP_DAMAGE;
         }
 
-        void Armadilha::timeParalized()
+        void Armadilha::timeParalized(float dt)
         {
         }
 

@@ -3,7 +3,7 @@
 namespace Managers
 {
 
-    /* Singleton design pattern - Only one instance will be created */
+    /* ---------------------------------Singleton------------------------------------------ */
     EventsManager *EventsManager::instance = nullptr;
 
     EventsManager *EventsManager::getInstance()
@@ -23,7 +23,7 @@ namespace Managers
             pWindow = pGraphicM->getWindow();
     }
 
-    /* ========================================= */
+    /* --------------------------------------------------------------------------------- */
 
     EventsManager::~EventsManager()
     {

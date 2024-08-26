@@ -18,7 +18,7 @@ namespace Entities
             ~Armadilha();
             void initialize();
             unsigned int getDamage() const;
-            void timeParalized();
+            void timeParalized(float dt);
         };
     } // namespace Obstacles
 

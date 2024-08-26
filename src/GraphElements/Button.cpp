@@ -2,9 +2,9 @@
 
 #define BUTTON_PATH_DEFAULT "assets/Botoes/buttonStock1.png"
 #define BUTTON_PATH_SELECTED "assets/Botoes/buttonStock1h.png"
-#define BUTTON_HEIGHT 150
-#define BUTTON_WIDTH 300
-#define BUTTON_TEXT_COLOR 77.6, 68.2, 44.3 // R, G, B
+#define BUTTON_HEIGHT 180
+#define BUTTON_WIDTH 350
+#define BUTTON_TEXT_COLOR 177.6, 168.2, 144.3 // R, G, B
 #define FONT_SIZE 30
 
 namespace GraphicalElements

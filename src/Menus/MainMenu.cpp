@@ -27,7 +27,7 @@ namespace Menus
 
         title.setTextInfo("Castle-");
         title.setFontSize(140);
-        title.setTextColor(77.6, 68.2, 44.3);
+        title.setTextColor(117.6, 168.2, 144.3);
         title.setTextAlignment(GraphicalElements::TextAlignment::center);
 
         title.setPosition(TupleF(GM->getWindowSize().x / 2.0f, 0.0f - title.getSize().y / 2));
@@ -43,7 +43,7 @@ namespace Menus
     {
         active = true;
         if (title.getPosition().y < 200)
-            title.setPosition(TupleF(title.getPosition().x, title.getPosition().y + 1));
+            title.setPosition(TupleF(title.getPosition().x, title.getPosition().y + 3));
     }
 
     /* Menu operation to render all it's objects. */

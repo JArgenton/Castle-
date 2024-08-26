@@ -2,7 +2,7 @@
 
 #include "Managers/GraphicManager.hpp"
 
-#define BACKGROUND_MENU "assets/freetileset/png/BG/BG.png"
+#define BACKGROUND_MENU "assets/BackGrounds/castle5.jpeg"
 
 namespace Menus
 {

@@ -1,7 +1,7 @@
 #include "Entities/Obstacles/Plataforma.hpp"
 
-#define WIDGHT 100.0f
-#define HEIGHT 50.0f
+#define WIDGHT 32.0f
+#define HEIGHT 32.0f
 
 namespace Entities
 {
@@ -19,7 +19,8 @@ namespace Entities
         {
             setSize(WIDGHT, HEIGHT);
             std::string texturepath = "assets/freetileset/png/Tiles/2.png";
-            SetTexture(texturepath);
+            // SetTexture(texturepath);
+            body->setFillColor(sf::Color::Blue);
         }
     } // namespace Obstacles
 

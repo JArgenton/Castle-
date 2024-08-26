@@ -39,7 +39,6 @@ namespace Managers
 
                 if (intersection.x < 0.0f && intersection.y < 0.0f)
                 {
-
                     entity2->collide(entity1, intersection);
                 }
             }
@@ -47,7 +46,7 @@ namespace Managers
         for (i = 0; i < MovingEntities->getSize(); i++)
         {
             entity1 = MovingEntities->operator[](i);
-            for (j = i + 1; j < StaticEntities->getSize(); j++)
+            for (j = i + 1; j < MovingEntities->getSize(); j++)
             {
                 entity2 = StaticEntities->operator[](j);
 

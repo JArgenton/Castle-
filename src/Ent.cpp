@@ -25,5 +25,5 @@ void Ent::SetTexture(std::string &path)
 }
 void Ent::setOrigem(float width, float height)
 {
-    body->setOrigin(width, height);
+    body->setOrigin(width / 2, height / 2);
 }

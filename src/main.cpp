@@ -3,7 +3,7 @@
 int main()
 {
 
-    Factories::Principal p;
+    Principal p;
     p.exec();
 
     return 0;

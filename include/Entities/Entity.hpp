@@ -22,7 +22,7 @@ namespace Entities
         ARMADILHA,
         ENEMY,
         ARCHER,
-        PROJECTILE,
+        ARROW,
         SOLDIER,
         DUMB,
     };

@@ -99,4 +99,8 @@ namespace Managers
         this->dt = clock.getElapsedTime().asSeconds();
         clock.restart();
     }
+    float Graphics::getDeltaTime()
+    {
+        return dt;
+    }
 }

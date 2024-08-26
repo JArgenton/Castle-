@@ -5,17 +5,14 @@
 #include "Principal.hpp"
 namespace Factories
 {
-    EnemiesFactory::EnemiesFactory(List::EntityList *_StaticEntities, List::EntityList *_MovingEntities) : EntityFactory(_StaticEntities, _MovingEntities)
+    EnemiesFactory::EnemiesFactory() : EntityFactory()
     {
     }
 
     EnemiesFactory::~EnemiesFactory()
     {
     }
-    void EnemiesFactory::setPlayer(Characters::Player *pP)
-    {
-        pPlayer = pP;
-    }
+
     Entity *EnemiesFactory::FactoryMethood(TupleF _position, ID _id)
     {
         ID enemy;
@@ -46,11 +43,8 @@ namespace Factories
         default:
             break;
         }
-        if (pPlayer)
-            static_cast<Characters::Enemies::Enemy *>(pE)->setPlayer(pPlayer);
         if (pE)
         {
-
             pE->initialize();
         }
         return pE;

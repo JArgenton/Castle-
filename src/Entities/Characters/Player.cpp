@@ -2,11 +2,11 @@
 #include "Entities/Weapons/Weapon.hpp"
 #include "Entities/Obstacles/Lava.hpp"
 #include "Entities/Obstacles/Armadilha.hpp"
-#include "Entities/Weapons/Projectile.hpp"
+#include "Entities/Projectiles/Arrow.hpp"
 
-#define PLAYER_SIZE_X 100.0f
-#define PLAYER_SIZE_Y 100.0f
-#define PLAYER_VELOCITY 0.8f
+#define PLAYER_SIZE_X 30.0f
+#define PLAYER_SIZE_Y 30.0f
+#define PLAYER_VELOCITY 2.0f
 #define PLAYER_HEALT 100
 #define PLAYER_DMG_COOLDOWN 0.0f
 #define JUMP_HEIGH 3.0f
@@ -119,14 +119,9 @@ namespace Entities
                 }
                 break;
             }
-            case ID::PROJECTILE:
+            case ID::ARROW:
             {
-                Projectile *proj = dynamic_cast<Projectile *>(other);
-                if (proj)
-                {
-                    reciveDmg(proj->getDamage());
-                }
-                printf("colidiu flecha");
+                reciveDmg(static_cast<Projectiles::Arrow *>(other)->getDamage());
             }
             default:
                 break;
@@ -155,7 +150,9 @@ namespace Entities
         {
             setSize(PLAYER_SIZE_X, PLAYER_SIZE_Y); // chama a set Origin
             std::string texturepath = "assets/player.png";
-            SetTexture(texturepath);
+            // SetTexture(texturepath);
+            setPosition(TupleF(200.0f, 270.0f));
+            body->setFillColor(sf::Color::Red);
 
             if (weapon)
             {
@@ -189,10 +186,7 @@ namespace Entities
                 velocity.x *= 0.05;
             velocity.y += GRAVITY;
 
-            position.x += velocity.x * dt;
-            position.y += velocity.y * dt;
-
-            setPosition(position); // atualiza a posiçao da imagem
+            body->move(velocity.x * dt, velocity.y * dt);
 
             if (weapon)
             {

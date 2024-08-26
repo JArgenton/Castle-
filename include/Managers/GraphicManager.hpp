@@ -67,6 +67,7 @@ namespace Managers
 
         // funçao para atualizar o tempo, inspirada do tutorial jogo SFML do Monitor Burda
         void updateDeltaTime();
+        float getDeltaTime();
 
         /*events*/
         bool pullEvent(sf::Event &pEvent);

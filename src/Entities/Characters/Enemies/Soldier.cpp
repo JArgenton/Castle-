@@ -9,7 +9,7 @@ namespace Entities
 
             std::string Soldier::texturepath("assets/freetileset/png/Tiles/17.png");
 
-            Soldier::Soldier(TupleF _position) : Enemy(_position)
+            Soldier::Soldier(TupleF _position) : Enemy(_position, ID::SOLDIER)
             {
             }
             Soldier::~Soldier()

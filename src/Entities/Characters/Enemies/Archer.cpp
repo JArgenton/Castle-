@@ -1,12 +1,11 @@
 #include "Entities/Characters/Enemies/Archer.hpp"
-#include "Entities/Weapons/Projectile.hpp"
-
+#include "Principal.hpp"
 #define ARCHER_DMG 10.0f
 #define ARCHER_TIME 10.0f
 #define ARCHER_ATK_COOLDOWN 20.0f
 #define ARCHER_HEALTH 50
-#define ARCHER_WIDGHT 30
-#define ARCHER_HEIGHT 70
+#define ARCHER_WIDGHT 30.0f
+#define ARCHER_HEIGHT 70.0f
 #define ARCHER_POINTS 200
 #define ARCHER_RANGE 150.0f
 
@@ -18,10 +17,9 @@ namespace Entities
     {
         namespace Enemies
         {
-            Archer::Archer(TupleF position, Player *pP)
-                : Enemy(position, ARCHER, ARCHER_HEALTH, pP, ARCHER_ATK_COOLDOWN, ARCHER_TIME, ARCHER_POINTS), timer(0.0)
+            Archer::Archer(TupleF position) : Enemy(position, ARCHER)
+
             {
-                set_atkDamage(ARCHER_DMG);
             }
 
             Archer::~Archer()
@@ -34,71 +32,45 @@ namespace Entities
                 TupleF archerSize = getSize(); // Assume que getSize retorna o tamanho do arqueiro
 
                 // Calcule a posição central do arqueiro
-                TupleF projectilePosition = {
-                    archerPosition.x - archerSize.x / 2.0f,
-                    archerPosition.y - archerSize.y / 2.0f};
-
-                TupleF projectileVelocity = {-5.0f, 0.0f};   // Velocidade do projétil
-                sf::Color projectileColor = sf::Color::Blue; // Cor do projétil
-
-                // Cria um novo projétil
-                Projectile newProjectile(projectilePosition, projectileVelocity, projectileColor);
-
-                // Adiciona o projétil à lista de projéteis
-                addProjectile(newProjectile);
-            }
-
-            void Archer::addProjectile(const Projectile &projectile)
-            {
-                projectiles.push_back(projectile);
+                TupleF projectilePosition = TupleF(archerPosition.x + archerSize.x / 2, archerPosition.y + archerSize.y / 2);
+                Principal::createProjectile(projectilePosition, ID::ARROW);
             }
 
             void Archer::update(const float dt)
             {
-                timer += dt;
+                setPosition(TupleF(150.0f, 150.0f));
 
-                if (timer >= ARCHER_ATK_COOLDOWN)
-                {
-                    shoot();
-                    timer = 0.0f;
-                }
                 // Atualiza o archer
                 Character::incrementAtkTimer(dt);
-
-                // Atualiza projéteis
-                for (auto &projectile : projectiles)
-                {
-                    projectile.update(dt);
-                }
-
-                // Remove projéteis inativos
-                projectiles.erase(std::remove_if(projectiles.begin(), projectiles.end(), [](const Projectile &p)
-                                                 { return !p.isActive(); }),
-                                  projectiles.end());
-
                 // Atualiza posição do archer
                 TupleF position = getPosition();
+
                 velocity.y += GRAVITY;
                 position.x += velocity.x * dt;
                 position.y += velocity.y * dt;
-                setPosition(position);
+                body->move(position.x, position.y);
                 render();
+                if (canAtk())
+                {
+                    // shoot();
+                }
             }
 
             void Archer::initialize()
             {
-                setSize(ARCHER_WIDGHT, ARCHER_HEIGHT);
+
+                body->setFillColor(sf::Color::Yellow);
+                setPosition(TupleF(150.0f, 150.0f));
+
+                set_atkDamage(ARCHER_DMG);
+                setSize(50.0f, 100.0f);
                 SetTexture(ARCHER_PATH);
+                render();
             }
 
             void Archer::execute()
             {
                 // TODO
-            }
-
-            const std::vector<Projectile> &Archer::getProjectiles() const
-            {
-                return projectiles;
             }
 
             void Archer::updateSprite(const float dt)

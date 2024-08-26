@@ -25,6 +25,12 @@ namespace Tuples
         void operator*=(double escalar);
         void operator/=(double escalar);
 
+        void operator()(TIPO x, TIPO y)
+        {
+            this->x = x;
+            this->y = y;
+        }
+
         Tuple<TIPO> operator+(Tuple<TIPO> Tuple);
         Tuple<TIPO> operator-(Tuple<TIPO> Tuple);
         Tuple<TIPO> operator*(Tuple<TIPO> Tuple);

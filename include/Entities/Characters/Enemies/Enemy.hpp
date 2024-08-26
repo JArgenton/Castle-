@@ -19,17 +19,11 @@ namespace Entities
                 Player *pPlayer;
 
             public:
-                Enemy(TupleF _position = TupleF(400.0f, 100.0f),
-                      ID id = empty,
-                      int life = 1,
-                      Entities::Characters::Player *pP = nullptr,
-                      const float atkCooldown = 0.0f,
-                      const float atkTime = 0.0f,
-                      unsigned int points = 100);
+                Enemy(TupleF _position, ID _id, int points = 10);
 
                 virtual ~Enemy();
 
-                void setpPlayer(Player *pP);
+                void setPlayer(Player *pP);
 
                 TupleF getPlayerPosition();
 

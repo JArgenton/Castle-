@@ -2,14 +2,19 @@
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Characters/Enemies/Soldier.hpp"
 #include "Entities/Characters/Enemies/Dumb.hpp"
+#include "Principal.hpp"
 namespace Factories
 {
-    EnemiesFactory::EnemiesFactory()
+    EnemiesFactory::EnemiesFactory(List::EntityList *_StaticEntities, List::EntityList *_MovingEntities) : EntityFactory(_StaticEntities, _MovingEntities)
     {
     }
 
     EnemiesFactory::~EnemiesFactory()
     {
+    }
+    void EnemiesFactory::setPlayer(Characters::Player *pP)
+    {
+        pPlayer = pP;
     }
     Entity *EnemiesFactory::FactoryMethood(TupleF _position, ID _id)
     {
@@ -41,10 +46,14 @@ namespace Factories
         default:
             break;
         }
-        if (pE != nullptr)
+        if (pPlayer)
+            static_cast<Characters::Enemies::Enemy *>(pE)->setPlayer(pPlayer);
+        if (pE)
         {
+
             pE->initialize();
         }
         return pE;
     }
+
 } // namespace Factories

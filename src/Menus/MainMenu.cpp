@@ -66,6 +66,9 @@ namespace Menus
             case 0:
                 changeState(States::stateID::PLAYING);
                 break;
+            case 3:
+                pJogo->endJogo();
+                break;
             default:
                 break;
             }

@@ -1,9 +1,13 @@
 #pragma once
-
+#include "Utilis/Tuple.hpp"
 #include <SFML/Graphics.hpp>
-#include "Managers/GraphicManager.hpp"
-using namespace std;
+using namespace Tuples;
 
+using namespace std;
+namespace Managers
+{
+    class Graphics;
+}
 class Ent
 {
 protected:

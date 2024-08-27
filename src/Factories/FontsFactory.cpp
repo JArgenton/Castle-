@@ -1,15 +1,16 @@
-#include "Factories/TextureFactory.hpp"
+
+#include "Factories/FontsFactory.hpp"
 
 namespace Factories
 {
     namespace flyweight
     {
 
-        TextureFactory::TextureFactory()
+        FontsFactory::FontsFactory()
         {
         }
 
-        TextureFactory::~TextureFactory()
+        FontsFactory::~FontsFactory()
         {
             for (auto &MapElement : FlyweightMap)
             {
@@ -17,7 +18,7 @@ namespace Factories
             }
         }
 
-        sf::Texture *TextureFactory::getResource(const std::string &filepath)
+        sf::Font *FontsFactory::getResource(const std::string &filepath)
         {
             auto iterator = FlyweightMap.find(filepath);
             if (iterator != FlyweightMap.end())
@@ -25,7 +26,7 @@ namespace Factories
                 return (iterator->second);
             }
 
-            sf::Texture *flyweight = new sf::Texture;
+            sf::Font *flyweight = new sf::Font;
             if (!flyweight->loadFromFile(filepath))
             {
                 delete flyweight;

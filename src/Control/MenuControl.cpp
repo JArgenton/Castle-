@@ -28,7 +28,7 @@ namespace Control
             pMenu->selectUp();
         if (key == "Enter")
             pMenu->exec();
-        }
+    }
 
     void MenuControl::notifyReleased(std::string key) {}
 

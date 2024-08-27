@@ -5,7 +5,7 @@ namespace Control
 
     Observer::Observer()
     {
-        this->pIM = Managers::InputManager::getInstance();
+        pIM = Managers::InputManager::getInstance();
         pIM->Attach(this);
     }
 

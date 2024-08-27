@@ -1,5 +1,4 @@
 #pragma once
-
 // Estados
 #include "States/State.hpp"
 #include "States/StateMachine.hpp"
@@ -24,6 +23,8 @@
 // Utilitarios
 #include "Utilis/EntityList.hpp"
 #include "Utilis/Tuple.hpp"
+
+#include "Control/PlayerControl.hpp"
 
 // Criaçao de fase .json/.tmj
 #include <nlohmann/json.hpp>
@@ -51,6 +52,8 @@ namespace States
 
         Managers::Collision collisionManager;
         Managers::Graphics *pGraphicM;
+
+        Control::PlayerControl pControl;
 
         bool levelEnded;
         int playerPoints;

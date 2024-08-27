@@ -18,6 +18,7 @@ namespace States
                                       staticEntities(),
                                       collisionManager(&staticEntities, &Level::movingEntities),
                                       pGraphicM(Managers::Graphics::get_instance()),
+                                      pControl(),
                                       levelEnded(false),
                                       playerPoints(0)
 
@@ -171,6 +172,7 @@ namespace States
         if (Player1)
         {
             movingEntities.add(Player1);
+            pControl.setPlayer(Player1);
         }
         Entity *pE = Create(eFactory, TupleF(200.0f, 260.0f), ARCHER);
         if (pE)

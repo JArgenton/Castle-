@@ -1,5 +1,6 @@
 #include "States/Jogo.hpp"
 #include "Menus/MainMenu.hpp"
+#include "States/Level.hpp"
 
 namespace States
 {
@@ -9,13 +10,14 @@ namespace States
     {
         clock.restart();
         dt = 0;
+        State *pStates = nullptr;
+        pStates = static_cast<State *>(new Menus::MainMenuState(this));
+        insertState(pStates);
 
-        State *states = static_cast<State *>(new Menus::MainMenuState(this));
-        insertState(states);
+        pStates = static_cast<State *>(new Level(this));
+        insertState(pStates);
 
         changeState(stateID::MAINMENU);
-
-        exec();
     }
 
     Jogo::~Jogo()
@@ -30,17 +32,9 @@ namespace States
             pEventManager->pollEvents();
 
             pGraphicManager->clear();
+            pGraphicManager->updateDeltaTime();
 
-            if (dt < TICK_RATE)
-            {
-                dt += clock.getElapsedTime().asSeconds();
-                clock.restart();
-            } //
-            else
-            {
-                updateState(0.01);
-                dt -= TICK_RATE;
-            }
+            updateState(pGraphicManager->getDeltaTime());
 
             renderState();
 

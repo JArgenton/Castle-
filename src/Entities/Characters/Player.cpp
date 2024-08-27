@@ -6,7 +6,7 @@
 
 #define PLAYER_SIZE_X 30.0f
 #define PLAYER_SIZE_Y 30.0f
-#define PLAYER_VELOCITY 25.0f
+#define PLAYER_VELOCITY 35.0f
 #define PLAYER_HEALT 100
 #define PLAYER_DMG_COOLDOWN 0.0f
 #define JUMP_HEIGH 3.0f
@@ -23,7 +23,7 @@ namespace Entities
                                                                         canWalk(true),
                                                                         canReciveDmg(true),
                                                                         canJump(true),
-                                                                        isMoving(true),
+                                                                        isMoving(false),
                                                                         dmgTimer(0),
                                                                         weapon(pW)
 
@@ -135,8 +135,9 @@ namespace Entities
         {
             if (canJump)
             {
-                velocity.y = GRAVITY * 3;
+                velocity.y = -GRAVITY * 50;
             }
+            canJump = false;
         }
         void Player::walk(bool toLeft)
         {

@@ -1,5 +1,6 @@
 #include "Menus/MainMenu.hpp"
 #include "States/Jogo.hpp"
+#include "Principal.hpp"
 
 namespace Menus
 {
@@ -64,7 +65,8 @@ namespace Menus
             switch (selected)
             {
             case 0:
-                changeState(States::stateID::PLAYING);
+                changeState(States::stateID::FASE);
+
                 break;
             case 3:
                 pJogo->endJogo();

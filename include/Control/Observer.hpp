@@ -15,7 +15,7 @@ namespace Control
 
         virtual ~Observer();
 
-                // -------virtuais puros---------------------
+        // -------virtuais puros---------------------
         virtual void notifyPressed(std::string key) = 0;
 
         virtual void notifyReleased(std::string key) = 0;

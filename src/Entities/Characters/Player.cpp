@@ -23,7 +23,7 @@ namespace Entities
                                                                         canWalk(true),
                                                                         canReciveDmg(true),
                                                                         canJump(true),
-                                                                        isMoving(true),
+                                                                        isMoving(false),
                                                                         dmgTimer(0),
                                                                         weapon(pW)
 

@@ -26,7 +26,9 @@ namespace States
     void StateMachine::changeState(States::stateID id)
     {
         lastStateID = runnigStateID;
+
         runnigStateID = id;
+
         mapOfStates[runnigStateID]->resetState();
     }
 

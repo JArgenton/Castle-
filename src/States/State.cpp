@@ -1,6 +1,7 @@
 #include "States/State.hpp"
 
 #include "States/StateMachine.hpp"
+#include <iostream>
 
 namespace States
 {

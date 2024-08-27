@@ -1,42 +1,115 @@
-/* #include "States/Level.hpp"
+#include "States/Level.hpp"
 
 #include "Entities/Obstacles/Plataforma.hpp"
 
 namespace States
 {
+    Factories::ProjectilesFactory Level::projFactory;
+    List::EntityList Level::movingEntities;
 
-    Level::Level(StateMachine *pSM) : State(pSM, stateID::PLAYING),
-                                      staticEntitiesList(),
-                                      movingEntitiesList(),
-                                      collisionManager(movingEntitiesList, staticEntitiesList),
-                                      pGraphicM(Managers::Graphics::get_instance())
+    Level::Level(StateMachine *pSM) : State(pSM, stateID::FASE),
+                                      eFactory(),
+                                      playerFactory(),
+                                      oFactory(),
+
+                                      Player1(),
+                                      Player2(),
+                                      background(),
+                                      staticEntities(),
+                                      collisionManager(&staticEntities, &Level::movingEntities),
+                                      pGraphicM(Managers::Graphics::get_instance()),
+                                      levelEnded(false),
+                                      playerPoints(0)
+
     {
+        eFactory = new Factories::EnemiesFactory;
+        playerFactory = new Factories::PlayerFactory;
+        oFactory = new Factories::ObstaclesFactory;
     }
     Level::~Level()
     {
+        if (eFactory)
+            delete eFactory;
+        if (playerFactory)
+            delete playerFactory;
+        if (oFactory)
+            delete oFactory;
+        if (Player1)
+        {
+            delete Player1;
+        }
+        if (Player2)
+        {
+            delete Player2;
+            Player2 = nullptr;
+        }
+        eFactory = nullptr;
+        playerFactory = nullptr;
+        oFactory = nullptr;
+        Player1 = nullptr;
+        movingEntities.cleanList();
+        staticEntities.cleanList();
+    }
+
+    TupleF Level::centerView()
+    {
+        TupleF centerPosition;
+        if (Player1)
+        {
+            TupleF p1Position;
+            p1Position = Player1->getPosition();
+            if (Player2)
+            {
+                TupleF p2Position;
+                p2Position = Player2->getPosition();
+
+                centerPosition((p1Position.x + p2Position.x) / 2, (p1Position.y + p2Position.y) / 2);
+            }
+            else
+            {
+                centerPosition = p1Position;
+            }
+        }
+        // pGraphicM->centerViewOn(TupleF(player1->getPosition().x, pGraphicM->getWindowSize().y / 2 - PLATFORM_HEIGHT / 2));
+        return centerPosition;
     }
 
     void Level::update(const float dt)
     {
-        for (unsigned int i = 0; i < movingEntitiesList->getSize(); i++)
+
+        for (int i = 0; i < movingEntities.getSize(); i++)
         {
-            movingEntitiesList[i]->update(dt);
+            static_cast<MovingEntity *>(movingEntities[i])->update(dt);
         }
 
-        collisionManager.collide();
+        TupleF centerpos = centerView();
+        pGraphicM->centerViewOn(centerpos);
 
-        pGraphicM->centerView(TupleF(player->getPosition().x, pGraphicM->getWindowSize().y / 2 - PLATFORM_HEIGHT / 2));
-        background.update(TupleF(player->getPosition().x, pGraphicM->getWindowSize().y / 2 - PLATFORM_HEIGHT / 2));
-        hud.update(dt);
+        background.update(centerpos);
 
-        if (player->getPosition().x >= nextPositionToRender.x)
-            worldGen.generate(&nextPositionToRender, player);
-
-        if (!player->isActive())
+        for (int i = 0; i < movingEntities.getSize(); i++)
         {
-            endLevel();
-            changeState(States::stateID::gameOver);
+
+            static_cast<MovingEntity *>(movingEntities[i])->update(dt);
+            if (!static_cast<MovingEntity *>(movingEntities[i])->isActive())
+            {
+                movingEntities.deleteEntity(i);
+            }
         }
+        collisionManager.check_collision();
+
+        if (!Player1->isActive())
+        {
+            if (!Player2)
+            {
+                endLevel();
+            }
+            else if (!Player2->isActive())
+            {
+                endLevel();
+            }
+        }
+        // Atualiza a janela
     }
 
     void Level::render()
@@ -44,43 +117,36 @@ namespace States
 
         background.render();
 
-        for (unsigned int i = 0; i < staticEntitiesList.getSize(); i++)
+        for (int i = 0; i < staticEntities.getSize(); i++)
         {
-            staticEntitiesList[i]->render();
+            staticEntities[i]->render();
         }
-
-        for (unsigned int i = 0; i < movingEntitiesList.getSize(); i++)
-        {
-            movingEntitiesList[i]->render();
-        }
-
-        hud.render();
     }
 
     void Level::resetState()
     {
-        if (levelEnded)
+
+        createFase("map.tmj");
+    }
+    Entity *Level::Create(Factories::EntityFactory *pFactory, TupleF _position, ID _id)
+    {
+        return pFactory->FactoryMethood(_position, _id);
+    }
+    void Level::createProjectile(TupleF _position, ID _id)
+    {
+        Entity *pE = Create(&projFactory, _position, _id);
+
+        if (pE)
         {
-
-            player = new Entities::Characters::Player(TupleF(200.f, 300.f));
-            movingEntitiesList.addEntity(player);
-
-            worldGen.resetToOrigin();
-
-            worldGen.generate(&nextPositionToRender, player);
-
-            hud.setPlayer(player);
-
-            levelEnded = false;
+            movingEntities.add(pE);
         }
-        worldGen.setRenderDistance();
     }
 
     void Level::endLevel()
     {
-        playerPoints = player->getPlayerPoints();
-        movingEntitiesList.cleanList();
-        staticEntitiesList.cleanList();
+        // playerPoints = player->getPlayerPoints();
+        movingEntities.cleanList();
+        staticEntities.cleanList();
         levelEnded = true;
     }
 
@@ -88,11 +154,47 @@ namespace States
     {
         return playerPoints;
     }
-
-    void Level::coinBomb(TupleF position)
+    void Level::createFase(const std::string &path)
     {
-        worldGen.explodeCoins(position);
+        string texturepath = "assets/freetileset/png/BG/BG.png";
+        background.SetTexture(texturepath);
+        std::ifstream file(path);
+        json tmjData;
+        file >> tmjData;
+
+        // tamanho de cada bloco
+        int tileWidth = tmjData["tilewidth"];
+        int tileheight = tmjData["tileheight"];
+
+        auto layer = tmjData["layers"][0];
+        auto matrix = layer["data"];
+        int width = layer["width"];
+        int height = layer["height"];
+
+        Player1 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(300.0f, 270.0f), ID::PLAYER1));
+        if (Player1)
+        {
+            movingEntities.add(Player1);
+        }
+        Entity *pE = Create(eFactory, TupleF(200.0f, 260.0f), ARCHER);
+        if (pE)
+        {
+            movingEntities.add(pE);
+            static_cast<Characters::Enemies::Enemy *>(pE)->setPlayer(Player1);
+        }
+
+        // iterate through the matrix
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                int entityType = matrix[y * width + x];
+                if (entityType != 0)
+                {
+                    staticEntities.add(Create(oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::PLATAFORMA));
+                }
+            }
+        }
     }
 
 } // namespace States
-*/

@@ -1,14 +1,34 @@
-/* #pragma once
+#pragma once
 
+// Estados
 #include "States/State.hpp"
+#include "States/StateMachine.hpp"
 
-#include "Entities/Characters/Player.hpp"
+// Elementos Graficos
 #include "GraphElements/StaticAnimation.hpp"
-#include "Utilis/EntityList.hpp"
+
+// Gerenciadores
 #include "Managers/ColisionManager.hpp"
 #include "Managers/GraphicManager.hpp"
+
+// Fabricas
+#include "Factories/ProjectilesFactory.hpp"
+#include "Factories/EnemiesFactory.hpp"
+#include "Factories/ObstaclesFactory.hpp"
+#include "Factories/PlayerFactory.hpp"
+
+// Entidades
+#include "Entities/Characters/Player.hpp"
+#include "Entities/Characters/Enemies/Enemy.hpp"
+
+// Utilitarios
+#include "Utilis/EntityList.hpp"
 #include "Utilis/Tuple.hpp"
-#include "States/StateMachine.hpp"
+
+// Criaçao de fase .json/.tmj
+#include <nlohmann/json.hpp>
+#include <fstream>
+using json = nlohmann::json;
 
 namespace States
 {
@@ -16,12 +36,22 @@ namespace States
     class Level : public State
     {
     private:
-        Entities::Characters::Player *player;
+        Factories::EnemiesFactory *eFactory;
+        Factories::PlayerFactory *playerFactory;
+        Factories::ObstaclesFactory *oFactory;
+        static Factories::ProjectilesFactory projFactory;
+
+        Characters::Player *Player1;
+        Characters::Player *Player2;
+
         GraphicalElements::StaticAnimation background;
-        List::EntityList *staticEntitiesList;
-        List::EntityList *movingEntitiesList;
+
+        static List::EntityList movingEntities;
+        List::EntityList staticEntities;
+
         Managers::Collision collisionManager;
         Managers::Graphics *pGraphicM;
+
         bool levelEnded;
         int playerPoints;
         TupleF nextPositionToRender;
@@ -33,6 +63,12 @@ namespace States
 
         void update(const float dt);
 
+        void createFase(const std::string &path);
+
+        static void createProjectile(TupleF _position, ID _id);
+
+        static Entity *Create(Factories::EntityFactory *pFactory, TupleF _position, ID _id = empty);
+
         void render();
 
         void resetState();
@@ -41,9 +77,7 @@ namespace States
 
         int getPlayerPoints() const;
 
-        void coinBomb(TupleF position);
+        TupleF centerView();
     };
 
 } // namespace States
-
-*/

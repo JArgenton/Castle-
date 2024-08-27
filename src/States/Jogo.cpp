@@ -1,5 +1,6 @@
 #include "States/Jogo.hpp"
 #include "Menus/MainMenu.hpp"
+#include "States/Level.hpp"
 
 namespace States
 {
@@ -9,13 +10,14 @@ namespace States
     {
         clock.restart();
         dt = 0;
+        State *pStates = nullptr;
+        pStates = static_cast<State *>(new Menus::MainMenuState(this));
+        insertState(pStates);
 
-        State *states = static_cast<State *>(new Menus::MainMenuState(this));
-        insertState(states);
+        pStates = static_cast<State *>(new Level(this));
+        insertState(pStates);
 
         changeState(stateID::MAINMENU);
-
-        exec();
     }
 
     Jogo::~Jogo()
@@ -38,7 +40,7 @@ namespace States
             } //
             else
             {
-                updateState(0.01);
+                updateState(1);
                 dt -= TICK_RATE;
             }
 

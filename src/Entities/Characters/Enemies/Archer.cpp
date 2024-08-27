@@ -1,5 +1,5 @@
 #include "Entities/Characters/Enemies/Archer.hpp"
-#include "Principal.hpp"
+#include "States/Level.hpp"
 #define ARCHER_DMG 10
 #define ARCHER_TIME 10.0f
 #define ARCHER_ATK_COOLDOWN 20.0f
@@ -33,7 +33,7 @@ namespace Entities
 
                 // Calcule a posição central do arqueiro
                 TupleF projectilePosition = TupleF(archerPosition.x + archerSize.x / 2, archerPosition.y - archerSize.y / 2);
-                Principal::createProjectile(projectilePosition, ID::ARROW);
+                States::Level::createProjectile(projectilePosition, ID::ARROW);
             }
 
             void Archer::update(const float dt)

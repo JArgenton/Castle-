@@ -147,6 +147,7 @@ void Principal::createProjectile(TupleF _position, ID _id)
 
     if (pE)
     {
+
         MovingEntities.add(pE);
     }
 }

@@ -77,15 +77,8 @@ namespace States
     void Level::update(const float dt)
     {
 
-        for (int i = 0; i < movingEntities.getSize(); i++)
-        {
-            static_cast<MovingEntity *>(movingEntities[i])->update(dt);
-        }
-
         TupleF centerpos = centerView();
         pGraphicM->centerViewOn(centerpos);
-
-        background.update(centerpos);
 
         for (int i = 0; i < movingEntities.getSize(); i++)
         {
@@ -97,6 +90,8 @@ namespace States
             }
         }
         collisionManager.check_collision();
+
+        background.update(centerpos);
 
         if (!Player1->isActive())
         {
@@ -125,13 +120,14 @@ namespace States
 
     void Level::resetState()
     {
-
         createFase("map.tmj");
     }
+
     Entity *Level::Create(Factories::EntityFactory *pFactory, TupleF _position, ID _id)
     {
         return pFactory->FactoryMethood(_position, _id);
     }
+
     void Level::createProjectile(TupleF _position, ID _id)
     {
         Entity *pE = Create(&projFactory, _position, _id);

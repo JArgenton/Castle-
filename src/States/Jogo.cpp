@@ -32,17 +32,9 @@ namespace States
             pEventManager->pollEvents();
 
             pGraphicManager->clear();
+            pGraphicManager->updateDeltaTime();
 
-            if (dt < TICK_RATE)
-            {
-                dt += clock.getElapsedTime().asSeconds();
-                clock.restart();
-            } //
-            else
-            {
-                updateState(1);
-                dt -= TICK_RATE;
-            }
+            updateState(pGraphicManager->getDeltaTime());
 
             renderState();
 

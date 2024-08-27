@@ -26,6 +26,9 @@ namespace Entities
             void Dumb::execute()
             {
             }
+            void Dumb::toDamage(Player *pP)
+            {
+            }
 
         } // namespace Enemies
 

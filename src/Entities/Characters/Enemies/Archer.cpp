@@ -32,7 +32,7 @@ namespace Entities
                 TupleF archerSize = getSize();
 
                 // Calcule a posição central do arqueiro
-                TupleF projectilePosition = TupleF(archerPosition.x + archerSize.x / 2, archerPosition.y - archerSize.y / 2);
+                TupleF projectilePosition = TupleF(archerPosition.x + archerSize.x, archerPosition.y - archerSize.y / 2);
                 States::Level::createProjectile(projectilePosition, ID::ARROW);
             }
 
@@ -69,7 +69,7 @@ namespace Entities
                 coolDownTimer = 2.5f;
 
                 set_atkDamage(ARCHER_DMG);
-                setSize(50.0f, 100.0f);
+                setSize(32.0f, 64.0f);
                 SetTexture(ARCHER_PATH);
 
                 render();
@@ -84,6 +84,11 @@ namespace Entities
             {
                 // TODO
             }
+            void Archer::toDamage(Player *pP)
+            {
+            }
+
         }
+
     }
 }

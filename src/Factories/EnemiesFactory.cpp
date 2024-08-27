@@ -2,7 +2,7 @@
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Characters/Enemies/Soldier.hpp"
 #include "Entities/Characters/Enemies/Dumb.hpp"
-#include "Principal.hpp"
+
 namespace Factories
 {
     EnemiesFactory::EnemiesFactory() : EntityFactory()
@@ -18,12 +18,21 @@ namespace Factories
         ID enemy;
         if (_id == empty)
         {
-            time_t t;
-            srand((unsigned)time(&t));
-            unsigned int randomId = (rand() % 3) + 1;
-            enemy = ID(randomId);
+
+            bool randomId = rand() % 2;
+            if (randomId)
+            {
+                enemy = SOLDIER;
+            }
+            else
+            {
+                enemy = ARCHER;
+            }
         }
-        enemy = _id;
+        else
+        {
+            enemy = _id;
+        }
 
         Entity *pE = nullptr;
         switch (enemy)
@@ -46,7 +55,7 @@ namespace Factories
         if (pE)
         {
             pE->initialize();
-                }
+        }
         return pE;
     }
 

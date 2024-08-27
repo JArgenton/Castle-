@@ -17,12 +17,25 @@ namespace Factories
         ID obstacle;
         if (_id == empty)
         {
-            time_t t;
-            srand((unsigned)time(&t));
-            unsigned int randomId = (rand() % 3) + 1;
-            obstacle = ID(randomId);
+
+            int randomId = rand() % 3;
+            if (randomId == 0)
+            {
+                obstacle = ID::ARMADILHA;
+            }
+            else if (randomId == 1)
+            {
+                obstacle = ID::ARMADILHA;
+            }
+            else
+            {
+                obstacle = ID::PLATAFORMA;
+            }
         }
-        obstacle = _id;
+        else
+        {
+            obstacle = _id;
+        }
 
         Entity *pE = nullptr;
         switch (obstacle)

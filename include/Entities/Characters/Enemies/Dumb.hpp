@@ -19,6 +19,7 @@ namespace Entities
                 void initialize();
                 void update(const float dt);
                 void execute();
+                void toDamage(Player *pP);
             };
         } // namespace Enemies
 

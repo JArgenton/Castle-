@@ -1,7 +1,7 @@
 #include "Entities/Obstacles/Armadilha.hpp"
 
-#define WIDGHT 15.0f
-#define HEIGHT 15.0f
+#define WIDGHT 32.0f
+#define HEIGHT 32.0f
 #define TRAP_DAMAGE 30
 
 namespace Entities

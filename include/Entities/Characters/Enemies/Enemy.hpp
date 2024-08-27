@@ -27,6 +27,12 @@ namespace Entities
 
                 TupleF getPlayerPosition();
 
+                float getPlayerDistance();
+
+                void updatePlayerDistance();
+
+                virtual void toDamage(Player *) = 0;
+
                 void receiveDamage(const int damage);
 
                 virtual void update(const float dt) = 0;

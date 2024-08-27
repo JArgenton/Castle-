@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Entities/Characters/Enemies/Enemy.hpp"
 #include "Entities/Projectiles/Arrow.hpp"
 #include "Entities/Characters/Player.hpp"
@@ -17,7 +16,6 @@ namespace Entities
                 Archer(TupleF position = TupleF(400.0f, 100.0f));
 
                 ~Archer();
-
                 void shoot();
                 void atack();
 
@@ -28,6 +26,8 @@ namespace Entities
                 void updateSprite(const float dt);
 
                 void execute();
+
+                void toDamage(Player *pP);
 
                 // void updateSprite(const float dt);
             };

@@ -1,6 +1,7 @@
 #include "States/Level.hpp"
 
 #include "Entities/Obstacles/Plataforma.hpp"
+#include "Entities/Characters/Enemies/Archer.hpp"
 
 namespace States
 {
@@ -83,7 +84,6 @@ namespace States
 
         for (int i = 0; i < movingEntities.getSize(); i++)
         {
-
             static_cast<MovingEntity *>(movingEntities[i])->update(dt);
             if (!static_cast<MovingEntity *>(movingEntities[i])->isActive())
             {
@@ -121,7 +121,7 @@ namespace States
 
     void Level::resetState()
     {
-        createFase("map.tmj");
+        createFase("fase1.tmj");
     }
 
     Entity *Level::Create(Factories::EntityFactory *pFactory, TupleF _position, ID _id)
@@ -168,17 +168,11 @@ namespace States
         int width = layer["width"];
         int height = layer["height"];
 
-        Player1 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(300.0f, 270.0f), ID::PLAYER1));
+        Player1 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(164.0f, 1508.0f), ID::PLAYER1));
         if (Player1)
         {
             movingEntities.add(Player1);
             pControl.setPlayer(Player1);
-        }
-        Entity *pE = Create(eFactory, TupleF(200.0f, 260.0f), ARCHER);
-        if (pE)
-        {
-            movingEntities.add(pE);
-            static_cast<Characters::Enemies::Enemy *>(pE)->setPlayer(Player1);
         }
 
         // iterate through the matrix
@@ -186,10 +180,116 @@ namespace States
         {
             for (int x = 0; x < width; x++)
             {
+                Entity *pE = nullptr;
+
                 int entityType = matrix[y * width + x];
-                if (entityType != 0)
+
+                switch (entityType)
                 {
-                    staticEntities.add(Create(oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::PLATAFORMA));
+                case 1:
+                {
+                    pE = Create(oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::PLATAFORMA);
+                    if (pE)
+                    {
+                        staticEntities.add(pE);
+                    }
+                    else
+                    {
+                        cout << "nao foi possivel criar entidade, ponteiro nulo" << endl;
+                    }
+                    break;
+                }
+
+                case 2:
+                {
+
+                    pE = Create(eFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ARCHER);
+                    if (pE)
+                    {
+                        movingEntities.add(pE);
+                        static_cast<Characters::Enemies::Enemy *>(pE)->setPlayer(Player1);
+                    }
+                    else
+                    {
+                        cout << "nao foi possivel criar entidade, ponteiro nulo" << endl;
+                    }
+                    break;
+                }
+                case 3:
+                {
+
+                    pE = Create(eFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::SOLDIER);
+                    if (pE)
+                    {
+                        movingEntities.add(pE);
+                        static_cast<Characters::Enemies::Enemy *>(pE)->setPlayer(Player1);
+                    }
+                    else
+                    {
+                        cout << "nao foi possivel criar entidade, ponteiro nulo" << endl;
+                    }
+                    break;
+                }
+                case 4:
+                {
+
+                    pE = Create(eFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::empty);
+                    if (pE)
+                    {
+                        movingEntities.add(pE);
+                        static_cast<Characters::Enemies::Enemy *>(pE)->setPlayer(Player1);
+                    }
+                    else
+                    {
+                        cout << "nao foi possivel criar entidade, ponteiro nulo" << endl;
+                    }
+                    break;
+                }
+                case 5:
+                    // criar player falhou
+                    break;
+                case 6:
+                {
+                    pE = Create(oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::ARMADILHA);
+                    if (pE)
+                    {
+                        staticEntities.add(pE);
+                    }
+                    else
+                    {
+                        cout << "nao foi possivel criar entidade, ponteiro nulo" << endl;
+                    }
+                    break;
+                }
+                case 7:
+                {
+                    pE = Create(oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::LAVA);
+                    if (pE)
+                    {
+                        staticEntities.add(pE);
+                    }
+                    else
+                    {
+                        cout << "nao foi possivel criar entidade, ponteiro nulo" << endl;
+                    }
+                    break;
+                }
+                case 8:
+                {
+                    pE = Create(oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::empty);
+                    if (pE)
+                    {
+                        staticEntities.add(pE);
+                    }
+                    else
+                    {
+                        cout << "nao foi possivel criar entidade, ponteiro nulo" << endl;
+                    }
+                    break;
+                }
+                break;
+                default:
+                    break;
                 }
             }
         }

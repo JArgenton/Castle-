@@ -1,7 +1,7 @@
 #include "Entities/Obstacles/Lava.hpp"
 
-#define WIDGHT 80.0f
-#define HEIGHT 80.0f
+#define WIDGHT 32.0f
+#define HEIGHT 32.0f
 #define LAVA_DAMAGE 10
 
 std::string texturepath = "assets/freetileset/png/Tiles/17.png";

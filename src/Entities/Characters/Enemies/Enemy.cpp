@@ -1,7 +1,7 @@
 #include "Entities/Characters/Enemies/Enemy.hpp"
 #include "Entities/Obstacles/Lava.hpp"
 #include "Entities/Characters/Player.hpp"
-
+#include <math.h>
 namespace Entities
 {
     using namespace Obstacles;
@@ -36,6 +36,18 @@ namespace Entities
                     exit(1);
                 }
                 return pPlayer->getPosition();
+            }
+            float Enemy::getPlayerDistance()
+            {
+                return playerDistance;
+            }
+
+            void
+            Enemy::updatePlayerDistance()
+            {
+                TupleF pos = getPosition();
+                TupleF pPos = getPlayerPosition();
+                playerDistance = sqrt(pow(pos.x - pPos.x, 2) + pow(pos.y - pPos.y, 2));
             }
 
             void Enemy::receiveDamage(const int damage)

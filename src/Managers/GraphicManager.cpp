@@ -30,7 +30,8 @@ namespace Managers
 
     Graphics::~Graphics()
     {
-        delete window;
+        if (window)
+            delete window;
         instance = nullptr;
     }
 
@@ -99,9 +100,8 @@ namespace Managers
         this->dt = clock.getElapsedTime().asSeconds();
         clock.restart();
     }
-
-    sf::RenderWindow *Graphics::getWindow() const
+    float Graphics::getDeltaTime()
     {
-        return window;
+        return dt;
     }
 }

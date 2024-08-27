@@ -1,14 +1,16 @@
 #pragma once
 #include "Factories/EntityFactory.hpp"
-
+#include "Utilis/EntityList.hpp"
 namespace Factories
 {
-    class EnemiesFactory : public EntityFactory
+    class ProjectilesFactory : public EntityFactory
     {
     private:
+        List::EntityList *MovingEntities;
+
     public:
-        EnemiesFactory();
-        ~EnemiesFactory();
+        ProjectilesFactory();
+        ~ProjectilesFactory();
         Entity *FactoryMethood(TupleF _position, ID _id);
     };
 

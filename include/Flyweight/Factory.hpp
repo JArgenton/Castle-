@@ -25,6 +25,7 @@ namespace flyweight
     {
         for (auto &MapElement : FlyweightMap)
         {
+
             delete MapElement.second;
         }
     }

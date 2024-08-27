@@ -9,7 +9,6 @@ namespace Managers
     private:
         List::EntityList *StaticEntities;
         List::EntityList *MovingEntities;
-        static Collision *instance;
 
     public:
         Collision(List::EntityList *_staticEntities, List::EntityList *_movingEntities);

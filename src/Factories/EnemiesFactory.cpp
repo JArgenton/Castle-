@@ -2,15 +2,17 @@
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Characters/Enemies/Soldier.hpp"
 #include "Entities/Characters/Enemies/Dumb.hpp"
+#include "Principal.hpp"
 namespace Factories
 {
-    EnemiesFactory::EnemiesFactory()
+    EnemiesFactory::EnemiesFactory() : EntityFactory()
     {
     }
 
     EnemiesFactory::~EnemiesFactory()
     {
     }
+
     Entity *EnemiesFactory::FactoryMethood(TupleF _position, ID _id)
     {
         ID enemy;
@@ -41,10 +43,11 @@ namespace Factories
         default:
             break;
         }
-        if (pE != nullptr)
+        if (pE)
         {
             pE->initialize();
-        }
+                }
         return pE;
     }
+
 } // namespace Factories

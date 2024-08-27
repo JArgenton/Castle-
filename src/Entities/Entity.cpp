@@ -5,7 +5,6 @@ namespace Entities
     Entity::Entity(TupleF _position, ID _id) : Ent(),
                                                id(_id)
     {
-
         setPosition(_position);
     }
 

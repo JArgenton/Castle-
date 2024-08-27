@@ -10,13 +10,8 @@ namespace Entities
     {
         namespace Enemies
         {
-            Enemy::Enemy(TupleF _position,
-                         ID id,
-                         int life,
-                         Entities::Characters::Player *pP,
-                         const float atkCooldown,
-                         const float atkTime,
-                         const unsigned int points) : Character(_position, id), pPlayer(pP), points(points)
+            Enemy::Enemy(TupleF _position, ID _id, int _points) : Character(_position, _id),
+                                                                  points(_points)
             {
             }
 
@@ -25,7 +20,7 @@ namespace Entities
                 pPlayer = nullptr;
             }
 
-            void Enemy::setpPlayer(Entities::Characters::Player *pP)
+            void Enemy::setPlayer(Entities::Characters::Player *pP)
             {
                 if (!pP)
                 {

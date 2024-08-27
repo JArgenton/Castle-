@@ -2,11 +2,11 @@
 #include "Entities/Weapons/Weapon.hpp"
 #include "Entities/Obstacles/Lava.hpp"
 #include "Entities/Obstacles/Armadilha.hpp"
-#include "Entities/Weapons/Projectile.hpp"
+#include "Entities/Projectiles/Arrow.hpp"
 
-#define PLAYER_SIZE_X 100.0f
-#define PLAYER_SIZE_Y 100.0f
-#define PLAYER_VELOCITY 0.8f
+#define PLAYER_SIZE_X 30.0f
+#define PLAYER_SIZE_Y 30.0f
+#define PLAYER_VELOCITY 25.0f
 #define PLAYER_HEALT 100
 #define PLAYER_DMG_COOLDOWN 0.0f
 #define JUMP_HEIGH 3.0f
@@ -18,20 +18,23 @@ namespace Entities
 
     namespace Characters
     {
-        Player::Player(Weapons::Weapon *pW, ID _id) : Character(TupleF(100.0f, 100.0f), _id),
-                                                      dmgCooldown(PLAYER_DMG_COOLDOWN),
-                                                      canWalk(true),
-                                                      canReciveDmg(true),
-                                                      canJump(true),
-                                                      isMoving(true),
-                                                      dmgTimer(0),
-                                                      weapon(pW)
+        Player::Player(TupleF _position, Weapons::Weapon *pW, ID _id) : Character(_position, _id),
+                                                                        dmgCooldown(PLAYER_DMG_COOLDOWN),
+                                                                        canWalk(true),
+                                                                        canReciveDmg(true),
+                                                                        canJump(true),
+                                                                        isMoving(true),
+                                                                        dmgTimer(0),
+                                                                        weapon(pW)
 
         {
         }
         Player::~Player()
         {
-            delete weapon;
+            if (weapon)
+            {
+                delete weapon;
+            }
             weapon = nullptr;
         }
 
@@ -119,15 +122,9 @@ namespace Entities
                 }
                 break;
             }
-            case ID::PROJECTILE:
+            case ID::ARROW:
             {
-                Projectile *proj = dynamic_cast<Projectile *>(other);
-                if (proj)
-                {
-                    reciveDmg(proj->getDamage());
-                }
-                printf("colidiu flecha");
-                break;
+                reciveDmg(static_cast<Projectiles::Arrow *>(other)->getDamage());
             }
             default:
                 break;
@@ -154,6 +151,7 @@ namespace Entities
         /*visuals*/
         void Player::initialize()
         {
+            active = true;
             setSize(PLAYER_SIZE_X, PLAYER_SIZE_Y); // chama a set Origin
             std::string texturepath = "assets/player.png";
             SetTexture(texturepath);
@@ -187,13 +185,12 @@ namespace Entities
                     velocity.x *= -1;
             }
             else
+            {
                 velocity.x *= 0.05;
+            }
             velocity.y += GRAVITY;
 
-            position.x += velocity.x * dt;
-            position.y += velocity.y * dt;
-
-            setPosition(position); // atualiza a posiçao da imagem
+            body->move(velocity.x * dt, velocity.y * dt);
 
             if (weapon)
             {

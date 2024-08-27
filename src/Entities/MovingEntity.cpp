@@ -5,7 +5,7 @@ namespace Entities
 
     MovingEntity::MovingEntity(TupleF _position, ID id) : Entity(_position, id),
                                                           velocity(),
-                                                          active(false),
+                                                          active(true),
                                                           facingLeft(false)
     {
     }
@@ -25,7 +25,7 @@ namespace Entities
     }
 
     /*GETs*/
-    TupleF MovingEntity::get_velocity()
+    TupleF MovingEntity::getVelocity()
     {
         return velocity;
     }
@@ -39,41 +39,35 @@ namespace Entities
     {
         return facingLeft;
     }
-    void MovingEntity::initialize()
-    {
-    }
+
     void MovingEntity::moveOnColision(Entity *other, TupleF intersection)
     {
-        TupleF aux = getPosition();
+        TupleF pos = getPosition();
+        TupleF otherPos = other->getPosition();
+
         if (intersection.x > intersection.y)
         {
-            velocity.x = 0;
-            if (other->getPosition().x < aux.x)
+            if (pos.x < otherPos.x)
             {
-                aux.x -= intersection.x;
-                setPosition(aux);
+                body->move(intersection.x, 0);
             }
             else
             {
-                aux.x += intersection.x;
-                cout << aux.x << endl;
-
-                setPosition(aux);
+                body->move(-intersection.x, 0);
             }
+            velocity.x = 0.0f;
         }
         else
         {
-            velocity.y = 0;
-            if (other->getPosition().y < aux.y)
+            if (pos.y < otherPos.y)
             {
-                aux.y -= intersection.y;
-                setPosition(aux);
+                body->move(0, intersection.y);
             }
             else
             {
-                aux.y += intersection.y;
-                setPosition(aux);
+                body->move(0, -intersection.y);
             }
+            velocity.y = 0.0f;
         }
     }
 }

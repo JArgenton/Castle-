@@ -1,8 +1,8 @@
 #include "Entities/Weapons/Sword.hpp"
 #include "Entities/Characters/Player.hpp"
 
-#define HIGHT 100.0f
-#define WIDITH 20.0f
+#define HIGHT 15.0f
+#define WIDITH 10.0f
 #define DAMAGE 10
 #define ATKCOOLDOWN 5.0f
 #define ATKDURATION 3.0f

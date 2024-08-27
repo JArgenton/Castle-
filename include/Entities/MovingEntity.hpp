@@ -25,12 +25,11 @@ namespace Entities
         void setFacing(bool direction);
 
         /*GETs*/
-        TupleF get_velocity();
-        ID get_id();
+        TupleF getVelocity();
         int getDamage();
 
         /*visuals*/
-        virtual void initialize(); // carrega as texturas
+        virtual void initialize() = 0; // carrega as texturas
 
         /*Colisions*/
         virtual void collide(Entity *other, TupleF intersec) = 0;

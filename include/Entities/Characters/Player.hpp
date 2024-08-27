@@ -34,7 +34,7 @@ namespace Entities
             Weapons::Weapon *weapon;
 
         public:
-            Player(Weapons::Weapon *pW = nullptr, ID _id = PLAYER1);
+            Player(TupleF _position, Weapons::Weapon *pW = nullptr, ID _id = PLAYER1);
             ~Player();
 
             /*SETs*/

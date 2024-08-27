@@ -7,21 +7,19 @@ namespace Entities
     {
 
         Character::Character(TupleF _position, Entities::ID _id) : MovingEntity(_position, _id),
-                                                                   health(),
+                                                                   health(500),
                                                                    flagcanAtk(true),
                                                                    flagIsAtking(false),
                                                                    coolDownTimer(0.0f),
                                                                    atkTimer(0.0f),
-                                                                   atkDamage(),
-                                                                   atkCooldown(),
-                                                                   atkDuration()
+                                                                   atkDamage(10),
+                                                                   atkCooldown(0.0f),
+                                                                   atkDuration(0.0f)
 
         {
         }
 
         Character::~Character() {}
-
-        /*SETs*/
         void Character::set_health(int _health)
         {
             health = _health;

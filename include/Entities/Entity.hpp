@@ -10,7 +10,7 @@ using namespace Tuples;
 namespace Entities
 {
 
-#define GRAVITY 0.1f
+#define GRAVITY 3.0f
     enum ID
     {
         empty = 0,
@@ -22,7 +22,7 @@ namespace Entities
         ARMADILHA,
         ENEMY,
         ARCHER,
-        PROJECTILE,
+        ARROW,
         SOLDIER,
         DUMB,
     };

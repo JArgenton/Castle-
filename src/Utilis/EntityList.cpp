@@ -63,6 +63,7 @@ namespace List
     {
         while (getSize() > 0)
         {
+
             deleteEntity(0);
         }
     }

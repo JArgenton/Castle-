@@ -8,7 +8,7 @@ namespace Entities
         {
             static std::string texturepath("");
 
-            Dumb::Dumb(TupleF _position) : Enemy(_position)
+            Dumb::Dumb(TupleF _position) : Enemy(_position, ID::DUMB)
             {
             }
             Dumb::~Dumb()

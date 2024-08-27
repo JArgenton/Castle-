@@ -25,6 +25,7 @@ namespace Entities
             virtual void WeaponInitialize(Characters::Player *pP) = 0;
             // void updateSprite(const float dt);
             virtual void update(const float dt) = 0;
+            void initialize() override {}
 
             void collide(Entity *other, TupleF intersec) override {}
             void execute() override {}

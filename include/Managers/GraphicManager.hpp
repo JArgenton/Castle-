@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
-#include "Flyweight/Factory.hpp"
+#include "Factories/TextureFactory.hpp"
 using namespace Tuples;
 
 namespace Managers
@@ -14,8 +14,7 @@ namespace Managers
     private:
         sf::RenderWindow *window; // janela que o jogo passara
 
-        flyweight::Flyweight<sf::Texture> textureFactory;
-        flyweight::Flyweight<sf::Font> fontFactory;
+        flyweight::Flyweight textureFactory;
 
         // clock para processamento
         sf::Clock clock;

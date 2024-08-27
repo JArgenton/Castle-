@@ -1,5 +1,4 @@
 #pragma once
-
 #include "GraphElements/Text.hpp"
 #include "Ent.hpp"
 

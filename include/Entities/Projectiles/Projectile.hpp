@@ -18,7 +18,7 @@ namespace Entities
             void setDamage(const int _damage);
             const int getDamage();
             virtual void initialize() = 0;
-            virtual void collide(Entity *otherEntity, TupleF intersect);
+            virtual void collide(Entity *otherEntity, TupleF intersect) = 0;
             void execute() override {}
             // void updateSprite(const float dt) override;
         };

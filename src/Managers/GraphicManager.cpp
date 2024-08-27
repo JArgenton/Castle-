@@ -9,7 +9,7 @@ namespace Managers
 
     Graphics::Graphics() : window(new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game")),
                            textureFactory(),
-                           fontFactory(),
+                           // fontFactory(),
                            clock(),
                            view(window->getDefaultView()),
                            frameRateLimit(FRAME_RATE_LIMIT),
@@ -37,7 +37,7 @@ namespace Managers
 
     sf::Font *Graphics::loadFont(const std::string &filepath)
     {
-        return fontFactory.getResource(filepath);
+        // TODO
     }
 
     sf::Texture *Graphics::loadTexture(const std::string &filepath)
@@ -103,5 +103,9 @@ namespace Managers
     float Graphics::getDeltaTime()
     {
         return dt;
+    }
+    sf::RenderWindow *Graphics::getWindow() const
+    {
+        return window;
     }
 }

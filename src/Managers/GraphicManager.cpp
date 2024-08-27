@@ -30,7 +30,8 @@ namespace Managers
 
     Graphics::~Graphics()
     {
-        delete window;
+        if (window)
+            delete window;
         instance = nullptr;
     }
 

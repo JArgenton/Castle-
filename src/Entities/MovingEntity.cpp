@@ -5,7 +5,7 @@ namespace Entities
 
     MovingEntity::MovingEntity(TupleF _position, ID id) : Entity(_position, id),
                                                           velocity(),
-                                                          active(false),
+                                                          active(true),
                                                           facingLeft(false)
     {
     }
@@ -45,7 +45,7 @@ namespace Entities
         TupleF pos = getPosition();
         TupleF otherPos = other->getPosition();
 
-        if (intersection.x < intersection.y)
+        if (intersection.x > intersection.y)
         {
             if (pos.x < otherPos.x)
             {

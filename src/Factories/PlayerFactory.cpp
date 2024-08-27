@@ -22,13 +22,13 @@ namespace Factories
         case ID::PLAYER1:
         {
             Weapons::Sword *weapon = new Weapons::Sword;
-            pE = new Entities::Characters::Player(static_cast<Weapons::Weapon *>(weapon), PLAYER1);
+            pE = new Entities::Characters::Player(_position, static_cast<Weapons::Weapon *>(weapon), PLAYER1);
             break;
         }
         case ID::PLAYER2:
         {
             Weapons::Sword *weapon = new Weapons::Sword;
-            pE = new Entities::Characters::Player(static_cast<Weapons::Weapon *>(weapon), PLAYER2);
+            pE = new Entities::Characters::Player(_position, static_cast<Weapons::Weapon *>(weapon), PLAYER2);
             break;
         }
         default:

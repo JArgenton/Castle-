@@ -6,7 +6,7 @@
 
 #define PLAYER_SIZE_X 30.0f
 #define PLAYER_SIZE_Y 30.0f
-#define PLAYER_VELOCITY 2.0f
+#define PLAYER_VELOCITY 25.0f
 #define PLAYER_HEALT 100
 #define PLAYER_DMG_COOLDOWN 0.0f
 #define JUMP_HEIGH 3.0f
@@ -18,20 +18,23 @@ namespace Entities
 
     namespace Characters
     {
-        Player::Player(Weapons::Weapon *pW, ID _id) : Character(TupleF(100.0f, 100.0f), _id),
-                                                      dmgCooldown(PLAYER_DMG_COOLDOWN),
-                                                      canWalk(true),
-                                                      canReciveDmg(true),
-                                                      canJump(true),
-                                                      isMoving(true),
-                                                      dmgTimer(0),
-                                                      weapon(pW)
+        Player::Player(TupleF _position, Weapons::Weapon *pW, ID _id) : Character(_position, _id),
+                                                                        dmgCooldown(PLAYER_DMG_COOLDOWN),
+                                                                        canWalk(true),
+                                                                        canReciveDmg(true),
+                                                                        canJump(true),
+                                                                        isMoving(true),
+                                                                        dmgTimer(0),
+                                                                        weapon(pW)
 
         {
         }
         Player::~Player()
         {
-            delete weapon;
+            if (weapon)
+            {
+                delete weapon;
+            }
             weapon = nullptr;
         }
 
@@ -148,11 +151,10 @@ namespace Entities
         /*visuals*/
         void Player::initialize()
         {
+            active = true;
             setSize(PLAYER_SIZE_X, PLAYER_SIZE_Y); // chama a set Origin
             std::string texturepath = "assets/player.png";
-            // SetTexture(texturepath);
-            setPosition(TupleF(200.0f, 270.0f));
-            body->setFillColor(sf::Color::Red);
+            SetTexture(texturepath);
 
             if (weapon)
             {
@@ -183,7 +185,9 @@ namespace Entities
                     velocity.x *= -1;
             }
             else
+            {
                 velocity.x *= 0.05;
+            }
             velocity.y += GRAVITY;
 
             body->move(velocity.x * dt, velocity.y * dt);

@@ -1,4 +1,5 @@
 #include "Principal.hpp"
+#include "Entities/Characters/Enemies/Archer.hpp"
 
 Factories::ProjectilesFactory Principal::projFactory;
 List::EntityList Principal::MovingEntities;
@@ -6,6 +7,8 @@ List::EntityList Principal::MovingEntities;
 Principal::Principal() : eFactory(),
                          playerFactory(),
                          oFactory(),
+                         Player1(),
+                         Player2(),
                          ClManager(&StaticEntities, &Principal::MovingEntities),
                          gpManager(Managers::Graphics::get_instance())
 {
@@ -16,10 +19,16 @@ Principal::Principal() : eFactory(),
 
 Principal::~Principal()
 {
-    delete eFactory;
-    delete playerFactory;
-    delete oFactory;
-    delete Player1;
+    if (eFactory)
+        delete eFactory;
+    if (playerFactory)
+        delete playerFactory;
+    if (oFactory)
+        delete oFactory;
+    if (Player1)
+    {
+        delete Player1;
+    }
     if (Player2)
     {
         delete Player2;
@@ -32,10 +41,12 @@ Principal::~Principal()
     MovingEntities.cleanList();
     StaticEntities.cleanList();
 }
+
 void Principal::exec()
 {
     createFase("map.tmj");
     float dt = 0;
+
     while (gpManager->isWindowOpen())
     {
         sf::Event event;
@@ -64,9 +75,15 @@ void Principal::exec()
         {
             StaticEntities[i]->render();
         }
+
         for (int i = 0; i < MovingEntities.getSize(); i++)
         {
+
             static_cast<MovingEntity *>(MovingEntities[i])->update(dt);
+            if (!static_cast<MovingEntity *>(MovingEntities[i])->isActive())
+            {
+                MovingEntities.deleteEntity(i);
+            }
         }
 
         ClManager.check_collision();
@@ -79,32 +96,10 @@ void Principal::exec()
     std::cout << "Janela fechada" << std::endl;
 }
 
-Entity *Principal::Create(Factories::EntityFactory *pFactory, TupleF _position, ID _id)
-{
-    return pFactory->FactoryMethood(_position, _id);
-}
-
 void Principal::createFase(const std::string &path)
 {
-
-    Player1 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(160.0f, 160.0f), ID::PLAYER1));
-    if (Player1)
-    {
-        MovingEntities.add(Player1);
-    }
-    Entity *pE = Create(eFactory, TupleF(200.0f, 160.0f), ARCHER);
-    if (pE)
-    {
-        MovingEntities.add(pE);
-    }
-
-    // Cria um objeto ifstream para ler o arquivo
     std::ifstream file(path);
-
-    // Cria um objeto json
     json tmjData;
-
-    // Lê o arquivo json para o objeto json
     file >> tmjData;
 
     // tamanho de cada bloco
@@ -115,6 +110,18 @@ void Principal::createFase(const std::string &path)
     auto matrix = layer["data"];
     int width = layer["width"];
     int height = layer["height"];
+
+    Player1 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(300.0f, 270.0f), ID::PLAYER1));
+    if (Player1)
+    {
+        MovingEntities.add(Player1);
+    }
+    Entity *pE = Create(eFactory, TupleF(350.0f, 260.0f), ARCHER);
+    if (pE)
+    {
+        MovingEntities.add(pE);
+        static_cast<Characters::Enemies::Enemy *>(pE)->setPlayer(Player1);
+    }
 
     // iterate through the matrix
     for (int y = 0; y < height; y++)
@@ -129,9 +136,15 @@ void Principal::createFase(const std::string &path)
         }
     }
 }
+
+Entity *Principal::Create(Factories::EntityFactory *pFactory, TupleF _position, ID _id)
+{
+    return pFactory->FactoryMethood(_position, _id);
+}
 void Principal::createProjectile(TupleF _position, ID _id)
 {
     Entity *pE = Create(&projFactory, _position, _id);
+
     if (pE)
     {
         MovingEntities.add(pE);

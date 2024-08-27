@@ -8,7 +8,10 @@ Ent::Ent() : body()
 
 Ent::~Ent()
 {
-
+    if (body)
+    {
+        delete body;
+    }
     body = nullptr;
 }
 void Ent::render()

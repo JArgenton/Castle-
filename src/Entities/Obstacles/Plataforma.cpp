@@ -19,8 +19,7 @@ namespace Entities
         {
             setSize(WIDGHT, HEIGHT);
             std::string texturepath = "assets/freetileset/png/Tiles/2.png";
-            // SetTexture(texturepath);
-            body->setFillColor(sf::Color::Blue);
+            SetTexture(texturepath);
         }
     } // namespace Obstacles
 

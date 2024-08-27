@@ -23,7 +23,7 @@ namespace Factories
         }
         if (pE)
         {
-            cout << "cheguei" << endl;
+
             pE->initialize();
         }
 

@@ -13,14 +13,13 @@ namespace Entities
             class Archer : public Enemy
             {
             private:
-                float timer;
-
             public:
                 Archer(TupleF position = TupleF(400.0f, 100.0f));
 
                 ~Archer();
 
                 void shoot();
+                void atack();
 
                 void update(const float dt);
 

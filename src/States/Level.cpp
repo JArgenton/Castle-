@@ -28,6 +28,7 @@ namespace States
         eFactory = new Factories::EnemiesFactory;
         playerFactory = new Factories::PlayerFactory;
         oFactory = new Factories::ObstaclesFactory;
+        pControl.setMachine(pStateMachine);
     }
     Level::~Level()
     {

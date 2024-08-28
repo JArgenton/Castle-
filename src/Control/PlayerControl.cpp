@@ -18,50 +18,68 @@ namespace Control
 
     void PlayerControl::notifyPressed(std::string key)
     {
-        if (!pPlayer1 || !pPlayer2)
+
+        if (!pStateM)
         {
-            cout << "um dos players esta nulo" << endl;
+            cout << "maquina de estados nula ???????" << endl;
             exit(1);
         }
-        if (key == "Space" && !pPlayer2->getFullyCreated())
-        {
-            pPlayer2->initialize();
-            pPlayer2->setPosition(pPlayer1->getPosition());
-        }
 
-        if (key == "Up")
-            pPlayer1->jump();
-
-        if (key == "Down")
-        {
-            pPlayer1->atack();
-        }
-        if (key == "Left")
-        {
-            pPlayer1->walk(true);
-        }
-        if (key == "Right")
-        {
-            pPlayer1->walk(false);
-        }
-
-        if (pPlayer2->getFullyCreated())
+        if (pStateM->getStateID() == stateID::FASE)
         {
 
-            if (key == "W")
-                pPlayer2->jump();
-
-            if (key == "S")
+            if (!pPlayer1 && !pPlayer2)
             {
-                pPlayer2->atack();
+                cout << "um dos players esta nulo" << endl;
+                exit(1);
             }
-            if (key == "A")
+
+            if (key == "Space" && !pPlayer2->getFullyCreated())
             {
-                pPlayer2->walk(true);
+                {
+                    pPlayer2->initialize();
+                    pPlayer2->setPosition(pPlayer1->getPosition());
+                }
             }
-            if (key == "D")
+
+            if (key == "Up")
             {
-                pPlayer2->walk(false);
+                pPlayer1->jump();
+            }
+
+            if (key == "Down")
+            {
+                pPlayer1->atack();
+            }
+
+            if (key == "Left")
+            {
+                pPlayer1->walk(true);
+            }
+
+            if (key == "Right")
+            {
+                pPlayer1->walk(false);
+            }
+
+            if (pPlayer2->getFullyCreated())
+            {
+
+                if (key == "W")
+                    pPlayer2->jump();
+
+                if (key == "S")
+                {
+                    pPlayer2->atack();
+                }
+                if (key == "A")
+                {
+                    pPlayer2->walk(true);
+                }
+                if (key == "D")
+                {
+                    pPlayer2->walk(false);
+                }
             }
         }
     }
@@ -69,36 +87,45 @@ namespace Control
     void PlayerControl::notifyReleased(std::string key)
     {
 
-        if (!pPlayer1 || !pPlayer2)
+        if (!pStateM)
         {
-            cout << "um dos players esta nulo" << endl;
+            cout << "maquina de estados nula ???????" << endl;
+            exit(1);
         }
-
-        if (key == "Left")
+        if (pStateM->getStateID() == stateID::FASE)
         {
-            if (pPlayer1->getVelocity().x < 0)
+            if (!pPlayer1 && !pPlayer2)
             {
-                pPlayer1->stop();
+                cout << "um dos players esta nulo" << endl;
+                exit(1);
             }
-        }
-        if (key == "Right")
-        {
-            if (pPlayer1->getVelocity().x > 0)
-            {
-                pPlayer1->stop();
-            }
-        }
 
-        if (pPlayer2->getFullyCreated())
-        {
-
-            if (key == "D")
+            if (key == "Left")
             {
-                pPlayer2->stop();
+                if (pPlayer1->getVelocity().x < 0)
+                {
+                    pPlayer1->stop();
+                }
             }
-            if (key == "A")
+            if (key == "Right")
             {
-                pPlayer2->stop();
+                if (pPlayer1->getVelocity().x > 0)
+                {
+                    pPlayer1->stop();
+                }
+            }
+
+            if (pPlayer2->getFullyCreated())
+            {
+
+                if (key == "D")
+                {
+                    pPlayer2->stop();
+                }
+                if (key == "A")
+                {
+                    pPlayer2->stop();
+                }
             }
         }
     }
@@ -112,6 +139,11 @@ namespace Control
         {
             pPlayer1 = pL;
         }
+    }
+
+    void PlayerControl::setMachine(StateMachine *pSTM)
+    {
+        pStateM = pSTM;
     }
 
 } // namespace Control

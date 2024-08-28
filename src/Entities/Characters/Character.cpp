@@ -14,7 +14,9 @@ namespace Entities
                                                                    atkTimer(0.0f),
                                                                    atkDamage(10),
                                                                    atkCooldown(0.0f),
-                                                                   atkDuration(0.0f)
+                                                                   atkDuration(0.0f),
+                                                                   dmgTimer(0.5f),
+                                                                   dmgCooldown(1.0f)
 
         {
         }
@@ -38,9 +40,13 @@ namespace Entities
         }
 
         /*gets*/
-        int Character::get_health()
+        int Character::getHealth()
         {
             return health;
+        }
+        int Character::getAtkDamage()
+        {
+            return atkDamage;
         }
 
         /*Actions*/
@@ -53,10 +59,14 @@ namespace Entities
         }
         void Character::reciveDmg(int dmg)
         {
-            health = health - dmg;
-            if (health <= 0)
+            if (canReciveDmg())
             {
-                active = false;
+                health -= dmg;
+                if (health <= 0)
+                {
+                    active = false;
+                }
+                dmgTimer = 0;
             }
         }
 
@@ -76,10 +86,20 @@ namespace Entities
                 atkTimer = 0;
             }
         }
+        void Character::incrementDmgTimer(const float dt)
+        {
+            dmgTimer += dt;
+        }
+
         const bool Character::canAtk()
         {
             return coolDownTimer > atkCooldown ? true : false;
         }
+        const bool Character::canReciveDmg()
+        {
+            return dmgTimer > dmgCooldown ? true : false;
+        }
+
         bool Character::isAtking()
         {
             return flagIsAtking;

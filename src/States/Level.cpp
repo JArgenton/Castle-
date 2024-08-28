@@ -2,6 +2,7 @@
 
 #include "Entities/Obstacles/Plataforma.hpp"
 #include "Entities/Characters/Enemies/Archer.hpp"
+#include "Entities/Weapons/Sword.hpp"
 
 namespace States
 {
@@ -173,6 +174,7 @@ namespace States
         {
             movingEntities.add(Player1);
             pControl.setPlayer(Player1);
+            movingEntities.add(dynamic_cast<Weapons::Sword *>(Player1->get_weapon()));
         }
 
         // iterate through the matrix

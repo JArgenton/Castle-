@@ -28,6 +28,8 @@ namespace Entities
             /*Cooldowns (const)*/
             float atkCooldown; // tempo para atacar novamente
             float atkDuration; // tempo para finalizar a animaçao de ataque
+            float dmgTimer;    // timer para tomar dano novamente
+            float dmgCooldown;
 
         public:
             Character(TupleF _position = TupleF(0.0f, 0.0f), Entities::ID id = empty);
@@ -42,7 +44,8 @@ namespace Entities
             void set_atkDamage(int _damage);
 
             /*gets*/
-            int get_health();
+            int getHealth();
+            int getAtkDamage();
 
             /*Actions*/
             virtual void atack();
@@ -54,7 +57,9 @@ namespace Entities
 
             /*timers & conditions*/
             void incrementAtkTimer(const float dt); // necessario devido a decisao de separ o tempo atacando e de cooldown do atk, add o dt no contador correto
-            const bool canAtk();                    // necessario devido a decisao de separ o tempo atacando e de cooldown do atk, muda o booleano
+            void incrementDmgTimer(const float dt);
+            const bool canAtk(); // necessario devido a decisao de separ o tempo atacando e de cooldown do atk, muda o booleano
+            const bool canReciveDmg();
             bool isAtking();
 
             /*update*/

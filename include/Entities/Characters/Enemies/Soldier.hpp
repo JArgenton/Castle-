@@ -15,7 +15,6 @@ namespace Entities
             public:
                 Soldier(TupleF _position);
                 ~Soldier();
-                void collide(Entity *other, TupleF intersec);
                 void initialize();
                 void toDamage(Player *pP);
                 void update(const float dt);

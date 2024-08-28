@@ -1,6 +1,7 @@
 #include "Entities/Characters/Enemies/Enemy.hpp"
 #include "Entities/Obstacles/Lava.hpp"
 #include "Entities/Characters/Player.hpp"
+
 #include <math.h>
 namespace Entities
 {
@@ -52,14 +53,18 @@ namespace Entities
 
             void Enemy::receiveDamage(const int damage)
             {
-                health -= damage;
-                if (health <= 0)
+                if (canReciveDmg())
                 {
-                    active = false;
-                    if (pPlayer != nullptr)
+                    health -= damage;
+                    if (health <= 0)
                     {
-                        pPlayer->incrementPoints(points);
+                        active = false;
+                        if (pPlayer != nullptr)
+                        {
+                            pPlayer->incrementPoints(points);
+                        }
                     }
+                    dmgTimer = 0;
                 }
             }
 
@@ -78,8 +83,9 @@ namespace Entities
                     if (pPlayer != nullptr)
                     {
                         moveOnColision(otherEntity, intersect);
-                        receiveDamage(10); // player ainda não tem arma
+                        receiveDamage(10);
                     }
+                    break;
                 }
                 case ID::LAVA:
                 {
@@ -94,7 +100,17 @@ namespace Entities
                 }
                 case ID::ARMADILHA:
                 {
+                    break;
                 }
+                case ID::WEAPON:
+                {
+                    if (pPlayer)
+                    {
+                        if (pPlayer->isAtking())
+                            receiveDamage(pPlayer->getAtkDamage());
+                    }
+                }
+                break;
                 default:
                     break;
                 }

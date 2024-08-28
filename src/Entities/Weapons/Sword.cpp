@@ -1,11 +1,11 @@
 #include "Entities/Weapons/Sword.hpp"
 #include "Entities/Characters/Player.hpp"
 
-#define HIGHT 32.0f
-#define WIDITH 16.0f
-#define DAMAGE 10
-#define ATKCOOLDOWN 5.0f
-#define ATKDURATION 3.0f
+#define HIGHT 48.0f
+#define WIDITH 32.0f
+#define DAMAGE 50
+#define ATKCOOLDOWN 0.5f
+#define ATKDURATION 0.5f
 namespace Entities
 {
     namespace Weapons
@@ -32,29 +32,54 @@ namespace Entities
             {
                 std::cout << "erro em SWORD, owner nulo " << std::endl;
             }
-            std::string texturepath = "assets/sword.png";
+            std::string texturepath = "assets/espada2.png";
             SetTexture(texturepath);
         }
         void Sword::atack()
         {
-            /*TODO:
-            Modificar o tam de weapon para o range de ataque
-            retornar para o valor padrao dps do final do ataque
-            fazer na update*/
+            float crit = 0.3 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (3 - 0.3)));
+            cout << crit << endl;
+            owner->set_atkDamage(static_cast<int>(DAMAGE * crit));
         }
         void Sword::update(const float dt)
         {
             if (owner)
             {
+
                 TupleF position;
                 position = owner->getPosition();
                 if (!owner->isFacingLeft())
                 {
-                    position.x = position.x + owner->getSize().x / 2 + 5.0f;
+                    position(position.x + owner->getSize().x / 2 + 5.0f, position.y - 10.0f);
                 }
                 else
                 {
-                    position.x = position.x - owner->getSize().x / 2 - 5.0f;
+
+                    position(position.x - owner->getSize().x / 2 - 5.0f, position.y - 10.0f);
+                }
+                if (owner->isAtking())
+                {
+
+                    if (!owner->isFacingLeft())
+                    {
+
+                        body->setRotation(90);
+                        position.x += 15;
+                    }
+
+                    else
+                    {
+                        body->setScale(-1, 1);
+
+                        body->setRotation(-90);
+                        position.x -= 15;
+                    }
+                }
+                else
+                {
+                    body->setScale(1, 1);
+
+                    body->setRotation(35);
                 }
                 setPosition(position);
             }

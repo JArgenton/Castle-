@@ -18,12 +18,11 @@ namespace Entities
             Soldier::~Soldier()
             {
             }
-            void Soldier::collide(Entity *other, TupleF intersec)
-            {
-                moveOnColision(other, intersec);
-            }
+
             void Soldier::initialize()
             {
+                dmgCooldown = 0.5;
+
                 set_health(150);
                 set_atkCooldown(1.0f);
                 set_atkDuration(0.5f);
@@ -41,6 +40,8 @@ namespace Entities
                 execute();
                 // Atualiza o archer
                 incrementAtkTimer(dt);
+                incrementDmgTimer(dt);
+
                 // Atualiza posição do archer
 
                 velocity.y += GRAVITY;

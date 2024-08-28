@@ -21,10 +21,8 @@ namespace Entities
         Player::Player(TupleF _position, Weapons::Weapon *pW, ID _id) : Character(_position, _id),
                                                                         dmgCooldown(PLAYER_DMG_COOLDOWN),
                                                                         canWalk(true),
-                                                                        canReciveDmg(true),
                                                                         canJump(true),
                                                                         isMoving(false),
-                                                                        dmgTimer(0),
                                                                         weapon(pW)
 
         {
@@ -72,22 +70,10 @@ namespace Entities
         /*actions*/
         void Player::atack()
         {
-            if (weapon != nullptr)
+            if (weapon != nullptr && canAtk())
             {
+                flagIsAtking = true;
                 weapon->atack();
-            }
-        }
-
-        void Player::reciveDmg(int dmg)
-        {
-            if (canReciveDmg)
-            {
-                health -= dmg;
-                if (health <= 0)
-                {
-                    active = false;
-                }
-                dmgTimer = 0;
             }
         }
 
@@ -131,7 +117,8 @@ namespace Entities
         }
         void Player::collide(Entity *other, TupleF intersec)
         {
-            moveOnColision(other, intersec);
+            if (other != weapon)
+                moveOnColision(other, intersec);
 
             switch (other->getId())
             {
@@ -167,7 +154,7 @@ namespace Entities
         {
             if (canJump)
             {
-                velocity.y = -GRAVITY * 50;
+                velocity.y = -GRAVITY * 70;
             }
             canJump = false;
         }
@@ -198,7 +185,6 @@ namespace Entities
         }
         void Player::execute()
         {
-            /*TODO*/
         }
 
         /*GAME*/
@@ -210,6 +196,8 @@ namespace Entities
         void Player::update(const float dt)
         {
             incrementAtkTimer(dt);
+            incrementDmgTimer(dt);
+
             TupleF position = getPosition();
 
             if (isMoving)

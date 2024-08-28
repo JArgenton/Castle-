@@ -42,6 +42,7 @@ namespace Entities
                 execute();
                 // Atualiza o archer
                 Character::incrementAtkTimer(dt);
+                incrementDmgTimer(dt);
                 // Atualiza posição do archer
 
                 velocity.y += GRAVITY;
@@ -61,6 +62,8 @@ namespace Entities
 
             void Archer::initialize()
             {
+
+                dmgCooldown = 0.5;
 
                 set_health(150);
                 set_atkCooldown(1.0f);

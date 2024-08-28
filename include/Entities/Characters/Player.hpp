@@ -21,14 +21,10 @@ namespace Entities
 
             /*actions*/
             bool canWalk;
-            bool canReciveDmg;
             bool canJump;
 
             /*conditions*/
             bool isMoving;
-
-            /*timers*/
-            float dmgTimer; // timer para tomar dano novamente
 
             /*weapon*/
             Weapons::Weapon *weapon;
@@ -48,7 +44,6 @@ namespace Entities
 
             /*actions*/
             void atack();
-            void reciveDmg(int dmg);
             void jump();
             void walk(bool toLeft);
             void stop();

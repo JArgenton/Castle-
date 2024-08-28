@@ -70,7 +70,8 @@ namespace Entities
 
             void Enemy::collide(Entity *otherEntity, TupleF intersect)
             {
-                moveOnColision(otherEntity, intersect);
+                if (otherEntity->getId() != ID::WEAPON)
+                    moveOnColision(otherEntity, intersect);
 
                 switch (otherEntity->getId())
                 {

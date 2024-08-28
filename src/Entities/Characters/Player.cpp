@@ -3,7 +3,7 @@
 #include "Entities/Obstacles/Lava.hpp"
 #include "Entities/Obstacles/Armadilha.hpp"
 #include "Entities/Projectiles/Arrow.hpp"
-
+#include <math.h>
 #define PLAYER_SIZE_X 32.0f
 #define PLAYER_SIZE_Y 64.0f
 #define PLAYER_VELOCITY 100.0f
@@ -154,7 +154,7 @@ namespace Entities
         {
             if (canJump)
             {
-                velocity.y = -GRAVITY * 70;
+                velocity.y -= 36 * GRAVITY;
             }
             canJump = false;
         }

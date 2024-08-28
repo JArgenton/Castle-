@@ -1,4 +1,5 @@
 #include "Control/MenuControl.hpp"
+#include "Menus/PauseMenu.hpp"
 #include "Menus/Menu.hpp"
 
 namespace Control
@@ -27,7 +28,10 @@ namespace Control
         if (key == "Up")
             pMenu->selectUp();
         if (key == "Enter")
-            pMenu->exec();
+            pMenu->execute();
+        if (key == "Escape")
+            if (dynamic_cast<Menus::PauseMenu *>(pMenu) != nullptr)
+                dynamic_cast<Menus::PauseMenu *>(pMenu)->initPause();
     }
 
     void MenuControl::notifyReleased(std::string key) {}

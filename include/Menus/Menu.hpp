@@ -8,7 +8,7 @@
 namespace Menus
 {
 
-    class Menu
+    class Menu : public Ent
     {
     protected:
         std::vector<GraphicalElements::Button *> vectorOfButtons;
@@ -25,7 +25,11 @@ namespace Menus
 
         virtual ~Menu();
 
-        virtual void exec() = 0;
+        virtual void execute() = 0;
+
+        void initialize() override {}
+
+        virtual void render() = 0;
 
         void updateView();
 

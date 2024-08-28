@@ -2,6 +2,7 @@
 
 namespace Control
 {
+    using namespace States;
 
     PlayerControl::PlayerControl(Entities::Characters::Player *pP) : Observer()
     {
@@ -10,12 +11,13 @@ namespace Control
 
     PlayerControl::~PlayerControl()
     {
-        pPlayer = NULL;
+        pPlayer = nullptr;
     }
 
     void PlayerControl::notifyPressed(std::string key)
     {
-        if (pPlayer == NULL)
+
+        if (pPlayer == nullptr)
         {
             std::cout << "ERRO ponteiro nulo PlayerControl::notify()." << std::endl;
             exit(1);
@@ -39,7 +41,6 @@ namespace Control
 
     void PlayerControl::notifyReleased(std::string key)
     {
-
         if (key == "Left")
         {
             if (pPlayer->getVelocity().x < 0)

@@ -28,7 +28,7 @@ namespace Menus
 
         void resetState();
 
-        void exec();
+        void execute();
     };
 
 }

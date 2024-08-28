@@ -56,7 +56,7 @@ namespace Menus
         title.render();
     }
 
-    void MainMenuState::exec()
+    void MainMenuState::execute()
     {
         if (active)
         {

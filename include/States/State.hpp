@@ -9,7 +9,10 @@ namespace States
     {
         UNKNOWN = -1,
         MAINMENU = 0,
-        FASE = 1
+        FASE = 1,
+        PAUSEMENU = 2,
+        SETTINGS = 3,
+        GAMEOVER = 4
     };
 
     class State

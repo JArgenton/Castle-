@@ -1,5 +1,6 @@
 #include "States/Jogo.hpp"
 #include "Menus/MainMenu.hpp"
+#include "Menus/PauseMenu.hpp"
 #include "States/Level.hpp"
 
 namespace States
@@ -12,6 +13,9 @@ namespace States
         dt = 0;
         State *pStates = nullptr;
         pStates = static_cast<State *>(new Menus::MainMenuState(this));
+        insertState(pStates);
+
+        pStates = static_cast<State *>(new Menus::PauseMenu(this));
         insertState(pStates);
 
         pStates = static_cast<State *>(new Level(this));

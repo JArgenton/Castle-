@@ -2,6 +2,8 @@
 
 #include "Control/Observer.hpp"
 #include "Entities/Characters/Player.hpp"
+#include "States/StateMachine.hpp"
+using namespace States;
 
 namespace Control
 {
@@ -10,6 +12,7 @@ namespace Control
     {
     private:
         Entities::Characters::Player *pPlayer;
+        State *id;
 
     public:
         PlayerControl(Entities::Characters::Player *pP = NULL);

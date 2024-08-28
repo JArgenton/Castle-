@@ -22,9 +22,6 @@ namespace Managers
 
         static EventsManager *getInstance();
 
-        void setGraphicManager();
-        void setInput(InputManager *pIM);
-
         void pollEvents();
     };
 

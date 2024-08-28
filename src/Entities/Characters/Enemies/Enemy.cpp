@@ -105,7 +105,7 @@ namespace Entities
                     if (pPlayer1)
                     {
                         moveOnColision(otherEntity, intersect);
-                        receiveDamage(10);
+                        receiveDamage(25);
                     }
                     break;
                 }
@@ -138,7 +138,7 @@ namespace Entities
                     Player *owner = dynamic_cast<Weapons::Sword *>(otherEntity)->getOwner();
                     if (owner->isAtking())
                     {
-                        receiveDamage(pPlayer2->getAtkDamage());
+                        receiveDamage(owner->getAtkDamage());
                     }
 
                     break;

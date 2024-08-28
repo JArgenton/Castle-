@@ -133,7 +133,7 @@ namespace Entities
 
             case ID::ARMADILHA:
             {
-                /*TODO*/
+
                 break;
             }
             case ID::LAVA:

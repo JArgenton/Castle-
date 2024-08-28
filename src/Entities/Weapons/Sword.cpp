@@ -37,13 +37,13 @@ namespace Entities
         }
         void Sword::atack()
         {
-            float crit = 0.3 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (3 - 0.3)));
-            owner->set_atkDamage(static_cast<int>(DAMAGE * crit));
+            owner->set_atkDamage(static_cast<int>(DAMAGE * Crit));
         }
         void Sword::update(const float dt)
         {
             if (owner)
             {
+                Crit = 0.3 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (3 - 0.3)));
 
                 TupleF position;
                 position = owner->getPosition();

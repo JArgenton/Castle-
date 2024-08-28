@@ -30,7 +30,7 @@ namespace Control
 
             if (!pPlayer1 && !pPlayer2)
             {
-                cout << "um dos players esta nulo" << endl;
+                cout << "players estao nulos" << endl;
                 exit(1);
             }
 
@@ -41,28 +41,29 @@ namespace Control
                     pPlayer2->setPosition(pPlayer1->getPosition());
                 }
             }
-
-            if (key == "Up")
+            if (pPlayer1->isActive())
             {
-                pPlayer1->jump();
-            }
+                if (key == "Up")
+                {
+                    pPlayer1->jump();
+                }
 
-            if (key == "Down")
-            {
-                pPlayer1->atack();
-            }
+                if (key == "Down")
+                {
+                    pPlayer1->atack();
+                }
 
-            if (key == "Left")
-            {
-                pPlayer1->walk(true);
-            }
+                if (key == "Left")
+                {
+                    pPlayer1->walk(true);
+                }
 
-            if (key == "Right")
-            {
-                pPlayer1->walk(false);
+                if (key == "Right")
+                {
+                    pPlayer1->walk(false);
+                }
             }
-
-            if (pPlayer2->getFullyCreated())
+            if (pPlayer2->getFullyCreated() && pPlayer2->isActive())
             {
 
                 if (key == "W")

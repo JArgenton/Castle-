@@ -12,7 +12,8 @@ namespace Entities
         class Sword : public Weapon
         {
         private:
-            /* data */
+            float Crit;
+
         public:
             Sword();
             ~Sword();

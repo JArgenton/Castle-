@@ -37,7 +37,24 @@ namespace Control
         }
     }
 
-    void PlayerControl::notifyReleased(std::string key) {}
+    void PlayerControl::notifyReleased(std::string key)
+    {
+
+        if (key == "Left")
+        {
+            if (pPlayer->getVelocity().x < 0)
+            {
+                pPlayer->stop();
+            }
+        }
+        if (key == "Right")
+        {
+            if (pPlayer->getVelocity().x > 0)
+            {
+                pPlayer->stop();
+            }
+        }
+    }
 
     void PlayerControl::setPlayer(Entities::Characters::Player *pL)
     {

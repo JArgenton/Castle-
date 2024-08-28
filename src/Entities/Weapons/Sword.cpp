@@ -1,8 +1,8 @@
 #include "Entities/Weapons/Sword.hpp"
 #include "Entities/Characters/Player.hpp"
 
-#define HIGHT 15.0f
-#define WIDITH 10.0f
+#define HIGHT 32.0f
+#define WIDITH 16.0f
 #define DAMAGE 10
 #define ATKCOOLDOWN 5.0f
 #define ATKDURATION 3.0f
@@ -48,7 +48,14 @@ namespace Entities
             {
                 TupleF position;
                 position = owner->getPosition();
-                position.x = position.x + owner->getSize().x;
+                if (!owner->isFacingLeft())
+                {
+                    position.x = position.x + owner->getSize().x / 2 + 5.0f;
+                }
+                else
+                {
+                    position.x = position.x - owner->getSize().x / 2 - 5.0f;
+                }
                 setPosition(position);
             }
             render();

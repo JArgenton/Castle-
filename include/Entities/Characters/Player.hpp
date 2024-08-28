@@ -58,6 +58,7 @@ namespace Entities
             void execute();
             void initialize(); // carrega as texturas
             /*Colisions*/
+            void moveOnColision(Entity *other, TupleF intersection);
             void collide(Entity *other, TupleF intersec);
             /*GAME*/
             void updateSprite(const float dt);

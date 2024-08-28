@@ -21,6 +21,15 @@ namespace Entities
     }
     void MovingEntity::setFacing(bool direction)
     {
+        if (direction)
+        {
+            body->setScale(-1, 1);
+        }
+        else
+        {
+            body->setScale(1, 1);
+        }
+
         facingLeft = direction;
     }
 

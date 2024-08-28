@@ -96,6 +96,39 @@ namespace Entities
             this->points += points;
         }
 
+        void Player::moveOnColision(Entity *other, TupleF intersection)
+        {
+            TupleF pos = getPosition();
+            TupleF otherPos = other->getPosition();
+
+            if (intersection.x > intersection.y)
+            {
+                if (pos.x < otherPos.x)
+                {
+                    body->move(intersection.x, 0);
+                }
+                else
+                {
+                    body->move(-intersection.x, 0);
+                }
+
+                velocity.x = 0.0f;
+            }
+            else
+            {
+                if (pos.y < otherPos.y)
+                {
+                    canJump = true;
+
+                    body->move(0, intersection.y);
+                }
+                else
+                {
+                    body->move(0, -intersection.y);
+                }
+                velocity.y = 0.0f;
+            }
+        }
         void Player::collide(Entity *other, TupleF intersec)
         {
             moveOnColision(other, intersec);
@@ -104,7 +137,6 @@ namespace Entities
             {
             case ID::PLATAFORMA:
             {
-                canJump = true;
                 break;
             }
 
@@ -139,11 +171,13 @@ namespace Entities
             }
             canJump = false;
         }
+
         void Player::walk(bool toLeft)
         {
             isMoving = true;
-            facingLeft = toLeft;
+            setFacing(toLeft);
         }
+
         void Player::stop()
         {
             isMoving = false;
@@ -183,11 +217,13 @@ namespace Entities
                 velocity.x = PLAYER_VELOCITY;
 
                 if (facingLeft)
+                {
                     velocity.x *= -1;
+                }
             }
             else
             {
-                velocity.x *= 0.05;
+                velocity.x *= 0.5;
             }
             velocity.y += GRAVITY;
 

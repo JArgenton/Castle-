@@ -238,6 +238,7 @@ namespace States
                     {
                         movingEntities.add(pE);
                         static_cast<Characters::Enemies::Enemy *>(pE)->setPlayer(Player1);
+                        cout << pE->getId() << endl;
                     }
                     else
                     {

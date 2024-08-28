@@ -58,6 +58,7 @@ namespace States
         Control::PlayerControl pControl;
 
         HealthBar hpDisplay;
+
         bool levelEnded;
         int playerPoints;
         TupleF nextPositionToRender;

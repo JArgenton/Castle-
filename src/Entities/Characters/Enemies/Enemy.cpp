@@ -74,7 +74,7 @@ namespace Entities
 
                 if (canReciveDmg())
                 {
-                    cout << damage << endl;
+                    // cout << damage << endl;
 
                     health -= damage;
                     if (health <= 0)

@@ -82,8 +82,10 @@ namespace States
 
     void Level::update(const float dt)
     {
-        int healthPercentage = (Player1->getHealth()) / Player1->getTotalHealth();
+        float healthPercentage = static_cast<float>(Player1->getHealth()) / Player1->getTotalHealth();
         hpDisplay.update(healthPercentage, TupleF(Player1->getPosition().x - 20, Player1->getPosition().y - 50));
+
+        printf("%d \n", Player1->getHealth());
         TupleF centerpos = centerView();
         pGraphicM->centerViewOn(centerpos);
 

@@ -194,6 +194,7 @@ namespace Entities
         {
             if (PlayerCreationFlag)
             {
+                set_health(PLAYER_HEALTH);
                 active = true;
                 setSize(PLAYER_SIZE_X, PLAYER_SIZE_Y); // chama a set Origin
                 std::string texturepath = "assets/player.png";

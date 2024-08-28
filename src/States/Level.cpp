@@ -17,8 +17,8 @@ namespace States
                                       Player1(),
                                       Player2(),
                                       background(),
-                                      staticEntities(),
-                                      collisionManager(&staticEntities, &Level::movingEntities),
+                                      obstacles(),
+                                      collisionManager(&obstacles, &Level::movingEntities),
                                       pGraphicM(Managers::Graphics::get_instance()),
                                       pControl(),
                                       levelEnded(true),
@@ -52,7 +52,7 @@ namespace States
         oFactory = nullptr;
         Player1 = nullptr;
         movingEntities.cleanList();
-        staticEntities.cleanList();
+        obstacles.cleanList();
     }
 
     TupleF Level::centerView()
@@ -86,11 +86,15 @@ namespace States
 
         for (int i = 0; i < movingEntities.getSize(); i++)
         {
-            static_cast<MovingEntity *>(movingEntities[i])->update(dt);
+            movingEntities[i]->update(dt);
             if (!static_cast<MovingEntity *>(movingEntities[i])->isActive())
             {
                 movingEntities.deleteEntity(i);
             }
+        }
+        for (int i = 0; i < obstacles.getSize(); i++)
+        {
+            obstacles[i]->update(dt);
         }
         collisionManager.check_collision();
 
@@ -112,13 +116,7 @@ namespace States
 
     void Level::render()
     {
-
         background.render();
-
-        for (int i = 0; i < staticEntities.getSize(); i++)
-        {
-            staticEntities[i]->render();
-        }
     }
 
     void Level::resetState()
@@ -150,7 +148,7 @@ namespace States
     {
         // playerPoints = player->getPlayerPoints();
         movingEntities.cleanList();
-        staticEntities.cleanList();
+        obstacles.cleanList();
         levelEnded = true;
     }
 
@@ -206,7 +204,7 @@ namespace States
                     pE = Create(oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::PLATAFORM);
                     if (pE)
                     {
-                        staticEntities.add(pE);
+                        obstacles.add(pE);
                     }
                     else
                     {
@@ -271,7 +269,7 @@ namespace States
                     pE = Create(oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::TRAP);
                     if (pE)
                     {
-                        staticEntities.add(pE);
+                        obstacles.add(pE);
                     }
                     else
                     {
@@ -284,7 +282,7 @@ namespace States
                     pE = Create(oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::LAVA);
                     if (pE)
                     {
-                        staticEntities.add(pE);
+                        obstacles.add(pE);
                     }
                     else
                     {
@@ -297,7 +295,7 @@ namespace States
                     pE = Create(oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::empty);
                     if (pE)
                     {
-                        staticEntities.add(pE);
+                        obstacles.add(pE);
                     }
                     else
                     {

@@ -48,7 +48,7 @@ namespace States
         GraphicalElements::StaticAnimation background;
 
         static List::EntityList movingEntities;
-        List::EntityList staticEntities;
+        List::EntityList obstacles;
 
         Managers::Collision collisionManager;
         Managers::Graphics *pGraphicM;

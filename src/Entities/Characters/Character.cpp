@@ -7,7 +7,7 @@ namespace Entities
     {
 
         Character::Character(TupleF _position, Entities::ID _id) : MovingEntity(_position, _id),
-                                                                   health(500),
+                                                                   health(150),
                                                                    flagcanAtk(true),
                                                                    flagIsAtking(false),
                                                                    coolDownTimer(0.0f),
@@ -28,6 +28,7 @@ namespace Entities
         {
             health = _health;
         }
+
         void Character::set_atkCooldown(float _Cooldown)
         {
             atkCooldown = _Cooldown;

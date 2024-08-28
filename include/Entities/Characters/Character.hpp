@@ -11,7 +11,6 @@ namespace Entities
         {
         protected:
             int health;
-
             /*actions*/
             bool flagcanAtk;
 

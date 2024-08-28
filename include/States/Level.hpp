@@ -5,6 +5,8 @@
 
 // Elementos Graficos
 #include "GraphElements/StaticAnimation.hpp"
+#include "GraphElements/HealthBar.hpp"
+using namespace GraphicalElements;
 
 // Gerenciadores
 #include "Managers/ColisionManager.hpp"
@@ -55,6 +57,7 @@ namespace States
 
         Control::PlayerControl pControl;
 
+        HealthBar hpDisplay;
         bool levelEnded;
         int playerPoints;
         TupleF nextPositionToRender;

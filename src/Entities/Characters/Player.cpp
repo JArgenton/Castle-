@@ -7,7 +7,7 @@
 #define PLAYER_SIZE_X 32.0f
 #define PLAYER_SIZE_Y 64.0f
 #define PLAYER_VELOCITY 100.0f
-#define PLAYER_HEALT 100
+#define PLAYER_HEALTH 100
 #define PLAYER_DMG_COOLDOWN 0.0f
 #define JUMP_HEIGH 3.0f
 using namespace std;
@@ -68,6 +68,16 @@ namespace Entities
         const int Player::getPoints() const
         {
             return points;
+        }
+
+        const int Player::getHealth() const
+        {
+            return health;
+        }
+
+        const int Player::getTotalHealth() const
+        {
+            return PLAYER_HEALTH;
         }
 
         /*actions*/

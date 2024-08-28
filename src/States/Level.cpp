@@ -4,6 +4,8 @@
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Weapons/Sword.hpp"
 
+using namespace GraphicalElements;
+
 namespace States
 {
     Factories::ProjectilesFactory Level::projFactory;
@@ -13,9 +15,9 @@ namespace States
                                       eFactory(),
                                       playerFactory(),
                                       oFactory(),
-
                                       Player1(),
                                       Player2(),
+                                      hpDisplay(),
                                       background(),
                                       staticEntities(),
                                       collisionManager(&staticEntities, &Level::movingEntities),
@@ -80,7 +82,8 @@ namespace States
 
     void Level::update(const float dt)
     {
-
+        int healthPercentage = (Player1->getHealth()) / Player1->getTotalHealth();
+        hpDisplay.update(healthPercentage, TupleF(Player1->getPosition().x - 20, Player1->getPosition().y - 50));
         TupleF centerpos = centerView();
         pGraphicM->centerViewOn(centerpos);
 
@@ -119,6 +122,7 @@ namespace States
         {
             staticEntities[i]->render();
         }
+        hpDisplay.render();
     }
 
     void Level::resetState()

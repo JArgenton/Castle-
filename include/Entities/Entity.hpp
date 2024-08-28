@@ -18,8 +18,8 @@ namespace Entities
         PLAYER2,
         WEAPON,
         LAVA,
-        PLATAFORMA,
-        ARMADILHA,
+        PLATAFORM,
+        TRAP,
         ENEMY,
         ARCHER,
         ARROW,
@@ -47,6 +47,7 @@ namespace Entities
         ID getId();
         /*visuals*/
         virtual void initialize() = 0; // carrega as texturas
+        virtual void update(float dt) = 0;
         virtual void collide(Entity *other, TupleF intersec) = 0;
     };
 }

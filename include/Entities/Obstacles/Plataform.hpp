@@ -5,16 +5,14 @@ namespace Entities
 {
     namespace Obstacles
     {
-        class Lava : public Obstacle
+        class Plataform : public Obstacle
         {
         private:
-            const int Maxdamage;
-            float slowness;
-            float damage;
+            bool fake;
 
         public:
-            Lava(TupleF _position = TupleF(90.0f, 100.0f));
-            ~Lava();
+            Plataform(TupleF _position = TupleF(80.0f, 100.0f));
+            ~Plataform();
             void initialize();
             void update(float dt);
             void toObstruct(Entities::Characters::Character *pC);
@@ -22,4 +20,4 @@ namespace Entities
 
     } // namespace Obstacles
 
-} // namespace Entities
+}

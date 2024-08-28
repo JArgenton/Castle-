@@ -7,7 +7,7 @@ namespace Managers
     class Collision
     {
     private:
-        List::EntityList *StaticEntities;
+        List::EntityList *Obstacles;
         List::EntityList *MovingEntities;
 
     public:

@@ -1,6 +1,6 @@
 #include "States/Level.hpp"
 
-#include "Entities/Obstacles/Plataforma.hpp"
+#include "Entities/Obstacles/Plataform.hpp"
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Weapons/Sword.hpp"
 
@@ -62,7 +62,7 @@ namespace States
         {
             TupleF p1Position;
             p1Position = Player1->getPosition();
-            if (Player2)
+            if (Player2 && Player2->getFullyCreated())
             {
                 TupleF p2Position;
                 p2Position = Player2->getPosition();
@@ -203,7 +203,7 @@ namespace States
                 {
                 case 1:
                 {
-                    pE = Create(oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::PLATAFORMA);
+                    pE = Create(oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::PLATAFORM);
                     if (pE)
                     {
                         staticEntities.add(pE);
@@ -268,7 +268,7 @@ namespace States
                     break;
                 case 6:
                 {
-                    pE = Create(oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::ARMADILHA);
+                    pE = Create(oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::TRAP);
                     if (pE)
                     {
                         staticEntities.add(pE);

@@ -16,7 +16,9 @@ namespace Entities
                                                                    atkCooldown(0.0f),
                                                                    atkDuration(0.0f),
                                                                    dmgTimer(0.5f),
-                                                                   dmgCooldown(1.0f)
+                                                                   dmgCooldown(1.0f),
+                                                                   trapTimmer(1000.0f),
+                                                                   trapedDuration(0.0f)
 
         {
         }
@@ -104,6 +106,20 @@ namespace Entities
         bool Character::isAtking()
         {
             return flagIsAtking;
+        }
+        void Character::isTraped(float time)
+        {
+            trapedDuration = time;
+            trapTimmer = 0;
+        }
+        bool Character::canMove()
+        {
+            return trapTimmer > trapedDuration;
+        }
+
+        void Character::setSlowness(float slow)
+        {
+            velocity.x *= slow;
         }
     }
 }

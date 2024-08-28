@@ -31,6 +31,9 @@ namespace Entities
             float dmgTimer;    // timer para tomar dano novamente
             float dmgCooldown;
 
+            float trapTimmer;
+            float trapedDuration;
+
         public:
             Character(TupleF _position = TupleF(0.0f, 0.0f), Entities::ID id = empty);
 
@@ -64,6 +67,9 @@ namespace Entities
 
             /*update*/
             virtual void update(const float dt) = 0;
+            void isTraped(float time);
+            bool canMove();
+            void setSlowness(float slow);
         };
     }
 }

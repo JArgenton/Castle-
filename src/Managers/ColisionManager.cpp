@@ -1,18 +1,18 @@
 #include "Entities/Entity.hpp"
 #include "Managers/ColisionManager.hpp"
 #include "Entities/MovingEntity.hpp"
-#include "Entities/StaticEntity.hpp"
+#include "Entities/Obstacles/Obstacles.hpp"
 using namespace Entities;
 namespace Managers
 {
-    Collision::Collision(List::EntityList *_staticEntities, List::EntityList *_movingEntities) : StaticEntities(_staticEntities),
+    Collision::Collision(List::EntityList *_staticEntities, List::EntityList *_movingEntities) : Obstacles(_staticEntities),
                                                                                                  MovingEntities(_movingEntities)
     {
     }
 
     Collision::~Collision()
     {
-        StaticEntities = nullptr;
+        Obstacles = nullptr;
         MovingEntities = nullptr;
     }
 
@@ -24,9 +24,9 @@ namespace Managers
         TupleF centerDistance;
         int i, j;
 
-        for (i = 0; i < StaticEntities->getSize(); i++)
+        for (i = 0; i < Obstacles->getSize(); i++)
         {
-            entity1 = StaticEntities->operator[](i);
+            entity1 = Obstacles->operator[](i);
             for (j = 0; j < MovingEntities->getSize(); j++)
             {
 

@@ -1,7 +1,7 @@
 #include "Factories/ObstaclesFactory.hpp"
-#include "Entities/Obstacles/Armadilha.hpp"
+#include "Entities/Obstacles/Trap.hpp"
 #include "Entities/Obstacles/Lava.hpp"
-#include "Entities/Obstacles/Plataforma.hpp"
+#include "Entities/Obstacles/Plataform.hpp"
 
 namespace Factories
 {
@@ -19,17 +19,18 @@ namespace Factories
         {
 
             int randomId = rand() % 3;
+
             if (randomId == 0)
             {
-                obstacle = ID::ARMADILHA;
+                obstacle = ID::TRAP;
             }
             else if (randomId == 1)
             {
-                obstacle = ID::ARMADILHA;
+                obstacle = ID::LAVA;
             }
             else
             {
-                obstacle = ID::PLATAFORMA;
+                obstacle = ID::PLATAFORM;
             }
         }
         else
@@ -40,16 +41,16 @@ namespace Factories
         Entity *pE = nullptr;
         switch (obstacle)
         {
-        case ARMADILHA:
-            pE = new Entities::Obstacles::Armadilha(_position);
+        case TRAP:
+            pE = new Entities::Obstacles::Trap(_position);
 
             break;
         case LAVA:
             pE = new Entities::Obstacles::Lava(_position);
 
             break;
-        case PLATAFORMA:
-            pE = new Entities::Obstacles::Plataforma(_position);
+        case PLATAFORM:
+            pE = new Entities::Obstacles::Plataform(_position);
             break;
 
         default:

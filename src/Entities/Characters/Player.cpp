@@ -1,7 +1,10 @@
 #include "Entities/Characters/Player.hpp"
-#include "Entities/Weapons/Weapon.hpp"
+#include "Entities/Weapons/Sword.hpp"
+
 #include "Entities/Obstacles/Lava.hpp"
-#include "Entities/Obstacles/Armadilha.hpp"
+#include "Entities/Obstacles/Trap.hpp"
+#include "Entities/Obstacles/Plataform.hpp"
+
 #include "Entities/Projectiles/Arrow.hpp"
 #include <math.h>
 #define PLAYER_SIZE_X 32.0f
@@ -121,34 +124,45 @@ namespace Entities
         }
         void Player::collide(Entity *other, TupleF intersec)
         {
-            if (other != weapon)
-                moveOnColision(other, intersec);
-
             switch (other->getId())
             {
-            case ID::PLATAFORMA:
+            case ID::PLATAFORM:
             {
-                break;
-            }
-
-            case ID::ARMADILHA:
-            {
-
+                moveOnColision(other, intersec);
+                static_cast<Plataform *>(other)->toObstruct(this);
                 break;
             }
             case ID::LAVA:
             {
-                Lava *lava = dynamic_cast<Lava *>(other);
-                if (lava)
-                {
-                    reciveDmg(lava->getDamage());
-                }
+                moveOnColision(other, intersec);
+                static_cast<Lava *>(other)->toObstruct(this);
+                break;
+            }
+            case ID::TRAP:
+            {
+                moveOnColision(other, intersec);
+                static_cast<Trap *>(other)->toObstruct(this);
                 break;
             }
             case ID::ARROW:
             {
                 reciveDmg(static_cast<Projectiles::Arrow *>(other)->getDamage());
+                break;
             }
+            case ID::WEAPON:
+            {
+                if (other != weapon)
+                {
+                    Player *owner = dynamic_cast<Weapons::Sword *>(other)->getOwner();
+                    if (owner->isAtking())
+                    {
+                        reciveDmg(owner->getAtkDamage());
+                    }
+                }
+
+                break;
+            }
+
             default:
                 break;
             }

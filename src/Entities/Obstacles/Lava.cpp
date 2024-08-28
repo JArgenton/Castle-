@@ -2,7 +2,7 @@
 
 #define WIDGHT 32.0f
 #define HEIGHT 32.0f
-#define LAVA_DAMAGE 10
+#define LAVA_DAMAGE 35
 
 std::string texturepath = "assets/freetileset/png/Tiles/17.png";
 
@@ -10,7 +10,8 @@ namespace Entities
 {
     namespace Obstacles
     {
-        Lava::Lava(TupleF _position) : StaticEntity(_position, Entities::ID::LAVA)
+        Lava::Lava(TupleF _position) : Obstacle(_position, Entities::ID::LAVA),
+                                       Maxdamage(LAVA_DAMAGE)
         {
         }
 
@@ -22,11 +23,25 @@ namespace Entities
         {
             setSize(WIDGHT, HEIGHT);
             SetTexture(texturepath);
+            damage = float(Maxdamage / 2);
+            slowness = 1 / (1 + rand() % 3);
         }
 
-        unsigned int Lava::getDamage() const
+        void Lava::update(float dt)
         {
-            return LAVA_DAMAGE;
+            body->move(0, GRAVITY + forcaBloco);
+            if ((int)damage <= Maxdamage)
+            {
+                damage += dt;
+            }
+            render();
+        }
+        void Lava::toObstruct(Entities::Characters::Character *pC)
+        {
+            cout << damage << endl;
+
+            pC->reciveDmg((int)damage);
+            pC->setSlowness(slowness);
         }
 
     } // namespace Obstacles

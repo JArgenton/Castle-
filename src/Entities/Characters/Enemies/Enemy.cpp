@@ -1,5 +1,9 @@
 #include "Entities/Characters/Enemies/Enemy.hpp"
+
 #include "Entities/Obstacles/Lava.hpp"
+#include "Entities/Obstacles/Plataform.hpp"
+#include "Entities/Obstacles/Trap.hpp"
+
 #include "Entities/Characters/Player.hpp"
 #include "Entities/Weapons/Sword.hpp"
 
@@ -74,8 +78,6 @@ namespace Entities
 
                 if (canReciveDmg())
                 {
-                    cout << damage << endl;
-
                     health -= damage;
                     if (health <= 0)
                     {
@@ -91,15 +93,10 @@ namespace Entities
 
             void Enemy::collide(Entity *otherEntity, TupleF intersect)
             {
-                if (otherEntity->getId() != ID::WEAPON)
-                    moveOnColision(otherEntity, intersect);
+                ID otherID = otherEntity->getId();
 
-                switch (otherEntity->getId())
+                switch (otherID)
                 {
-                case ID::PLATAFORMA:
-                {
-                    break;
-                }
                 case ID::PLAYER1:
                 {
                     if (pPlayer1)
@@ -118,21 +115,6 @@ namespace Entities
                     }
                     break;
                 }
-                case ID::LAVA:
-                {
-                    moveOnColision(otherEntity, intersect);
-
-                    Lava *lava = dynamic_cast<Lava *>(otherEntity);
-                    if (lava)
-                    {
-                        receiveDamage(lava->getDamage());
-                    }
-                    break;
-                }
-                case ID::ARMADILHA:
-                {
-                    break;
-                }
                 case ID::WEAPON:
                 {
                     Player *owner = dynamic_cast<Weapons::Sword *>(otherEntity)->getOwner();
@@ -140,7 +122,24 @@ namespace Entities
                     {
                         receiveDamage(owner->getAtkDamage());
                     }
-
+                    break;
+                }
+                case ID::PLATAFORM:
+                {
+                    moveOnColision(otherEntity, intersect);
+                    static_cast<Plataform *>(otherEntity)->toObstruct(this);
+                    break;
+                }
+                case ID::LAVA:
+                {
+                    moveOnColision(otherEntity, intersect);
+                    static_cast<Lava *>(otherEntity)->toObstruct(this);
+                    break;
+                }
+                case ID::TRAP:
+                {
+                    moveOnColision(otherEntity, intersect);
+                    static_cast<Trap *>(otherEntity)->toObstruct(this);
                     break;
                 }
                 default:

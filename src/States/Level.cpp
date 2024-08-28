@@ -21,7 +21,7 @@ namespace States
                                       collisionManager(&staticEntities, &Level::movingEntities),
                                       pGraphicM(Managers::Graphics::get_instance()),
                                       pControl(),
-                                      levelEnded(false),
+                                      levelEnded(true),
                                       playerPoints(0)
 
     {
@@ -123,7 +123,11 @@ namespace States
     void Level::resetState()
     {
 
-        createFase("fase1.tmj");
+        if (levelEnded)
+        {
+            createFase("fase1.tmj");
+            levelEnded = false;
+        }
     }
 
     Entity *Level::Create(Factories::EntityFactory *pFactory, TupleF _position, ID _id)

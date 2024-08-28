@@ -35,11 +35,6 @@ namespace Entities
         }
         Player::~Player()
         {
-            if (weapon)
-            {
-                delete weapon;
-            }
-            weapon = nullptr;
         }
 
         /*SETs*/

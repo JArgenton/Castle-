@@ -38,8 +38,6 @@ namespace Entities
         }
         void Lava::toObstruct(Entities::Characters::Character *pC)
         {
-            cout << damage << endl;
-
             pC->reciveDmg((int)damage);
             pC->setSlowness(slowness);
         }

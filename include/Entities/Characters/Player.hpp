@@ -16,10 +16,11 @@ namespace Entities
         class Player : public Character
         {
         private:
+            bool fullyCreated;
+
             static bool PlayerCreationFlag;
             const float dmgCooldown; // tempo para tomar dano novamente
             unsigned int points;
-            bool fullyCreated;
             /*actions*/
             bool canWalk;
             bool canJump;

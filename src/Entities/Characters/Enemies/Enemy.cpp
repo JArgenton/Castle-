@@ -37,18 +37,23 @@ namespace Entities
                     {
                         pPlayer2 = pP;
                     }
-                    pPlayer1 = pP;
+                    else
+                    {
+                        pPlayer1 = pP;
+                    }
                 }
             }
 
             TupleF Enemy::getPlayerPosition()
             {
-
-                if (pPlayer2 && !isP1NearestPlayer())
+                if (pPlayer2)
                 {
-                    return pPlayer2->getPosition();
-                }
 
+                    if (pPlayer2->getFullyCreated() && !isP1NearestPlayer())
+                    {
+                        return pPlayer2->getPosition();
+                    }
+                }
                 return pPlayer1->getPosition();
             }
 
@@ -63,14 +68,15 @@ namespace Entities
                 return player1Distance < player2Distance;
             }
 
-            void
-            Enemy::updatePlayerDistance()
+            void Enemy::updatePlayerDistance()
             {
                 TupleF pos = getPosition();
                 TupleF pPos1 = pPlayer1->getPosition();
                 TupleF pPos2 = pPlayer2->getPosition();
+
                 player1Distance = sqrt(pow(pos.x - pPos1.x, 2) + pow(pos.y - pPos1.y, 2));
-                player1Distance = sqrt(pow(pos.x - pPos2.x, 2) + pow(pos.y - pPos2.y, 2));
+
+                player2Distance = sqrt(pow(pos.x - pPos2.x, 2) + pow(pos.y - pPos2.y, 2));
             }
 
             void Enemy::receiveDamage(const int damage)

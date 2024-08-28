@@ -21,9 +21,9 @@ namespace Entities
 
             void Soldier::initialize()
             {
-                dmgCooldown = 0.5;
+                dmgCooldown = 0.5f;
 
-                set_health(150);
+                set_health(300);
                 set_atkCooldown(1.0f);
                 set_atkDuration(0.5f);
                 atkTimer = 2.0f;
@@ -37,27 +37,35 @@ namespace Entities
             }
             void Soldier::update(const float dt)
             {
-                execute();
+
+                updatePlayerDistance();
                 // Atualiza o archer
                 incrementAtkTimer(dt);
                 incrementDmgTimer(dt);
 
-                // Atualiza posição do archer
-
                 velocity.y += GRAVITY;
 
                 body->move(velocity.x * dt, velocity.y * dt);
-
+                execute();
                 render();
+                if (getPlayerDistance() < 600.0f)
+                {
+                    float dir = getPlayerPosition().x - getPosition().x;
+                    dir /= abs(dir);
+                    velocity.x = BASE_SPEED * dir;
+
+                    if (getPlayerDistance() < 300.0f)
+                    {
+                        velocity.x = BASE_SPEED * dir * 2;
+                        body->move(velocity.x * dt, velocity.y * dt);
+                    }
+                }
             }
+
             void Soldier::execute()
             {
-
-                int dir = getPlayerPosition().x - getPosition().x;
-                dir /= abs(dir);
-
-                velocity.x = BASE_SPEED * dir;
             }
+
             void Soldier::toDamage(Player *pP)
             {
                 int dmg = 10 * rand() % 3;

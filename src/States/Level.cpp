@@ -32,27 +32,25 @@ namespace States
     }
     Level::~Level()
     {
+
+        movingEntities.cleanList();
+        obstacles.cleanList();
         if (eFactory)
             delete eFactory;
         if (playerFactory)
             delete playerFactory;
         if (oFactory)
             delete oFactory;
-        if (Player1)
+
+        else
         {
-            delete Player1;
-        }
-        if (Player2)
-        {
-            delete Player2;
-            Player2 = nullptr;
+            cout << "HAHA eu to certo" << endl;
         }
         eFactory = nullptr;
         playerFactory = nullptr;
         oFactory = nullptr;
         Player1 = nullptr;
-        movingEntities.cleanList();
-        obstacles.cleanList();
+        Player2 = nullptr;
     }
 
     TupleF Level::centerView()

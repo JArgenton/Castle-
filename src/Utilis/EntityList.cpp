@@ -43,10 +43,13 @@ namespace List
     void EntityList::deleteEntity(int index)
     {
         Entities::Entity *entity = remove(index);
+
         if (entity)
         {
+
             delete entity;
         }
+        entity = nullptr;
     }
 
     int EntityList::getSize()
@@ -67,5 +70,4 @@ namespace List
             deleteEntity(0);
         }
     }
-
 }

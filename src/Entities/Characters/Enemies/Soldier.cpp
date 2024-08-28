@@ -52,6 +52,7 @@ namespace Entities
             }
             void Soldier::execute()
             {
+
                 int dir = getPlayerPosition().x - getPosition().x;
                 dir /= abs(dir);
 

@@ -18,7 +18,10 @@ namespace Entities
 
     namespace Characters
     {
+        bool Player::PlayerCreationFlag(true);
         Player::Player(TupleF _position, Weapons::Weapon *pW, ID _id) : Character(_position, _id),
+                                                                        fullyCreated(false),
+
                                                                         dmgCooldown(PLAYER_DMG_COOLDOWN),
                                                                         canWalk(true),
                                                                         canJump(true),
@@ -72,6 +75,7 @@ namespace Entities
         {
             if (weapon != nullptr && canAtk())
             {
+
                 flagIsAtking = true;
                 weapon->atack();
             }
@@ -170,17 +174,39 @@ namespace Entities
             isMoving = false;
         }
 
+        bool Player::getFullyCreated()
+        {
+            return fullyCreated;
+        }
+
         /*visuals*/
         void Player::initialize()
         {
-            active = true;
-            setSize(PLAYER_SIZE_X, PLAYER_SIZE_Y); // chama a set Origin
-            std::string texturepath = "assets/player.png";
-            SetTexture(texturepath);
-
-            if (weapon)
+            if (PlayerCreationFlag)
             {
-                weapon->WeaponInitialize(this); // todo
+                active = true;
+                setSize(PLAYER_SIZE_X, PLAYER_SIZE_Y); // chama a set Origin
+                std::string texturepath = "assets/player.png";
+                SetTexture(texturepath);
+
+                if (weapon)
+                {
+                    weapon->WeaponInitialize(this); // todo
+                }
+                PlayerCreationFlag = false;
+                fullyCreated = true;
+            }
+            else
+            {
+                set_health(200);
+                active = true;
+                setSize(0.1f, 0.1f); // chama a set Origin
+
+                if (weapon)
+                {
+                    weapon->setSize(0.1f, 0.1f);
+                }
+                PlayerCreationFlag = true;
             }
         }
         void Player::execute()

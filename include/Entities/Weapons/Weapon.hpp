@@ -26,9 +26,10 @@ namespace Entities
             // void updateSprite(const float dt);
             virtual void update(const float dt) = 0;
             void initialize() override {}
-
+            ID getOwnerID();
             void collide(Entity *other, TupleF intersec) override {}
             void execute() override {}
+            Characters::Player *getOwner();
         };
     }
 }

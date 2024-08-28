@@ -9,7 +9,8 @@ namespace Control
     class PlayerControl : public Observer
     {
     private:
-        Entities::Characters::Player *pPlayer;
+        Entities::Characters::Player *pPlayer1;
+        Entities::Characters::Player *pPlayer2;
 
     public:
         PlayerControl(Entities::Characters::Player *pP = NULL);

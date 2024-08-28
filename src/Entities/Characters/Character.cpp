@@ -95,6 +95,7 @@ namespace Entities
         {
             return coolDownTimer > atkCooldown ? true : false;
         }
+
         const bool Character::canReciveDmg()
         {
             return dmgTimer > dmgCooldown ? true : false;

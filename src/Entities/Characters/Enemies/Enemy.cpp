@@ -1,6 +1,7 @@
 #include "Entities/Characters/Enemies/Enemy.hpp"
 #include "Entities/Obstacles/Lava.hpp"
 #include "Entities/Characters/Player.hpp"
+#include "Entities/Weapons/Sword.hpp"
 
 #include <math.h>
 namespace Entities
@@ -14,54 +15,74 @@ namespace Entities
             Enemy::Enemy(TupleF _position, ID _id, int _points) : Character(_position, _id),
                                                                   points(_points)
             {
+                pPlayer1 = nullptr;
+                pPlayer2 = nullptr;
             }
 
             Enemy::~Enemy()
             {
-                pPlayer = nullptr;
+                pPlayer1 = nullptr;
+                pPlayer2 = nullptr;
             }
 
             void Enemy::setPlayer(Entities::Characters::Player *pP)
             {
-                if (!pP)
+                if (pP)
                 {
-                    exit(1);
+                    if (pPlayer1)
+                    {
+                        pPlayer2 = pP;
+                    }
+                    pPlayer1 = pP;
                 }
-                pPlayer = pP;
             }
 
             TupleF Enemy::getPlayerPosition()
             {
-                if (!pPlayer)
+
+                if (pPlayer2 && !isP1NearestPlayer())
                 {
-                    exit(1);
+                    return pPlayer2->getPosition();
                 }
-                return pPlayer->getPosition();
+
+                return pPlayer1->getPosition();
             }
+
             float Enemy::getPlayerDistance()
             {
-                return playerDistance;
+
+                return player1Distance < player2Distance ? player1Distance : player2Distance;
+            }
+            bool Enemy::isP1NearestPlayer()
+            {
+
+                return player1Distance < player2Distance;
             }
 
             void
             Enemy::updatePlayerDistance()
             {
                 TupleF pos = getPosition();
-                TupleF pPos = getPlayerPosition();
-                playerDistance = sqrt(pow(pos.x - pPos.x, 2) + pow(pos.y - pPos.y, 2));
+                TupleF pPos1 = pPlayer1->getPosition();
+                TupleF pPos2 = pPlayer2->getPosition();
+                player1Distance = sqrt(pow(pos.x - pPos1.x, 2) + pow(pos.y - pPos1.y, 2));
+                player1Distance = sqrt(pow(pos.x - pPos2.x, 2) + pow(pos.y - pPos2.y, 2));
             }
 
             void Enemy::receiveDamage(const int damage)
             {
+
                 if (canReciveDmg())
                 {
+                    cout << damage << endl;
+
                     health -= damage;
                     if (health <= 0)
                     {
                         active = false;
-                        if (pPlayer != nullptr)
+                        if (pPlayer1 != nullptr)
                         {
-                            pPlayer->incrementPoints(points);
+                            pPlayer1->incrementPoints(points);
                         }
                     }
                     dmgTimer = 0;
@@ -81,7 +102,16 @@ namespace Entities
                 }
                 case ID::PLAYER1:
                 {
-                    if (pPlayer != nullptr)
+                    if (pPlayer1)
+                    {
+                        moveOnColision(otherEntity, intersect);
+                        receiveDamage(10);
+                    }
+                    break;
+                }
+                case ID::PLAYER2:
+                {
+                    if (pPlayer2)
                     {
                         moveOnColision(otherEntity, intersect);
                         receiveDamage(10);
@@ -105,18 +135,18 @@ namespace Entities
                 }
                 case ID::WEAPON:
                 {
-                    if (pPlayer)
+                    Player *owner = dynamic_cast<Weapons::Sword *>(otherEntity)->getOwner();
+                    if (owner->isAtking())
                     {
-                        if (pPlayer->isAtking())
-                            receiveDamage(pPlayer->getAtkDamage());
+                        receiveDamage(pPlayer2->getAtkDamage());
                     }
+
+                    break;
                 }
-                break;
                 default:
                     break;
                 }
             }
-
         }
     }
 }

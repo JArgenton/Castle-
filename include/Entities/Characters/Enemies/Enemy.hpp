@@ -14,9 +14,11 @@ namespace Entities
             class Enemy : public Character
             {
             protected:
-                float playerDistance;
+                float player1Distance;
+                float player2Distance;
                 const unsigned int points;
-                Player *pPlayer;
+                Player *pPlayer1;
+                Player *pPlayer2;
 
             public:
                 Enemy(TupleF _position, ID _id, int points = 10);
@@ -26,8 +28,8 @@ namespace Entities
                 void setPlayer(Player *pP);
 
                 TupleF getPlayerPosition();
-
                 float getPlayerDistance();
+                bool isP1NearestPlayer();
 
                 void updatePlayerDistance();
 

@@ -122,6 +122,7 @@ namespace States
 
     void Level::resetState()
     {
+
         createFase("fase1.tmj");
     }
 
@@ -176,6 +177,13 @@ namespace States
             pControl.setPlayer(Player1);
             movingEntities.add(dynamic_cast<Weapons::Sword *>(Player1->get_weapon()));
         }
+        Player2 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(164.0f, 1508.0f), ID::PLAYER2));
+        if (Player2)
+        {
+            movingEntities.add(Player2);
+            pControl.setPlayer(Player2);
+            movingEntities.add(dynamic_cast<Weapons::Sword *>(Player2->get_weapon()));
+        }
 
         // iterate through the matrix
         for (int y = 0; y < height; y++)
@@ -210,6 +218,7 @@ namespace States
                     {
                         movingEntities.add(pE);
                         static_cast<Characters::Enemies::Enemy *>(pE)->setPlayer(Player1);
+                        static_cast<Characters::Enemies::Enemy *>(pE)->setPlayer(Player2);
                     }
                     else
                     {
@@ -225,6 +234,7 @@ namespace States
                     {
                         movingEntities.add(pE);
                         static_cast<Characters::Enemies::Enemy *>(pE)->setPlayer(Player1);
+                        static_cast<Characters::Enemies::Enemy *>(pE)->setPlayer(Player2);
                     }
                     else
                     {
@@ -240,7 +250,7 @@ namespace States
                     {
                         movingEntities.add(pE);
                         static_cast<Characters::Enemies::Enemy *>(pE)->setPlayer(Player1);
-                        cout << pE->getId() << endl;
+                        static_cast<Characters::Enemies::Enemy *>(pE)->setPlayer(Player2);
                     }
                     else
                     {

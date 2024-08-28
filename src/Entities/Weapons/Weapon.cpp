@@ -17,6 +17,23 @@ namespace Entities
         {
             owner = pP;
         }
+        Characters::Player *Weapon::getOwner()
+        {
+            return owner;
+        }
+        ID
+        Weapon::getOwnerID()
+        {
+            if (owner)
+            {
+                return owner->getId();
+            }
+            else
+            {
+                cout << "desespero" << endl;
+            }
+        }
+
     }
 
 }

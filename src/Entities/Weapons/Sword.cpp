@@ -38,7 +38,6 @@ namespace Entities
         void Sword::atack()
         {
             float crit = 0.3 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (3 - 0.3)));
-            cout << crit << endl;
             owner->set_atkDamage(static_cast<int>(DAMAGE * crit));
         }
         void Sword::update(const float dt)

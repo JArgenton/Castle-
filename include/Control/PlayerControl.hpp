@@ -11,8 +11,8 @@ namespace Control
     class PlayerControl : public Observer
     {
     private:
-        Entities::Characters::Player *pPlayer;
-        State *id;
+        Entities::Characters::Player *pPlayer1;
+        Entities::Characters::Player *pPlayer2;
 
     public:
         PlayerControl(Entities::Characters::Player *pP = NULL);

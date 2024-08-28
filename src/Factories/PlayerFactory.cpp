@@ -11,6 +11,7 @@ namespace Factories
     PlayerFactory::~PlayerFactory()
     {
     }
+
     Entity *PlayerFactory::FactoryMethood(TupleF _position, ID _id)
     {
         ID player;

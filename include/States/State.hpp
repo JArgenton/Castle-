@@ -11,7 +11,7 @@ namespace States
         MAINMENU = 0,
         FASE = 1,
         PAUSEMENU = 2,
-        SETTINGS = 3,
+        LEARDERBOARD = 3,
         GAMEOVER = 4
     };
 

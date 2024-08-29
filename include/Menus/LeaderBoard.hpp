@@ -2,6 +2,7 @@
 
 #include "States/State.hpp"
 #include "Menus/Menu.hpp"
+#include "GraphElements/Text.hpp"
 
 namespace Menus
 {
@@ -9,7 +10,7 @@ namespace Menus
     {
     private:
         std::vector<GraphicalElements::Text *> TotalPoints;
-        std::vector<GraphicalElements::Text *>::iterator it;
+        std::vector<GraphicalElements::Text *>::iterator iter;
 
     public:
         LeaderBoard(States::StateMachine *pStateMachine = nullptr);

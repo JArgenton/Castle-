@@ -65,8 +65,11 @@ namespace Menus
             {
             case 0:
                 changeState(States::stateID::FASE);
-
                 break;
+            case 1:
+                changeState(States::stateID::LEARDERBOARD);
+                break;
+
             case 3:
                 pJogo->endJogo();
                 break;

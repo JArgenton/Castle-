@@ -21,6 +21,8 @@ namespace Entities
             static bool PlayerCreationFlag;
             const float dmgCooldown; // tempo para tomar dano novamente
             unsigned int points;
+
+                        unsigned int health;
             /*actions*/
             bool canWalk;
             bool canJump;
@@ -43,6 +45,8 @@ namespace Entities
             /*GETs*/
             Weapons::Weapon *get_weapon();
             const int getPoints() const;
+            const int getHealth() const;
+            const int getTotalHealth() const;
 
             /*actions*/
             void atack();

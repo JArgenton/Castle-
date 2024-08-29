@@ -5,7 +5,7 @@
 #define BUTTON_HEIGHT 180
 #define BUTTON_WIDTH 350
 #define BUTTON_TEXT_COLOR 177.6, 168.2, 144.3 // R, G, B
-#define FONT_SIZE 30
+#define FONT_SIZE 20
 
 namespace GraphicalElements
 {

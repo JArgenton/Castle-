@@ -20,7 +20,7 @@ namespace States
                                       Player1(),
                                       Player2(),
                                       hpDisplay1(),
-                                      // hpDisplay2(),
+                                      hpDisplay2(),
                                       background(),
                                       obstacles(),
                                       collisionManager(&obstacles, &Level::movingEntities),
@@ -40,7 +40,6 @@ namespace States
     }
     Level::~Level()
     {
-
         movingEntities.cleanList();
         obstacles.cleanList();
         if (eFactory)
@@ -85,10 +84,25 @@ namespace States
 
     void Level::update(const float dt)
     {
+
         background.render();
-        background.update(TupleF(Player1->getPosition().x, Player1->getPosition().y));
+        if (!Player2->getFullyCreated())
+        {
+            background.update(TupleF(Player1->getPosition().x, Player1->getPosition().y));
+        }
+        else
+        {
+            background.update(TupleF((Player1->getPosition().x + Player2->getPosition().x) / 2, (Player1->getPosition().y + Player2->getPosition().y) / 2));
+        }
+
         float healthPercentage = static_cast<float>(Player1->getHealth()) / Player1->getTotalHealth();
         hpDisplay1.update(healthPercentage, TupleF(Player1->getPosition().x - 20, Player1->getPosition().y - 50));
+
+        if (Player2 && Player2->isActive())
+        {
+            float healthPercentage2 = static_cast<float>(Player2->getHealth()) / Player2->getTotalHealth();
+            hpDisplay2.update(healthPercentage2, TupleF(Player2->getPosition().x - 20, Player2->getPosition().y - 50));
+        }
 
         // cout << Player1->getHealth() << endl;
         TupleF centerpos = centerView();
@@ -137,6 +151,11 @@ namespace States
     void Level::render()
     {
         hpDisplay1.render();
+
+        if (Player2 && Player2->isActive())
+        {
+            hpDisplay2.render();
+        }
     }
 
     void Level::resetState()
@@ -166,8 +185,7 @@ namespace States
 
     void Level::endLevel()
     {
-        movingEntities.cleanList();
-        obstacles.cleanList();
+
         levelEnded = true;
     }
 
@@ -334,6 +352,130 @@ namespace States
                 }
             }
         }
+    }
+#include <nlohmann/json.hpp>
+#include <fstream>
+
+    using json = nlohmann::json;
+
+    void Level::saveGameState(const std::string &filePath)
+    {
+        json j;
+
+        // Salvar estado dos jogadores
+        if (Player1)
+        {
+            j["Player1"]["position"]["x"] = Player1->getPosition().x;
+            j["Player1"]["position"]["y"] = Player1->getPosition().y;
+            j["Player1"]["health"] = Player1->getHealth();
+            j["Player1"]["points"] = Player1->getPoints();
+        }
+
+        if (Player2)
+        {
+            j["Player2"]["position"]["x"] = Player2->getPosition().x;
+            j["Player2"]["position"]["y"] = Player2->getPosition().y;
+            j["Player2"]["health"] = Player2->getHealth();
+            j["Player2"]["points"] = Player2->getPoints();
+        }
+
+        // Salvar estado dos obstáculos
+        for (int i = 0; i < obstacles.getSize(); ++i)
+        {
+            auto o = obstacles[i];
+            json obstacle;
+            obstacle["type"] = o->getId(); // Supondo que você tenha um método getId() que retorna o tipo do obstáculo
+            obstacle["position"]["x"] = o->getPosition().x;
+            obstacle["position"]["y"] = o->getPosition().y;
+            j["obstacles"].push_back(obstacle);
+        }
+
+        // Salvar estado dos inimigos
+        for (int i = 0; i < movingEntities.getSize(); ++i)
+        {
+            auto e = movingEntities[i];
+            if (e->getId() != ID::PLAYER1 && e->getId() != ID::PLAYER2)
+            {
+                json enemy;
+                enemy["type"] = e->getId(); // Supondo que você tenha um método getId() que retorna o tipo do inimigo
+                enemy["position"]["x"] = e->getPosition().x;
+                enemy["position"]["y"] = e->getPosition().y;
+                j["enemies"].push_back(enemy);
+            }
+        }
+
+        // Salvar pontos dos jogadores
+        j["player1Points"] = player1Points;
+        j["player2Points"] = player2Points;
+
+        std::ofstream file(filePath);
+        file << j.dump(4);
+    }
+
+    void Level::loadGameState(const std::string &filePath)
+    {
+        std::ifstream file(filePath);
+        json j;
+        file >> j;
+
+        // Carregar estado dos jogadores
+        if (j.contains("Player1"))
+        {
+            auto p1 = j["Player1"];
+            Player1 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(p1["position"]["x"], p1["position"]["y"]), ID::PLAYER1));
+            if (Player1)
+            {
+                Player1->set_health(p1["health"]);
+                Player1->setPoints(p1["points"]);
+                movingEntities.add(Player1);
+            }
+        }
+
+        if (j.contains("Player2"))
+        {
+            auto p2 = j["Player2"];
+            Player2 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(p2["position"]["x"], p2["position"]["y"]), ID::PLAYER2));
+            if (Player2)
+            {
+                Player2->set_health(p2["health"]);
+                Player2->setPoints(p2["points"]);
+                movingEntities.add(Player2);
+            }
+        }
+
+        // Carregar obstáculos
+        if (j.contains("obstacles"))
+        {
+            for (const auto &o : j["obstacles"])
+            {
+                auto position = TupleF(o["position"]["x"], o["position"]["y"]);
+                auto type = o["type"].get<ID>(); // Supondo que você tenha um método get<ID>() que converte o tipo
+                auto obstacle = Create(oFactory, position, type);
+                if (obstacle)
+                {
+                    obstacles.add(obstacle);
+                }
+            }
+        }
+
+        // Carregar inimigos
+        if (j.contains("enemies"))
+        {
+            for (const auto &e : j["enemies"])
+            {
+                auto position = TupleF(e["position"]["x"], e["position"]["y"]);
+                auto type = e["type"].get<ID>(); // Supondo que você tenha um método get<ID>() que converte o tipo
+                auto enemy = Create(eFactory, position, type);
+                if (enemy)
+                {
+                    movingEntities.add(enemy);
+                }
+            }
+        }
+
+        // Carregar pontos dos jogadores
+        player1Points = j["player1Points"];
+        player2Points = j["player2Points"];
     }
 
 } // namespace States

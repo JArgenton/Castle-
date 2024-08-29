@@ -15,6 +15,7 @@ Ent::~Ent()
     }
     body = nullptr;
 }
+
 void Ent::render()
 {
     if (graphicManager)

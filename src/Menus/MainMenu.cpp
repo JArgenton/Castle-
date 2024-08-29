@@ -1,5 +1,6 @@
 #include "Menus/MainMenu.hpp"
 #include "States/Jogo.hpp"
+#include "States/Level.hpp"
 
 namespace Menus
 {
@@ -16,10 +17,10 @@ namespace Menus
         bt->select(true);
         vectorOfButtons.push_back(bt);
 
-        bt = new GraphicalElements::Button(TupleF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2 + 100), "LEADERBOARD");
+        bt = new GraphicalElements::Button(TupleF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2 + 100), "CONTINUE GAME");
         vectorOfButtons.push_back(bt);
 
-        bt = new GraphicalElements::Button(TupleF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2 + 200), "SETTINGS");
+        bt = new GraphicalElements::Button(TupleF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2 + 200), "LEADERBOARD");
         vectorOfButtons.push_back(bt);
 
         bt = new GraphicalElements::Button(TupleF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2 + 300), "EXIT GAME");
@@ -67,9 +68,18 @@ namespace Menus
                 changeState(States::stateID::FASE);
                 break;
             case 1:
+            {
+                States::Level *currentLevel = dynamic_cast<States::Level *>(pJogo->getState(States::stateID::FASE));
+                if (currentLevel)
+                {
+                    currentLevel->loadGameState("Saves/SAVEGAME.json"); // Carregar o jogo
+                    changeState(States::stateID::FASE);                 // Mudar para o estado do jogo
+                }
+                break;
+            }
+            case 2:
                 changeState(States::stateID::LEARDERBOARD);
                 break;
-
             case 3:
                 pJogo->endJogo();
                 break;

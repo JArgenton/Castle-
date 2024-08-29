@@ -4,6 +4,8 @@
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Weapons/Sword.hpp"
 
+#define BACKGROUND_LEVEL1 "assets/BackGrounds/OutSideCastle.png"
+
 using namespace GraphicalElements;
 
 namespace States
@@ -31,6 +33,8 @@ namespace States
         playerFactory = new Factories::PlayerFactory;
         oFactory = new Factories::ObstaclesFactory;
         pControl.setMachine(pStateMachine);
+        background.initialize(BACKGROUND_LEVEL1, TupleF(pGraphicM->getWindowSize().x / 2.0f, pGraphicM->getWindowSize().y / 2), TupleF(pGraphicM->getWindowSize().x, pGraphicM->getWindowSize().y));
+        background.render();
     }
     Level::~Level()
     {
@@ -82,7 +86,6 @@ namespace States
         float healthPercentage = static_cast<float>(Player1->getHealth()) / Player1->getTotalHealth();
         hpDisplay.update(healthPercentage, TupleF(Player1->getPosition().x - 20, Player1->getPosition().y - 50));
 
-        cout << Player1->getHealth() << endl;
         TupleF centerpos = centerView();
         pGraphicM->centerViewOn(centerpos);
 
@@ -107,8 +110,6 @@ namespace States
         }
         collisionManager.check_collision();
 
-        background.update(centerpos);
-
         if (!Player1->isActive())
         {
 
@@ -129,7 +130,6 @@ namespace States
 
     void Level::render()
     {
-        background.render();
         hpDisplay.render();
     }
 
@@ -173,8 +173,6 @@ namespace States
     }
     void Level::createFase(const std::string &path)
     {
-        string texturepath = "assets/freetileset/png/BG/BG.png";
-        background.SetTexture(texturepath);
         std::ifstream file(path);
         json tmjData;
         file >> tmjData;

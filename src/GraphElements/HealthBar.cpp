@@ -23,9 +23,9 @@ namespace GraphicalElements
         delete body;
     }
 
-    void HealthBar::update(int healthPercentage, TupleF position)
+    void HealthBar::update(float healthPercentage, TupleF position)
     {
-        int stageIndex = static_cast<int>(healthPercentage * (numStages - 1));
+        int stageIndex = static_cast<float>(healthPercentage * (numStages - 1));
         stageIndex = std::max(0, std::min(stageIndex, numStages - 1) - 1);
 
         body->setTexture(texture);

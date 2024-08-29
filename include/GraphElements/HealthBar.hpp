@@ -27,7 +27,7 @@ namespace GraphicalElements
         void initialize() override {}
         void execute() override {}
 
-        void update(int healthPercentage, TupleF position); // Atualiza com a porcentagem de saúde
+        void update(float healthPercentage, TupleF position); // Atualiza com a porcentagem de saúde
         void render();
     };
 

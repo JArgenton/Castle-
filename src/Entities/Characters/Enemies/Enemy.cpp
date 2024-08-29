@@ -70,30 +70,19 @@ namespace Entities
 
             void Enemy::updatePlayerDistance()
             {
-                TupleF pos = getPosition();
-                TupleF pPos1 = pPlayer1->getPosition();
-                TupleF pPos2 = pPlayer2->getPosition();
-
-                player1Distance = sqrt(pow(pos.x - pPos1.x, 2) + pow(pos.y - pPos1.y, 2));
-
-                player2Distance = sqrt(pow(pos.x - pPos2.x, 2) + pow(pos.y - pPos2.y, 2));
-            }
-
-            void Enemy::receiveDamage(const int damage)
-            {
-
-                if (canReciveDmg())
+                if (!pPlayer1)
                 {
-                    health -= damage;
-                    if (health <= 0)
-                    {
-                        active = false;
-                        if (pPlayer1 != nullptr)
-                        {
-                            pPlayer1->incrementPoints(points);
-                        }
-                    }
-                    dmgTimer = 0;
+                    cout << "p1 morto" << endl;
+                }
+                else
+                {
+                    TupleF pos = getPosition();
+                    TupleF pPos1 = pPlayer1->getPosition();
+                    TupleF pPos2 = pPlayer2->getPosition();
+
+                    player1Distance = sqrt(pow(pos.x - pPos1.x, 2) + pow(pos.y - pPos1.y, 2));
+
+                    player2Distance = sqrt(pow(pos.x - pPos2.x, 2) + pow(pos.y - pPos2.y, 2));
                 }
             }
 
@@ -108,7 +97,7 @@ namespace Entities
                     if (pPlayer1)
                     {
                         moveOnColision(otherEntity, intersect);
-                        receiveDamage(25);
+                        reciveDmg(25);
                     }
                     break;
                 }
@@ -117,7 +106,7 @@ namespace Entities
                     if (pPlayer2)
                     {
                         moveOnColision(otherEntity, intersect);
-                        receiveDamage(10);
+                        reciveDmg(10);
                     }
                     break;
                 }
@@ -126,7 +115,7 @@ namespace Entities
                     Player *owner = dynamic_cast<Weapons::Sword *>(otherEntity)->getOwner();
                     if (owner->isAtking())
                     {
-                        receiveDamage(owner->getAtkDamage());
+                        reciveDmg(owner->getAtkDamage());
                     }
                     break;
                 }

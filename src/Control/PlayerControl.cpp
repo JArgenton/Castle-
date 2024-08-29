@@ -28,7 +28,7 @@ namespace Control
         if (pStateM->getStateID() == stateID::FASE)
         {
 
-            if (!pPlayer1 && !pPlayer2)
+            if (!pPlayer1 || !pPlayer2)
             {
                 cout << "players estao nulos" << endl;
                 exit(1);

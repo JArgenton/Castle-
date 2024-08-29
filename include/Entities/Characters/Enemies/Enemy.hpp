@@ -35,8 +35,6 @@ namespace Entities
 
                 virtual void toDamage(Player *) = 0;
 
-                void receiveDamage(const int damage);
-
                 virtual void update(const float dt) = 0;
 
                 virtual void initialize() = 0;

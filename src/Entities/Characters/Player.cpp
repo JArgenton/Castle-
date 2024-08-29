@@ -208,8 +208,8 @@ namespace Entities
             }
             else
             {
-                set_health(200);
                 active = true;
+                set_health(200);
                 setSize(0.1f, 0.1f); // chama a set Origin
 
                 if (weapon)
@@ -231,6 +231,11 @@ namespace Entities
 
         void Player::update(const float dt)
         {
+            if (!isActive())
+            {
+                setPosition(TupleF(9000.0f, 9000.0f));
+                return;
+            }
             incrementAtkTimer(dt);
             incrementDmgTimer(dt);
 

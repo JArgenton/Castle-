@@ -41,11 +41,6 @@ namespace States
             delete playerFactory;
         if (oFactory)
             delete oFactory;
-
-        else
-        {
-            cout << "HAHA eu to certo" << endl;
-        }
         eFactory = nullptr;
         playerFactory = nullptr;
         oFactory = nullptr;
@@ -56,11 +51,11 @@ namespace States
     TupleF Level::centerView()
     {
         TupleF centerPosition;
-        if (Player1)
+        if (Player1->isActive())
         {
             TupleF p1Position;
             p1Position = Player1->getPosition();
-            if (Player2 && Player2->getFullyCreated())
+            if (Player2->isActive() && Player2->getFullyCreated())
             {
                 TupleF p2Position;
                 p2Position = Player2->getPosition();
@@ -71,6 +66,10 @@ namespace States
             {
                 centerPosition = p1Position;
             }
+        }
+        else
+        {
+            centerPosition = Player2->getPosition();
         }
         // pGraphicM->centerViewOn(TupleF(player1->getPosition().x, pGraphicM->getWindowSize().y / 2 - PLATFORM_HEIGHT / 2));
         return centerPosition;
@@ -87,16 +86,14 @@ namespace States
             movingEntities[i]->update(dt);
             if (!static_cast<MovingEntity *>(movingEntities[i])->isActive())
             {
-                if (movingEntities[i] == Player1)
+                if (movingEntities[i]->getId() == ID::PLAYER1 || movingEntities[i]->getId() == ID::PLAYER2)
                 {
-                    Player1 = nullptr;
-                    endLevel();
                 }
-                if (movingEntities[i] == Player2)
+                else
                 {
-                    Player2 = nullptr;
+
+                    movingEntities.deleteEntity(i);
                 }
-                movingEntities.deleteEntity(i);
             }
         }
         for (int i = 0; i < obstacles.getSize(); i++)
@@ -107,9 +104,19 @@ namespace States
 
         background.update(centerpos);
 
-        if (!Player1 && !Player2)
+        if (!Player1->isActive())
         {
-            endLevel();
+
+            if (!Player2->getFullyCreated())
+            {
+
+                endLevel();
+            }
+            else if (!Player2->isActive())
+            {
+
+                endLevel();
+            }
         }
 
         // Atualiza a janela
@@ -151,6 +158,7 @@ namespace States
         movingEntities.cleanList();
         obstacles.cleanList();
         levelEnded = true;
+        changeState(States::stateID::MAINMENU);
     }
 
     int Level::getPlayerPoints() const

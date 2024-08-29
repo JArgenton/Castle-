@@ -9,7 +9,7 @@ namespace Entities
     {
         namespace Enemies
         {
-            std::string BigBoss::texturepath("assets/freetileset/png/Object/Sign_1.png");
+            std::string BigBoss::texturepath("assets/boss.jpeg");
 
             BigBoss::BigBoss(TupleF _position) : Enemy(_position, ID::BOSS)
             {
@@ -82,7 +82,7 @@ namespace Entities
 
                 velocity.y += GRAVITY;
                 body->move(velocity.x * dt, velocity.y * dt);
-
+                render();
                 execute();
             }
 
@@ -93,16 +93,18 @@ namespace Entities
                 if (canGrab())
                 {
                     shoot();
+                    grabTimmer = 0;
                 }
                 else
                 {
                     if (updatePlayerDistance() < 100.0f)
                     {
-                        if (flagIsHitting)
+                        if (flagIsHitting && updatePlayerDistance() < 75.0f)
                         {
                             isTraped(1.5f);
                             if (isP1NearestPlayer())
                             {
+
                                 pPlayer1->reciveDmg(150);
                             }
                             else
@@ -137,6 +139,8 @@ namespace Entities
                         flagIsAtking = false;
                         flagIsHitting = true;
                     }
+                    body->setFillColor(sf::Color::Yellow);
+
                 } //
                 else if (flagIsHitting)
                 {
@@ -146,13 +150,16 @@ namespace Entities
                     {
                         flagIsHitting = false;
                     }
+                    body->setFillColor(sf::Color::Red);
                 }
                 else
                 {
                     hitTimmer = 0;
                     coolDownTimer += dt;
+                    body->setFillColor(sf::Color::Blue);
                 }
             }
+
             void BigBoss::toDamage(Player *pP)
             {
                 pP->reciveDmg(50);
@@ -184,7 +191,7 @@ namespace Entities
 
                 TupleF direction = geometry::getDirectionalVector(projectilePosition, PlayerPosition);
 
-                States::Level::createProjectile(projectilePosition, ID::ARROW, direction);
+                States::Level::createProjectile(projectilePosition, ID::HOOK, direction);
             }
 
         } // namespace Enemies

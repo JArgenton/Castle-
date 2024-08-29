@@ -1,5 +1,6 @@
 #include "Entities/Projectiles/Arrow.hpp"
 #include "Factories/ProjectilesFactory.hpp"
+#include "Entities/Projectiles/Hook.hpp"
 
 namespace Factories
 {
@@ -18,9 +19,18 @@ namespace Factories
         switch (_id)
         {
         case ARROW:
+        {
             pE = new Entities::Projectiles::Arrow(_position);
             break;
         }
+
+        case HOOK:
+        {
+            pE = new Entities::Projectiles::Hook(_position);
+            break;
+        }
+        }
+
         if (pE)
         {
 

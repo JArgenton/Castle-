@@ -64,6 +64,8 @@ namespace Entities
         {
             if (canReciveDmg())
             {
+                cout << getId() << " -->  " << dmg << endl;
+
                 health -= dmg;
                 if (health <= 0)
                 {
@@ -118,3 +120,4 @@ namespace Entities
             return trapTimmer > trapedDuration;
         }
     }
+}

@@ -9,6 +9,8 @@
 #include "Entities/Characters/Enemies/Soldier.hpp"
 
 #include "Entities/Projectiles/Arrow.hpp"
+#include "Entities/Projectiles/Hook.hpp"
+
 #include <math.h>
 #define PLAYER_SIZE_X 32.0f
 #define PLAYER_SIZE_Y 64.0f
@@ -179,6 +181,13 @@ namespace Entities
                 moveOnColision(other, intersec);
 
                 static_cast<Enemies::Archer *>(other)->toDamage(this);
+                break;
+            }
+            case ID::HOOK:
+            {
+                moveOnColision(other, intersec);
+
+                static_cast<Projectiles::Hook *>(other)->hook(this);
                 break;
             }
 

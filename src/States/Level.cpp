@@ -3,6 +3,7 @@
 #include "Entities/Obstacles/Plataform.hpp"
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Weapons/Sword.hpp"
+#include "Entities/Projectiles/Hook.hpp"
 
 #define BACKGROUND_LEVEL1 "assets/BackGrounds/OutSideCastle.png"
 
@@ -157,7 +158,14 @@ namespace States
     void Level::createProjectile(TupleF _position, ID _id, TupleF direction)
     {
         Entity *pE = Create(&projFactory, _position, _id);
-        static_cast<Projectiles::Arrow *>(pE)->setDirection(direction);
+        if (_id == ARROW)
+        {
+            static_cast<Projectiles::Arrow *>(pE)->setDirection(direction);
+        }
+        else
+        {
+            static_cast<Projectiles::Hook *>(pE)->setDirection(direction);
+        }
         if (pE)
         {
             movingEntities.add(pE);
@@ -197,6 +205,7 @@ namespace States
         auto matrix = layer["data"];
         int width = layer["width"];
         int height = layer["height"];
+        Entity *pE = nullptr;
 
         Player1 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(164.0f, 1508.0f), ID::PLAYER1));
         if (Player1)
@@ -212,13 +221,19 @@ namespace States
             pControl.setPlayer(Player2);
             movingEntities.add(dynamic_cast<Weapons::Sword *>(Player2->get_weapon()));
         }
+        pE = Create(eFactory, TupleF(804.0f, 1508.0f), ID::BOSS);
+        if (pE)
+        {
+            movingEntities.add(pE);
 
+            static_cast<Characters::Enemies::Enemy *>(pE)->setPlayer(Player1);
+            static_cast<Characters::Enemies::Enemy *>(pE)->setPlayer(Player2);
+        }
         // iterate through the matrixa
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
             {
-                Entity *pE = nullptr;
 
                 int entityType = matrix[y * width + x];
 

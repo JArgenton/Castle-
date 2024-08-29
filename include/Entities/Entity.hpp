@@ -25,6 +25,7 @@ namespace Entities
         ARROW,
         SOLDIER,
         BOSS,
+        HOOK,
     };
     class Entity : public Ent
     {

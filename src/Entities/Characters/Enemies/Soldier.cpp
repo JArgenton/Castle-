@@ -23,7 +23,7 @@ namespace Entities
             {
                 dmgCooldown = 0.5f;
 
-                set_health(300);
+                set_health(500);
                 set_atkCooldown(1.0f);
                 set_atkDuration(0.5f);
                 atkTimer = 2.0f;
@@ -33,7 +33,6 @@ namespace Entities
                 setSize(32.0f, 64.0f);
                 SetTexture(texturepath);
                 isTraped(1.0f);
-
                 render();
             }
             void Soldier::update(const float dt)
@@ -44,66 +43,55 @@ namespace Entities
                 incrementDmgTimer(dt);
                 trapTimmer += dt;
 
+                velocity.y += GRAVITY;
+
+                int dir;
                 if (getPlayerPosition().x < getPosition().x)
                 {
                     setFacing(true);
+                    dir = -1;
                 }
                 else
                 {
                     setFacing(false);
+                    dir = 1;
                 }
 
                 if (updatePlayerDistance() < 100.0f)
                 {
-                    velocity.x *= 2;
+                    velocity.x = BASE_SPEED * 2 * dir;
+                    execute();
                 }
                 else if (updatePlayerDistance() < 350.0f)
                 {
-
-                    float dir = getPlayerPosition().x - getPosition().x;
-                    dir /= abs(dir);
                     velocity.x = BASE_SPEED * dir;
                 }
                 if (canMove())
                 {
-                    velocity.y += GRAVITY;
                     body->move(velocity.x * dt, velocity.y * dt);
-                    execute();
                 }
                 render();
             }
 
             void Soldier::execute()
             {
-
-                if (facingLeft)
-                    set_velocity(TupleF(-150.0f, -150.0f));
-                else
-                {
-                    set_velocity(TupleF(150.0f, -150.0f));
-                }
-
                 atack();
             }
 
             void Soldier::toDamage(Player *pP)
             {
-
                 if (flagIsAtking)
                 {
                     pP->reciveDmg(atkDamage);
                 }
-                isTraped(1.0f);
                 pP->isTraped(1.0f);
 
                 if (facingLeft)
-                    pP->set_velocity(TupleF(-50.0f, -50.0f));
+                    pP->set_velocity(TupleF(-50.0f, -10.0f));
                 else
                 {
-                    pP->set_velocity(TupleF(50.0f, -50.0f));
+                    pP->set_velocity(TupleF(50.0f, -10.0f));
                 }
-
-                /*TODO -> algo diferente*/
             }
 
         } // namespace Enemies

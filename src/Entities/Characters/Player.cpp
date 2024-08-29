@@ -169,11 +169,15 @@ namespace Entities
             }
             case ID::ARCHER:
             {
+                moveOnColision(other, intersec);
+
                 static_cast<Enemies::Archer *>(other)->toDamage(this);
                 break;
             }
             case ID::SOLDIER:
             {
+                moveOnColision(other, intersec);
+
                 static_cast<Enemies::Archer *>(other)->toDamage(this);
                 break;
             }

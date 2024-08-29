@@ -4,6 +4,8 @@
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Weapons/Sword.hpp"
 
+#define BACKGROUND_LEVEL1 "assets/BackGrounds/OutSideCastle.png"
+
 using namespace GraphicalElements;
 
 namespace States
@@ -17,20 +19,24 @@ namespace States
                                       oFactory(),
                                       Player1(),
                                       Player2(),
-                                      hpDisplay(),
+                                      hpDisplay1(),
+                                      // hpDisplay2(),
                                       background(),
                                       obstacles(),
                                       collisionManager(&obstacles, &Level::movingEntities),
                                       pGraphicM(Managers::Graphics::get_instance()),
                                       pControl(),
                                       levelEnded(true),
-                                      playerPoints(0)
+                                      player1Points(10),
+                                      player2Points(0)
 
     {
         eFactory = new Factories::EnemiesFactory;
         playerFactory = new Factories::PlayerFactory;
         oFactory = new Factories::ObstaclesFactory;
         pControl.setMachine(pStateMachine);
+        background.initialize(BACKGROUND_LEVEL1, TupleF(pGraphicM->getWindowSize().x / 2.0f, pGraphicM->getWindowSize().y / 2), TupleF(pGraphicM->getWindowSize().x, pGraphicM->getWindowSize().y));
+        background.render();
     }
     Level::~Level()
     {
@@ -79,8 +85,10 @@ namespace States
 
     void Level::update(const float dt)
     {
+        background.render();
+        background.update(TupleF(Player1->getPosition().x, Player1->getPosition().y));
         float healthPercentage = static_cast<float>(Player1->getHealth()) / Player1->getTotalHealth();
-        hpDisplay.update(healthPercentage, TupleF(Player1->getPosition().x - 20, Player1->getPosition().y - 50));
+        hpDisplay1.update(healthPercentage, TupleF(Player1->getPosition().x - 20, Player1->getPosition().y - 50));
 
         // cout << Player1->getHealth() << endl;
         TupleF centerpos = centerView();
@@ -107,8 +115,6 @@ namespace States
         }
         collisionManager.check_collision();
 
-        background.update(centerpos);
-
         if (!Player1->isActive())
         {
 
@@ -116,6 +122,7 @@ namespace States
             {
 
                 endLevel();
+                changeState(States::stateID::GAMEOVER);
             }
             else if (!Player2->isActive())
             {
@@ -129,8 +136,7 @@ namespace States
 
     void Level::render()
     {
-        background.render();
-        hpDisplay.render();
+        hpDisplay1.render();
     }
 
     void Level::resetState()
@@ -160,21 +166,25 @@ namespace States
 
     void Level::endLevel()
     {
-        // playerPoints = player->getPlayerPoints();
         movingEntities.cleanList();
         obstacles.cleanList();
         levelEnded = true;
-        changeState(States::stateID::MAINMENU);
     }
 
     int Level::getPlayerPoints() const
     {
-        return playerPoints;
+        if (Player1)
+        {
+            return Player1->getPoints();
+        }
+        else
+        {
+            std::cerr << "Player1 é nulo!" << std::endl;
+            return 0; // Retorna um valor padrão ou trate o erro
+        }
     }
     void Level::createFase(const std::string &path)
     {
-        string texturepath = "assets/freetileset/png/BG/BG.png";
-        background.SetTexture(texturepath);
         std::ifstream file(path);
         json tmjData;
         file >> tmjData;

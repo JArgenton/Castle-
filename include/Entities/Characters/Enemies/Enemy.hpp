@@ -16,7 +16,7 @@ namespace Entities
             protected:
                 float player1Distance;
                 float player2Distance;
-                const unsigned int points;
+                int points;
                 Player *pPlayer1;
                 Player *pPlayer2;
 

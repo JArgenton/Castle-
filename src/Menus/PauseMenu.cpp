@@ -1,7 +1,7 @@
 #include "Menus/PauseMenu.hpp"
 #include "States/Jogo.hpp"
 
-#define BACKGROUND "assets/freetileset/png/BG/BG.png"
+#define BACKGROUND "assets/BackGrounds/leaderBG.jpeg"
 
 namespace Menus
 {
@@ -25,10 +25,11 @@ namespace Menus
 
         title.setTextInfo("Pause");
         title.setFontSize(100);
-        title.setTextColor(117.6, 168.2, 144.3);
+        title.setTextColor(0.6, 168.2, 144.3);
         title.setTextAlignment(GraphicalElements::TextAlignment::center);
         title.setPosition(TupleF(graphM->getWindowSize().x / 2.0f, 150.0f - title.getSize().y / 2));
-        back.initialize("assets/freetileset/png/BG/BG.png", TupleF(graphM->getWindowSize().x / 2.0f, graphM->getWindowSize().y / 2), TupleF(graphM->getWindowSize().x, graphM->getWindowSize().y));
+
+        back.initialize(BACKGROUND, TupleF(graphM->getWindowSize().x / 2.0f, graphM->getWindowSize().y / 2), TupleF(graphM->getWindowSize().x, graphM->getWindowSize().y));
 
         max = 2;
     }

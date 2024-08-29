@@ -4,18 +4,10 @@
 
 namespace GraphicalElements
 {
-
-    enum HealthBarID
-    {
-        EMPTY = 0,
-        FULL
-    };
-
     class HealthBar : public Ent
     {
     private:
         sf::Texture *texture;
-        sf::RectangleShape *body;
         int numStages;
         int stageWidth;
         int stageHeight;
@@ -27,7 +19,7 @@ namespace GraphicalElements
         void initialize() override {}
         void execute() override {}
 
-        void update(int healthPercentage, TupleF position); // Atualiza com a porcentagem de saúde
+        void update(float healthPercentage, TupleF position); // Atualiza com a porcentagem de saúde
         void render();
     };
 

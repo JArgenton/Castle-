@@ -82,7 +82,7 @@ namespace States
         float healthPercentage = static_cast<float>(Player1->getHealth()) / Player1->getTotalHealth();
         hpDisplay.update(healthPercentage, TupleF(Player1->getPosition().x - 20, Player1->getPosition().y - 50));
 
-        printf("%d \n", Player1->getHealth());
+        cout << Player1->getHealth() << endl;
         TupleF centerpos = centerView();
         pGraphicM->centerViewOn(centerpos);
 

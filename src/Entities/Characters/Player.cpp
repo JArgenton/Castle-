@@ -70,11 +70,6 @@ namespace Entities
             return points;
         }
 
-        const int Player::getHealth() const
-        {
-            return health;
-        }
-
         const int Player::getTotalHealth() const
         {
             return PLAYER_HEALTH;

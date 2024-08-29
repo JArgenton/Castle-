@@ -27,7 +27,7 @@ namespace Entities
             float randModifier = 0.5f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 1.0f)); // valor base * numero entre 0.5 e 1.5
             damage = TRAP_DAMAGE * 1 / randModifier;
             trapDuration = BASE_TRAP_DURATION * randModifier;
-            reloadCooldown = trapDuration + 1.0f;
+            reloadCooldown = trapDuration + 3.0f;
         }
         void Trap::update(float dt)
         {
@@ -42,6 +42,7 @@ namespace Entities
                 pC->reciveDmg(damage);
                 // isTraped ->Character
                 pC->isTraped(trapDuration);
+                reloadTimmer = 0;
             }
         }
         bool Trap::operational()

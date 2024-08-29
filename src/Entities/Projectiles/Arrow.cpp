@@ -34,15 +34,15 @@ namespace Entities
         void Arrow::update(float dt)
         {
             // Desativa o projétil se o tempo em tela ultrapassar o limite
-            if (getPosition().y > 1000)
+            if (getPosition().y > 10000)
             {
                 active = false;
             }
 
             // Atualiza a posição do projétil com base na velocidade e delta time
-            TupleF velocity = getVelocity();
+            TupleF velocity;
             velocity.y += GRAVITY;
-
+            velocity.x = ARROW_SPEED;
             body->move(velocity.x * dt, velocity.y * dt);
 
             render();

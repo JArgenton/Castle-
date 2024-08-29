@@ -4,18 +4,10 @@
 
 namespace GraphicalElements
 {
-
-    enum HealthBarID
-    {
-        EMPTY = 0,
-        FULL
-    };
-
     class HealthBar : public Ent
     {
     private:
         sf::Texture *texture;
-        sf::RectangleShape *body;
         int numStages;
         int stageWidth;
         int stageHeight;

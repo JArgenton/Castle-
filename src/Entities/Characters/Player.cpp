@@ -65,7 +65,7 @@ namespace Entities
             return weapon;
         }
 
-        const int Player::getPoints() const
+        int Player::getPoints()
         {
             return points;
         }
@@ -200,6 +200,7 @@ namespace Entities
         {
             if (PlayerCreationFlag)
             {
+                points = 221;
                 set_health(PLAYER_HEALTH);
                 active = true;
                 setSize(PLAYER_SIZE_X, PLAYER_SIZE_Y); // chama a set Origin
@@ -215,6 +216,7 @@ namespace Entities
             }
             else
             {
+                points = 221;
                 active = true;
                 set_health(200);
                 setSize(0.1f, 0.1f); // chama a set Origin

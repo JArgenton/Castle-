@@ -57,10 +57,14 @@ namespace States
 
         Control::PlayerControl pControl;
 
-        HealthBar hpDisplay;
+        HealthBar hpDisplay1;
+        // HealthBar hpDisplay2;
+
+        bool backgroundRendered;
 
         bool levelEnded;
-        int playerPoints;
+        int player1Points;
+        int player2Points;
         TupleF nextPositionToRender;
 
     public:

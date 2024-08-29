@@ -2,6 +2,7 @@
 #include "Menus/MainMenu.hpp"
 #include "Menus/PauseMenu.hpp"
 #include "Menus/LeaderBoard.hpp"
+#include "Menus/GameOver.hpp"
 
 #include "States/Level.hpp"
 
@@ -24,6 +25,9 @@ namespace States
         insertState(pStates);
 
         pStates = static_cast<State *>(new Level(this));
+        insertState(pStates);
+
+        pStates = static_cast<State *>(new Menus::GameOver(this, dynamic_cast<States::Level *>(mapOfStates[stateID::FASE])));
         insertState(pStates);
 
         changeState(stateID::MAINMENU);

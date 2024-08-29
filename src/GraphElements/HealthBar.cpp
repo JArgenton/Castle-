@@ -15,6 +15,8 @@ namespace GraphicalElements
         stageHeight = texture->getSize().y;
 
         body = new sf::RectangleShape(sf::Vector2f(stageWidth, stageHeight));
+
+        initialize();
     }
 
     HealthBar::~HealthBar()

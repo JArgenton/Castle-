@@ -29,47 +29,80 @@ namespace Entities
                 atkTimer = 2.0f;
                 coolDownTimer = 2.5f;
 
-                set_atkDamage(45);
+                set_atkDamage(25);
                 setSize(32.0f, 64.0f);
                 SetTexture(texturepath);
+                isTraped(1.0f);
 
                 render();
             }
             void Soldier::update(const float dt)
             {
 
-                updatePlayerDistance();
                 // Atualiza o archer
                 incrementAtkTimer(dt);
                 incrementDmgTimer(dt);
+                trapTimmer += dt;
 
-                velocity.y += GRAVITY;
-
-                body->move(velocity.x * dt, velocity.y * dt);
-                execute();
-                render();
-                if (getPlayerDistance() < 600.0f)
+                if (getPlayerPosition().x < getPosition().x)
                 {
+                    setFacing(true);
+                }
+                else
+                {
+                    setFacing(false);
+                }
+
+                if (updatePlayerDistance() < 100.0f)
+                {
+                    velocity.x *= 2;
+                }
+                else if (updatePlayerDistance() < 350.0f)
+                {
+
                     float dir = getPlayerPosition().x - getPosition().x;
                     dir /= abs(dir);
                     velocity.x = BASE_SPEED * dir;
-
-                    if (getPlayerDistance() < 300.0f)
-                    {
-                        velocity.x = BASE_SPEED * dir * 2;
-                        body->move(velocity.x * dt, velocity.y * dt);
-                    }
                 }
+                if (canMove())
+                {
+                    velocity.y += GRAVITY;
+                    body->move(velocity.x * dt, velocity.y * dt);
+                    execute();
+                }
+                render();
             }
 
             void Soldier::execute()
             {
+
+                if (facingLeft)
+                    set_velocity(TupleF(-150.0f, -150.0f));
+                else
+                {
+                    set_velocity(TupleF(150.0f, -150.0f));
+                }
+
+                atack();
             }
 
             void Soldier::toDamage(Player *pP)
             {
-                int dmg = 10 * rand() % 3;
-                pP->reciveDmg(dmg);
+
+                if (flagIsAtking)
+                {
+                    pP->reciveDmg(atkDamage);
+                }
+                isTraped(1.0f);
+                pP->isTraped(1.0f);
+
+                if (facingLeft)
+                    pP->set_velocity(TupleF(-50.0f, -50.0f));
+                else
+                {
+                    pP->set_velocity(TupleF(50.0f, -50.0f));
+                }
+
                 /*TODO -> algo diferente*/
             }
 

@@ -17,7 +17,10 @@ namespace Entities
         namespace Enemies
         {
             Enemy::Enemy(TupleF _position, ID _id, int _points) : Character(_position, _id),
+                                                                  player1Distance(9999.0f),
+                                                                  player2Distance(9999.0f),
                                                                   points(_points)
+
             {
                 pPlayer1 = nullptr;
                 pPlayer2 = nullptr;
@@ -57,20 +60,31 @@ namespace Entities
                 return pPlayer1->getPosition();
             }
 
-            float Enemy::getPlayerDistance()
-            {
-
-                return player1Distance < player2Distance ? player1Distance : player2Distance;
-            }
             bool Enemy::isP1NearestPlayer()
             {
-
-                return player1Distance < player2Distance;
+                if (!pPlayer2->getFullyCreated() || !pPlayer2->isActive())
+                {
+                    return true;
+                }
+                else if (!pPlayer1->isActive())
+                {
+                    return false;
+                }
+                else
+                {
+                    if (player1Distance < player2Distance)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
             }
-
-            void Enemy::updatePlayerDistance()
+            float Enemy::updatePlayerDistance()
             {
-                if (!pPlayer1)
+                if (!pPlayer1 && pPlayer2)
                 {
                     cout << "p1 morto" << endl;
                 }
@@ -78,11 +92,23 @@ namespace Entities
                 {
                     TupleF pos = getPosition();
                     TupleF pPos1 = pPlayer1->getPosition();
-                    TupleF pPos2 = pPlayer2->getPosition();
+                    if (pPlayer2->getFullyCreated())
+                    {
+                        TupleF pPos2 = pPlayer2->getPosition();
+                        player2Distance = sqrt(pow(pos.x - pPos2.x, 2) + pow(pos.y - pPos2.y, 2));
+                    }
+                    else
+                    {
+                        player2Distance = 9999.0f;
+                    }
 
-                    player1Distance = sqrt(pow(pos.x - pPos1.x, 2) + pow(pos.y - pPos1.y, 2));
+                    player1Distance = sqrt(pow((pos.x - pPos1.x), 2) + pow((pos.y - pPos1.y), 2));
 
-                    player2Distance = sqrt(pow(pos.x - pPos2.x, 2) + pow(pos.y - pPos2.y, 2));
+                    return player1Distance < player2Distance ? player1Distance : player2Distance;
+
+                    /* cout << "pos inimigo  ->>  " << pos.x << "  /  " << pos.y << endl;
+                     cout << "pos p1  ->>  " << pPos1.x << "  /  " << pPos1.y << endl;
+                     cout << "distancia -->" << player1Distance << endl;*/
                 }
             }
 
@@ -116,6 +142,13 @@ namespace Entities
                     if (owner->isAtking())
                     {
                         reciveDmg(owner->getAtkDamage());
+                        isTraped(1.0f);
+                        if (facingLeft)
+                            set_velocity(TupleF(50.0f, -50.0f));
+                        else
+                        {
+                            set_velocity(TupleF(-50.0f, -50.0f));
+                        }
                     }
                     break;
                 }

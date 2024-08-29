@@ -2,7 +2,7 @@
 
 #define WIDGHT 32.0f
 #define HEIGHT 32.0f
-#define FAKE_PLAT_DAMAGE 15
+#define FAKE_PLAT_DAMAGE 10
 namespace Entities
 {
     namespace Obstacles

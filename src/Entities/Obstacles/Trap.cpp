@@ -39,10 +39,16 @@ namespace Entities
         {
             if (operational())
             {
+                body->setFillColor(sf::Color::Red);
                 pC->reciveDmg(damage);
                 // isTraped ->Character
                 pC->isTraped(trapDuration);
+                pC->set_velocity(TupleF(0.0f, 0.0f));
                 reloadTimmer = 0;
+            }
+            else
+            {
+                body->setFillColor(sf::Color::Blue);
             }
         }
         bool Trap::operational()

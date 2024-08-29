@@ -148,10 +148,10 @@ namespace States
         return pFactory->FactoryMethood(_position, _id);
     }
 
-    void Level::createProjectile(TupleF _position, ID _id)
+    void Level::createProjectile(TupleF _position, ID _id, TupleF direction)
     {
         Entity *pE = Create(&projFactory, _position, _id);
-
+        static_cast<Projectiles::Arrow *>(pE)->setDirection(direction);
         if (pE)
         {
             movingEntities.add(pE);

@@ -13,7 +13,7 @@ namespace Entities
             void update(float dt);
             void initialize();
             const float getDamage();
-
+            void setDirection(TupleF _direction);
             void collide(Entity *otherEntity, TupleF intersect);
             // void updateSprite(const float dt) override;
         };

@@ -72,7 +72,7 @@ namespace States
 
         void createFase(const std::string &path);
 
-        static void createProjectile(TupleF _position, ID _id);
+        static void createProjectile(TupleF _position, ID _id, TupleF direction);
 
         static Entity *Create(Factories::EntityFactory *pFactory, TupleF _position, ID _id = empty);
 

@@ -64,7 +64,7 @@ namespace Entities
         {
             if (canReciveDmg())
             {
-                // cout << getId() << "    RECEBEU --> " << dmg << "    Vida Restante -->   " << health << endl;
+                cout << getId() << "    RECEBEU --> " << dmg << "    Vida Restante -->   " << health << endl;
                 health -= dmg;
                 if (health <= 0)
                 {

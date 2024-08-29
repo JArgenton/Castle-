@@ -5,12 +5,15 @@
 #include "Entities/Obstacles/Trap.hpp"
 #include "Entities/Obstacles/Plataform.hpp"
 
+#include "Entities/Characters/Enemies/Archer.hpp"
+#include "Entities/Characters/Enemies/Soldier.hpp"
+
 #include "Entities/Projectiles/Arrow.hpp"
 #include <math.h>
 #define PLAYER_SIZE_X 32.0f
 #define PLAYER_SIZE_Y 64.0f
 #define PLAYER_VELOCITY 100.0f
-#define PLAYER_HEALTH 300
+#define PLAYER_HEALTH 1000
 #define PLAYER_DMG_COOLDOWN 0.0f
 #define JUMP_HEIGH 3.0f
 using namespace std;
@@ -164,6 +167,16 @@ namespace Entities
 
                 break;
             }
+            case ID::ARCHER:
+            {
+                static_cast<Enemies::Archer *>(other)->toDamage(this);
+                break;
+            }
+            case ID::SOLDIER:
+            {
+                static_cast<Enemies::Archer *>(other)->toDamage(this);
+                break;
+            }
 
             default:
                 break;
@@ -174,7 +187,7 @@ namespace Entities
         {
             if (canJump)
             {
-                velocity.y -= 36 * GRAVITY;
+                velocity.y -= 38 * GRAVITY;
             }
             canJump = false;
         }
@@ -248,20 +261,23 @@ namespace Entities
             incrementDmgTimer(dt);
 
             TupleF position = getPosition();
-
-            if (isMoving && canMove())
+            if (canMove())
             {
-                velocity.x = PLAYER_VELOCITY;
-
-                if (facingLeft)
+                if (isMoving)
                 {
-                    velocity.x *= -1;
+                    velocity.x = PLAYER_VELOCITY;
+
+                    if (facingLeft)
+                    {
+                        velocity.x *= -1;
+                    }
+                }
+                else
+                {
+                    velocity.x *= 0.5;
                 }
             }
-            else
-            {
-                velocity.x *= 0.5;
-            }
+
             velocity.y += GRAVITY;
 
             body->move(velocity.x * dt, velocity.y * dt);

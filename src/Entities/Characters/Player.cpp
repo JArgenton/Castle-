@@ -10,7 +10,7 @@
 #define PLAYER_SIZE_X 32.0f
 #define PLAYER_SIZE_Y 64.0f
 #define PLAYER_VELOCITY 100.0f
-#define PLAYER_HEALTH 100
+#define PLAYER_HEALTH 300
 #define PLAYER_DMG_COOLDOWN 0.0f
 #define JUMP_HEIGH 3.0f
 using namespace std;
@@ -243,12 +243,13 @@ namespace Entities
                 setPosition(TupleF(9000.0f, 9000.0f));
                 return;
             }
+            trapTimmer += dt;
             incrementAtkTimer(dt);
             incrementDmgTimer(dt);
 
             TupleF position = getPosition();
 
-            if (isMoving)
+            if (isMoving && canMove())
             {
                 velocity.x = PLAYER_VELOCITY;
 

@@ -87,6 +87,15 @@ namespace States
             movingEntities[i]->update(dt);
             if (!static_cast<MovingEntity *>(movingEntities[i])->isActive())
             {
+                if (movingEntities[i] == Player1)
+                {
+                    Player1 = nullptr;
+                    endLevel();
+                }
+                if (movingEntities[i] == Player2)
+                {
+                    Player2 = nullptr;
+                }
                 movingEntities.deleteEntity(i);
             }
         }
@@ -98,17 +107,11 @@ namespace States
 
         background.update(centerpos);
 
-        if (!Player1->isActive())
+        if (!Player1 && !Player2)
         {
-            if (!Player2)
-            {
-                endLevel();
-            }
-            else if (!Player2->isActive())
-            {
-                endLevel();
-            }
+            endLevel();
         }
+
         // Atualiza a janela
     }
 
@@ -186,7 +189,7 @@ namespace States
             movingEntities.add(dynamic_cast<Weapons::Sword *>(Player2->get_weapon()));
         }
 
-        // iterate through the matrix
+        // iterate through the matrixa
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)

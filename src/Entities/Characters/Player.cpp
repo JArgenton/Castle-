@@ -35,6 +35,7 @@ namespace Entities
         }
         Player::~Player()
         {
+            weapon->setInactive();
         }
 
         /*SETs*/

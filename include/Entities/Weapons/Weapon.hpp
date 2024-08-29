@@ -30,6 +30,7 @@ namespace Entities
             void collide(Entity *other, TupleF intersec) override {}
             void execute() override {}
             Characters::Player *getOwner();
+            void setInactive();
         };
     }
 }

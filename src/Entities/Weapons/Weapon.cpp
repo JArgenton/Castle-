@@ -33,6 +33,10 @@ namespace Entities
                 cout << "desespero" << endl;
             }
         }
+        void Weapon::setInactive()
+        {
+            active = false;
+        }
 
     }
 

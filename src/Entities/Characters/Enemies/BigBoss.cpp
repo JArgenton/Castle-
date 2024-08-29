@@ -156,7 +156,6 @@ namespace Entities
             void BigBoss::toDamage(Player *pP)
             {
                 pP->reciveDmg(50);
-                pP->setSlowness(0.6, 1.5f);
             }
 
             bool BigBoss::canGrab()

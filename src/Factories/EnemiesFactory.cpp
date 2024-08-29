@@ -1,7 +1,7 @@
 #include "Factories/EnemiesFactory.hpp"
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Characters/Enemies/Soldier.hpp"
-#include "Entities/Characters/Enemies/Dumb.hpp"
+#include "Entities/Characters/Enemies/BigBoss.hpp"
 
 namespace Factories
 {
@@ -45,8 +45,8 @@ namespace Factories
             pE = new Characters::Enemies::Archer(_position);
 
             break;
-        case ID::DUMB:
-            pE = new Characters::Enemies::Dumb(_position);
+        case ID::BOSS:
+            pE = new Characters::Enemies::BigBoss(_position);
             break;
 
         default:

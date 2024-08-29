@@ -44,7 +44,6 @@ namespace Entities
                 trapTimmer += dt;
 
                 velocity.y += GRAVITY;
-
                 int dir;
                 if (getPlayerPosition().x < getPosition().x)
                 {
@@ -68,6 +67,8 @@ namespace Entities
                 }
                 if (canMove())
                 {
+                    // cout << slowness << endl;
+
                     body->move(velocity.x * dt, velocity.y * dt);
                 }
                 render();

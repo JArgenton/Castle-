@@ -24,7 +24,7 @@ namespace Entities
         ARCHER,
         ARROW,
         SOLDIER,
-        DUMB,
+        BOSS,
     };
     class Entity : public Ent
     {

@@ -58,7 +58,7 @@ namespace Entities
             virtual void initialize() = 0; // carrega as texturas
 
             /*timers & conditions*/
-            void incrementAtkTimer(const float dt); // necessario devido a decisao de separ o tempo atacando e de cooldown do atk, add o dt no contador correto
+            virtual void incrementAtkTimer(const float dt); // necessario devido a decisao de separ o tempo atacando e de cooldown do atk, add o dt no contador correto
             void incrementDmgTimer(const float dt);
             const bool canAtk(); // necessario devido a decisao de separ o tempo atacando e de cooldown do atk, muda o booleano
             const bool canReciveDmg();
@@ -68,7 +68,6 @@ namespace Entities
             virtual void update(const float dt) = 0;
             void isTraped(float time);
             bool canMove();
-            void setSlowness(float slow);
         };
     }
 }

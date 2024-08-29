@@ -39,7 +39,6 @@ namespace Entities
         void Lava::toObstruct(Entities::Characters::Character *pC)
         {
             pC->reciveDmg((int)damage);
-            pC->setSlowness(slowness);
         }
 
     } // namespace Obstacles

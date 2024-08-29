@@ -117,10 +117,4 @@ namespace Entities
         {
             return trapTimmer > trapedDuration;
         }
-
-        void Character::setSlowness(float slow)
-        {
-            velocity.x *= slow;
-        }
     }
-}

@@ -7,19 +7,36 @@ namespace Entities
     {
         namespace Enemies
         {
-            class Dumb : public Enemy
+            class BigBoss : public Enemy
             {
             private:
                 static std::string texturepath;
+                float grabTimmer;
+                float grabCooldown;
+
+                float hitTimmer;
+                float hitLimit;
+                bool flagIsHitting;
 
             public:
-                Dumb(TupleF _position);
-                ~Dumb();
-                void collide(Entity *other, TupleF intersec);
+                BigBoss(TupleF _position);
+
+                ~BigBoss();
+
                 void initialize();
+
                 void update(const float dt);
+
+                void shoot();
+
                 void execute();
+
+                void incrementAtkTimer(const float dt);
+                void atack();
+
                 void toDamage(Player *pP);
+
+                bool canGrab();
             };
         } // namespace Enemies
 

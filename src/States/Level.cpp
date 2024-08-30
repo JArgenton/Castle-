@@ -145,7 +145,7 @@ namespace States
 
         if (levelEnded)
         {
-            createFase("fase1.tmj");
+            createFase("fase 2.tmj");
             levelEnded = false;
         }
     }
@@ -207,14 +207,14 @@ namespace States
         int height = layer["height"];
         Entity *pE = nullptr;
 
-        Player1 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(164.0f, 1508.0f), ID::PLAYER1));
+        Player1 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(1502.0f, 196.0f), ID::PLAYER1));
         if (Player1)
         {
             movingEntities.add(Player1);
             pControl.setPlayer(Player1);
             movingEntities.add(dynamic_cast<Weapons::Sword *>(Player1->get_weapon()));
         }
-        Player2 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(164.0f, 1508.0f), ID::PLAYER2));
+        Player2 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(1502.0f, 196.0f), ID::PLAYER2));
         if (Player2)
         {
             movingEntities.add(Player2);
@@ -303,6 +303,7 @@ namespace States
                 }
                 case 5:
                     // criar player falhou
+                    cout << (100.0f + x * tileWidth) << "/" << (100.0f + y * tileheight) << endl;
                     break;
                 case 6:
                 {
@@ -344,6 +345,19 @@ namespace States
                     break;
                 }
                 break;
+                case 9:
+                {
+                    pE = Create(oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::PLATAFORM);
+                    if (pE)
+                    {
+                        obstacles.add(pE);
+                    }
+                    else
+                    {
+                        cout << "nao foi possivel criar entidade, ponteiro nulo" << endl;
+                    }
+                    break;
+                }
                 default:
                     break;
                 }

@@ -38,6 +38,14 @@ namespace Entities
 
         void Hook::update(float dt)
         {
+            if (velocity.x > 0)
+            {
+                setFacing(true);
+            }
+            else
+            {
+                setFacing(false);
+            }
             // Desativa o projétil se o tempo em tela ultrapassar o limite
             if (getPosition().y > 10000)
             {
@@ -69,10 +77,10 @@ namespace Entities
         }
         void Hook::hook(Characters::Player *pP)
         {
+
             pP->isTraped(1.0f);
-            if (velocity.x > 0)
+            if (isFacingLeft())
             {
-                cout << "velocity.x" << endl;
                 pP->set_velocity(TupleF(-100.0f, -40.0f));
             }
             else

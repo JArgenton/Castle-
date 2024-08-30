@@ -83,8 +83,9 @@ namespace States
 
     void Level::update(const float dt)
     {
-        cout << Player1->getPosition().x << "-------------" << Player1->getPosition().y << endl;
+        // cout << Player1->getPosition().x << "-------------" << Player1->getPosition().y << endl;
         background.render();
+
         if (!Player2->getFullyCreated())
         {
             background.update(TupleF(Player1->getPosition().x, Player1->getPosition().y));
@@ -161,7 +162,7 @@ namespace States
 
         if (levelEnded)
         {
-            createFase("fase1.tmj");
+            createFase("fase primeira final.tmj");
             levelEnded = false;
         }
     }

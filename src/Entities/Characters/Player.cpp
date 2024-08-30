@@ -7,10 +7,10 @@
 
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Characters/Enemies/Soldier.hpp"
+#include "Entities/Characters/Enemies/BigBoss.hpp"
 
 #include "Entities/Projectiles/Arrow.hpp"
 #include "Entities/Projectiles/Hook.hpp"
-
 #include <math.h>
 #define PLAYER_SIZE_X 32.0f
 #define PLAYER_SIZE_Y 64.0f
@@ -41,7 +41,6 @@ namespace Entities
         Player::~Player()
         {
             weapon->setInactive();
-            PlayerCreationFlag = false;
         }
 
         /*SETs*/
@@ -198,6 +197,13 @@ namespace Entities
                 moveOnColision(other, intersec);
 
                 static_cast<Projectiles::Hook *>(other)->hook(this);
+                break;
+            }
+            case ID::BOSS:
+            {
+                moveOnColision(other, intersec);
+
+                static_cast<Enemies::BigBoss *>(other)->toDamage(this);
                 break;
             }
 

@@ -72,6 +72,7 @@ namespace Entities
             pP->isTraped(1.0f);
             if (velocity.x > 0)
             {
+                cout << "velocity.x" << endl;
                 pP->set_velocity(TupleF(-100.0f, -40.0f));
             }
             else

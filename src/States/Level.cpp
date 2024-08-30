@@ -82,7 +82,7 @@ namespace States
 
     void Level::update(const float dt)
     {
-
+        // cout << Player1->getPosition().x << "-------------" << Player1->getPosition().y << endl;
         background.render();
         if (!Player2->getFullyCreated())
         {
@@ -454,7 +454,7 @@ namespace States
         obstacles.cleanList(); // Limpar a lista de obstáculos
 
         // Resetar variáveis de estado do nível
-        levelEnded = true;
+        levelEnded = false;
         player1Points = 0;
         player2Points = 0;
 
@@ -493,6 +493,10 @@ namespace States
                 }
                 movingEntities.add(Player1);
             }
+            else
+            {
+                std::cerr << "Falha ao criar Player1." << std::endl;
+            }
         }
 
         if (j.contains("Player2") && j["Player2"].contains("position") && j["Player2"]["position"].contains("x") && j["Player2"]["position"].contains("y"))
@@ -511,6 +515,14 @@ namespace States
                 }
                 movingEntities.add(Player2);
             }
+            else
+            {
+                std::cerr << "Falha ao criar Player2." << std::endl;
+            }
+        }
+        else
+        {
+            std::cerr << "Dados de Player2 estão faltando ou são inválidos no arquivo JSON." << std::endl;
         }
 
         // Carregar obstáculos
@@ -526,6 +538,10 @@ namespace States
                     if (obstacle)
                     {
                         obstacles.add(obstacle);
+                    }
+                    else
+                    {
+                        std::cerr << "Falha ao criar obstáculo do tipo " << type << "." << std::endl;
                     }
                 }
             }
@@ -547,6 +563,10 @@ namespace States
                         if (enemy)
                         {
                             movingEntities.add(enemy);
+                        }
+                        else
+                        {
+                            std::cerr << "Falha ao criar inimigo do tipo " << type << "." << std::endl;
                         }
                     }
                 }

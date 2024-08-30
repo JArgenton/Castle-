@@ -72,8 +72,8 @@ namespace Menus
                 States::Level *currentLevel = dynamic_cast<States::Level *>(pJogo->getState(States::stateID::FASE));
                 if (currentLevel)
                 {
+                    changeState(States::stateID::FASE);
                     currentLevel->loadGameState("Saves/SAVEGAME.json"); // Carregar o jogo
-                    changeState(States::stateID::FASE);                 // Mudar para o estado do jogo
                 }
                 break;
             }

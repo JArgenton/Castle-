@@ -423,7 +423,7 @@ namespace States
             auto e = movingEntities[i];
             if (e->getId() != ID::PLAYER1 && e->getId() != ID::PLAYER2)
             {
-                if (e->getId() == ID::ENEMY && static_cast<Characters::Enemies::Enemy *>(e)->getHealth() > 0)
+                if (e->getId() == ID::ENEMY)
                 {
                     json enemy;
                     enemy["type"] = e->getId();

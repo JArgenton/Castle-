@@ -64,6 +64,11 @@ namespace Entities
             canWalk = walk;
         }
 
+        void Player::setPoints(int points)
+        {
+            points = points;
+        }
+
         /*GETs*/
         Weapons::Weapon *Player::get_weapon()
         {
@@ -226,7 +231,7 @@ namespace Entities
         {
             if (PlayerCreationFlag)
             {
-                points = 221;
+                points = 0;
                 set_health(PLAYER_HEALTH);
                 active = true;
                 setSize(PLAYER_SIZE_X, PLAYER_SIZE_Y); // chama a set Origin
@@ -242,7 +247,7 @@ namespace Entities
             }
             else
             {
-                points = 221;
+                points = 0;
                 active = true;
                 set_health(200);
                 setSize(0.1f, 0.1f); // chama a set Origin

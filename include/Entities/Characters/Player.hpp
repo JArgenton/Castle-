@@ -40,6 +40,7 @@ namespace Entities
             void set_weapon(Weapons::Weapon *pweapon);
             void setJump(bool jump);
             void setWalk(bool walk);
+            void setPoints(int points);
 
             /*GETs*/
             Weapons::Weapon *get_weapon();

@@ -1,0 +1,20 @@
+{
+    "Player1": {
+        "health": 980,
+        "points": 0,
+        "position": {
+            "x": 5.510129769479473e-40,
+            "y": 6.4285828219518875e-40
+        }
+    },
+    "Player2": {
+        "health": -14,
+        "points": 0,
+        "position": {
+            "x": 5.510129769479473e-40,
+            "y": 6.4285828219518875e-40
+        }
+    },
+    "player1Points": 10,
+    "player2Points": 0
+}

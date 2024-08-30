@@ -27,6 +27,8 @@ namespace States
         void exec();
 
         void endJogo();
+
+        State *getState(stateID id);
     };
 
 } // namespace States

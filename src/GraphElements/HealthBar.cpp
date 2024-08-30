@@ -21,8 +21,6 @@ namespace GraphicalElements
 
     HealthBar::~HealthBar()
     {
-        delete texture;
-        delete body;
     }
 
     void HealthBar::update(float healthPercentage, TupleF position)

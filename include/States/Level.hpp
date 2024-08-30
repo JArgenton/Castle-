@@ -31,6 +31,7 @@ using namespace GraphicalElements;
 // Criaçao de fase .json/.tmj
 #include <nlohmann/json.hpp>
 #include <fstream>
+
 using json = nlohmann::json;
 
 namespace States
@@ -58,7 +59,7 @@ namespace States
         Control::PlayerControl pControl;
 
         HealthBar hpDisplay1;
-        // HealthBar hpDisplay2;
+        HealthBar hpDisplay2;
 
         bool backgroundRendered;
 
@@ -89,6 +90,15 @@ namespace States
         int getPlayerPoints() const;
 
         TupleF centerView();
+
+        void saveGameState(const std::string &filePath);
+
+        void clearState();
+
+        void loadGameState(const std::string &filePath);
+
+        // necessario para LoadGameState
+        bool setLevelEnded(bool troca);
     };
 
 } // namespace States

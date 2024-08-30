@@ -2,6 +2,7 @@
 
 #include "Menus/Menu.hpp"
 #include "States/State.hpp"
+#include "States/Level.hpp"
 
 namespace States
 {
@@ -15,6 +16,7 @@ namespace Menus
     private:
         States::Jogo *pJogo;
         GraphicalElements::Text title;
+        States::Level *getCurrentLevel();
 
     public:
         PauseMenu(States::Jogo *pJ = nullptr);

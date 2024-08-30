@@ -57,7 +57,10 @@ namespace Entities
                         return pPlayer2->getPosition();
                     }
                 }
-                return pPlayer1->getPosition();
+                if (pPlayer1)
+                {
+                    return pPlayer1->getPosition();
+                }
             }
 
             bool Enemy::isP1NearestPlayer()
@@ -88,7 +91,7 @@ namespace Entities
                 {
                     cout << "p1 morto" << endl;
                 }
-                else
+                else if (pPlayer1 || pPlayer2)
                 {
                     TupleF pos = getPosition();
                     TupleF pPos1 = pPlayer1->getPosition();

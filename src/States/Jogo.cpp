@@ -60,4 +60,14 @@ namespace States
         pGraphicManager->closeWindow();
     }
 
+    State *Jogo::getState(stateID id)
+    {
+        auto it = mapOfStates.find(id);
+        if (it != mapOfStates.end())
+        {
+            return it->second;
+        }
+        return nullptr;
+    }
+
 }

@@ -18,10 +18,10 @@ namespace States
                                       eFactory(),
                                       playerFactory(),
                                       oFactory(),
-                                      Player1(),
-                                      Player2(),
+                                      Player1(nullptr),
+                                      Player2(nullptr),
                                       hpDisplay1(),
-                                      // hpDisplay2(),
+                                      hpDisplay2(),
                                       background(),
                                       obstacles(),
                                       collisionManager(&obstacles, &Level::movingEntities),
@@ -41,9 +41,6 @@ namespace States
     }
     Level::~Level()
     {
-
-        movingEntities.cleanList();
-        obstacles.cleanList();
         if (eFactory)
             delete eFactory;
         if (playerFactory)
@@ -86,10 +83,25 @@ namespace States
 
     void Level::update(const float dt)
     {
+        cout << Player1->getPosition().x << "-------------" << Player1->getPosition().y << endl;
         background.render();
-        background.update(TupleF(Player1->getPosition().x, Player1->getPosition().y));
+        if (!Player2->getFullyCreated())
+        {
+            background.update(TupleF(Player1->getPosition().x, Player1->getPosition().y));
+        }
+        else
+        {
+            background.update(TupleF((Player1->getPosition().x + Player2->getPosition().x) / 2, (Player1->getPosition().y + Player2->getPosition().y) / 2));
+        }
+
         float healthPercentage = static_cast<float>(Player1->getHealth()) / Player1->getTotalHealth();
         hpDisplay1.update(healthPercentage, TupleF(Player1->getPosition().x - 20, Player1->getPosition().y - 50));
+
+        if (Player2 && Player2->isActive())
+        {
+            float healthPercentage2 = static_cast<float>(Player2->getHealth()) / Player2->getTotalHealth();
+            hpDisplay2.update(healthPercentage2, TupleF(Player2->getPosition().x - 20, Player2->getPosition().y - 50));
+        }
 
         // cout << Player1->getHealth() << endl;
         TupleF centerpos = centerView();
@@ -105,7 +117,6 @@ namespace States
                 }
                 else
                 {
-
                     movingEntities.deleteEntity(i);
                 }
             }
@@ -138,6 +149,11 @@ namespace States
     void Level::render()
     {
         hpDisplay1.render();
+
+        if (Player2 && Player2->isActive())
+        {
+            hpDisplay2.render();
+        }
     }
 
     void Level::resetState()
@@ -150,6 +166,10 @@ namespace States
         }
     }
 
+    bool Level::setLevelEnded(bool troca)
+    {
+        levelEnded = troca;
+    }
     Entity *Level::Create(Factories::EntityFactory *pFactory, TupleF _position, ID _id)
     {
         return pFactory->FactoryMethood(_position, _id);
@@ -362,6 +382,210 @@ namespace States
                     break;
                 }
             }
+        }
+    }
+
+    void Level::saveGameState(const std::string &filePath)
+    {
+        json j;
+
+        // Salvar estado dos jogadores
+        if (Player1)
+        {
+            j["Player1"]["position"]["x"] = Player1->getPosition().x;
+            j["Player1"]["position"]["y"] = Player1->getPosition().y;
+            j["Player1"]["health"] = Player1->getHealth();
+            j["Player1"]["points"] = Player1->getPoints();
+        }
+
+        if (Player2)
+        {
+            j["Player2"]["position"]["x"] = Player2->getPosition().x;
+            j["Player2"]["position"]["y"] = Player2->getPosition().y;
+            j["Player2"]["health"] = Player2->getHealth();
+            j["Player2"]["points"] = Player2->getPoints();
+        }
+
+        // Salvar estado dos obstáculos
+        for (int i = 0; i < obstacles.getSize(); ++i)
+        {
+            auto o = obstacles[i];
+            json obstacle;
+            obstacle["type"] = o->getId();
+            obstacle["position"]["x"] = o->getPosition().x;
+            obstacle["position"]["y"] = o->getPosition().y;
+            j["obstacles"].push_back(obstacle);
+        }
+
+        // Salvar estado dos inimigos
+        for (int i = 0; i < movingEntities.getSize(); ++i)
+        {
+            auto e = movingEntities[i];
+            if (e->getId() != ID::PLAYER1 && e->getId() != ID::PLAYER2)
+            {
+                if (e->getId() == ID::ENEMY && static_cast<Characters::Enemies::Enemy *>(e)->getHealth() > 0)
+                {
+                    json enemy;
+                    enemy["type"] = e->getId();
+                    enemy["position"]["x"] = e->getPosition().x;
+                    enemy["position"]["y"] = e->getPosition().y;
+                    enemy["health"] = static_cast<Characters::Enemies::Enemy *>(e)->getHealth();
+                    j["enemies"].push_back(enemy);
+                }
+            }
+        }
+
+        // Salvar pontos dos jogadores
+        j["player1Points"] = player1Points;
+        j["player2Points"] = player2Points;
+
+        // Abrir o arquivo para escrita, truncando o conteúdo existente
+        std::ofstream file(filePath, std::ofstream::trunc);
+        if (!file.is_open())
+        {
+            std::cerr << "Erro ao abrir o arquivo para salvar o estado do jogo: " << filePath << std::endl;
+            return;
+        }
+        file << j.dump(4); // Escrever o JSON no arquivo com indentação de 4 espaços
+        file.close();      // Fechar o arquivo após a escrita
+    }
+
+    void Level::clearState()
+    {
+        movingEntities.cleanList(); // Limpar a lista de entidades em movimento
+        obstacles.cleanList();      // Limpar a lista de obstáculos
+
+        levelEnded = false;
+        player1Points = 0;
+        player2Points = 0;
+
+        // Resetar referências aos jogadores
+        Player1 = nullptr;
+        Player2 = nullptr;
+    }
+
+    void Level::loadGameState(const std::string &filePath)
+    {
+        clearState();
+
+        std::ifstream file(filePath);
+        if (!file.is_open())
+        {
+            std::cerr << "Erro ao abrir o arquivo: " << filePath << std::endl;
+            return;
+        }
+
+        json j;
+        file >> j;
+
+        // Carregar estado dos jogadores
+        if (j.contains("Player1") && j["Player1"].contains("position") && j["Player1"]["position"].contains("x") && j["Player1"]["position"].contains("y"))
+        {
+            auto p1 = j["Player1"];
+            Player1 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(p1["position"]["x"], p1["position"]["y"]), ID::PLAYER1));
+
+            if (Player1)
+            {
+                pControl.setPlayer(Player1);
+                if (p1.contains("health") && p1["health"].is_number_integer())
+                {
+                    Player1->set_health(p1["health"].get<int>());
+                }
+                if (p1.contains("points") && p1["points"].is_number_integer())
+                {
+                    Player1->setPoints(p1["points"].get<int>());
+                }
+                movingEntities.add(Player1);
+            }
+            else
+            {
+                std::cerr << "Falha ao criar Player1." << std::endl;
+            }
+        }
+
+        if (j.contains("Player2") && j["Player2"].contains("position") && j["Player2"]["position"].contains("x") && j["Player2"]["position"].contains("y"))
+        {
+            auto p2 = j["Player2"];
+            Player2 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(p2["position"]["x"], p2["position"]["y"]), ID::PLAYER2));
+            if (Player2)
+            {
+                pControl.setPlayer(Player2);
+                if (p2.contains("health") && p2["health"].is_number_integer())
+                {
+                    Player2->set_health(p2["health"].get<int>());
+                }
+                if (p2.contains("points") && p2["points"].is_number_integer())
+                {
+                    Player2->setPoints(p2["points"].get<int>());
+                }
+                movingEntities.add(Player2);
+            }
+            else
+            {
+                std::cerr << "Falha ao criar Player2." << std::endl;
+            }
+        }
+        else
+        {
+            std::cerr << "Dados de Player2 estão faltando ou são inválidos no arquivo JSON." << std::endl;
+        }
+
+        // Carregar obstáculos
+        if (j.contains("obstacles"))
+        {
+            for (const auto &o : j["obstacles"])
+            {
+                if (o.contains("position") && o["position"].contains("x") && o["position"].contains("y"))
+                {
+                    auto position = TupleF(o["position"]["x"], o["position"]["y"]);
+                    auto type = o["type"].get<ID>();
+                    auto obstacle = Create(oFactory, position, type);
+                    if (obstacle)
+                    {
+                        obstacles.add(obstacle);
+                    }
+                    else
+                    {
+                        std::cerr << "Falha ao criar obstáculo do tipo " << type << "." << std::endl;
+                    }
+                }
+            }
+        }
+
+        // Carregar inimigos
+        if (j.contains("enemies"))
+        {
+            for (const auto &e : j["enemies"])
+            {
+                if (e.contains("position") && e["position"].contains("x") && e["position"].contains("y") && e.contains("health") && e["health"].is_number_integer())
+                {
+                    if (e["health"].get<int>() > 0)
+                    {
+                        auto position = TupleF(e["position"]["x"], e["position"]["y"]);
+                        auto health = e["health"].get<int>();
+                        auto type = e["type"].get<ID>();
+                        auto enemy = Create(eFactory, position, type);
+                        if (enemy)
+                        {
+                            movingEntities.add(enemy);
+                        }
+                        else
+                        {
+                            std::cerr << "Falha ao criar inimigo do tipo " << type << "." << std::endl;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Carregar pontos dos jogadores
+        if (j.contains("player1Points") && j["player1Points"].is_number_integer())
+        {
+            player1Points = j["player1Points"].get<int>();
+        }
+        if (j.contains("player2Points") && j["player2Points"].is_number_integer())
+        {
+            player2Points = j["player2Points"].get<int>();
         }
     }
 

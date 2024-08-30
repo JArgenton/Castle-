@@ -1,5 +1,6 @@
 #include "Ent.hpp"
 #include "Managers/GraphicManager.hpp"
+
 Managers::Graphics *Ent::graphicManager(Managers::Graphics::get_instance());
 
 Ent::Ent() : body()

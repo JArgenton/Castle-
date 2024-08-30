@@ -40,8 +40,6 @@ namespace States
     }
     Level::~Level()
     {
-        movingEntities.cleanList();
-        obstacles.cleanList();
         if (eFactory)
             delete eFactory;
         if (playerFactory)
@@ -118,7 +116,6 @@ namespace States
                 }
                 else
                 {
-
                     movingEntities.deleteEntity(i);
                 }
             }
@@ -168,6 +165,10 @@ namespace States
         }
     }
 
+    bool Level::setLevelEnded(bool troca)
+    {
+        levelEnded = troca;
+    }
     Entity *Level::Create(Factories::EntityFactory *pFactory, TupleF _position, ID _id)
     {
         return pFactory->FactoryMethood(_position, _id);
@@ -185,7 +186,8 @@ namespace States
 
     void Level::endLevel()
     {
-
+        movingEntities.cleanList();
+        obstacles.cleanList();
         levelEnded = true;
     }
 
@@ -358,6 +360,11 @@ namespace States
 
     using json = nlohmann::json;
 
+#include <nlohmann/json.hpp>
+#include <fstream>
+
+    using json = nlohmann::json;
+
     void Level::saveGameState(const std::string &filePath)
     {
         json j;
@@ -384,7 +391,7 @@ namespace States
         {
             auto o = obstacles[i];
             json obstacle;
-            obstacle["type"] = o->getId(); // Supondo que você tenha um método getId() que retorna o tipo do obstáculo
+            obstacle["type"] = o->getId();
             obstacle["position"]["x"] = o->getPosition().x;
             obstacle["position"]["y"] = o->getPosition().y;
             j["obstacles"].push_back(obstacle);
@@ -396,11 +403,15 @@ namespace States
             auto e = movingEntities[i];
             if (e->getId() != ID::PLAYER1 && e->getId() != ID::PLAYER2)
             {
-                json enemy;
-                enemy["type"] = e->getId(); // Supondo que você tenha um método getId() que retorna o tipo do inimigo
-                enemy["position"]["x"] = e->getPosition().x;
-                enemy["position"]["y"] = e->getPosition().y;
-                j["enemies"].push_back(enemy);
+                if (e->getId() == ID::ENEMY && static_cast<Characters::Enemies::Enemy *>(e)->getHealth() > 0)
+                {
+                    json enemy;
+                    enemy["type"] = e->getId();
+                    enemy["position"]["x"] = e->getPosition().x;
+                    enemy["position"]["y"] = e->getPosition().y;
+                    enemy["health"] = static_cast<Characters::Enemies::Enemy *>(e)->getHealth();
+                    j["enemies"].push_back(enemy);
+                }
             }
         }
 
@@ -408,37 +419,96 @@ namespace States
         j["player1Points"] = player1Points;
         j["player2Points"] = player2Points;
 
-        std::ofstream file(filePath);
-        file << j.dump(4);
+        // Abrir o arquivo para escrita, truncando o conteúdo existente
+        std::ofstream file(filePath, std::ofstream::trunc);
+        if (!file.is_open())
+        {
+            std::cerr << "Erro ao abrir o arquivo para salvar o estado do jogo: " << filePath << std::endl;
+            return;
+        }
+        file << j.dump(4); // Escrever o JSON no arquivo com indentação de 4 espaços
+        file.close();      // Fechar o arquivo após a escrita
+    }
+
+    void Level::clearState()
+    {
+        for (int i = 0; i < movingEntities.getSize(); ++i)
+        {
+            Entity *entity = movingEntities[i];
+            if (entity)
+            {
+                delete entity; // Libere a memória alocada para a entidade
+            }
+        }
+        movingEntities.cleanList(); // Limpar a lista de entidades em movimento
+
+        // Limpar obstáculos
+        for (int i = 0; i < obstacles.getSize(); ++i)
+        {
+            Entity *obstacle = obstacles[i];
+            if (obstacle)
+            {
+                delete obstacle; // Libere a memória alocada para o obstáculo
+            }
+        }
+        obstacles.cleanList(); // Limpar a lista de obstáculos
+
+        // Resetar variáveis de estado do nível
+        levelEnded = true;
+        player1Points = 0;
+        player2Points = 0;
+
+        // Resetar referências aos jogadores
+        Player1 = nullptr;
+        Player2 = nullptr;
     }
 
     void Level::loadGameState(const std::string &filePath)
     {
         std::ifstream file(filePath);
+        if (!file.is_open())
+        {
+            std::cerr << "Erro ao abrir o arquivo: " << filePath << std::endl;
+            return;
+        }
+        levelEnded = false;
+
         json j;
         file >> j;
 
         // Carregar estado dos jogadores
-        if (j.contains("Player1"))
+        if (j.contains("Player1") && j["Player1"].contains("position") && j["Player1"]["position"].contains("x") && j["Player1"]["position"].contains("y"))
         {
             auto p1 = j["Player1"];
             Player1 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(p1["position"]["x"], p1["position"]["y"]), ID::PLAYER1));
             if (Player1)
             {
-                Player1->set_health(p1["health"]);
-                Player1->setPoints(p1["points"]);
+                if (p1.contains("health") && p1["health"].is_number_integer())
+                {
+                    Player1->set_health(p1["health"].get<int>());
+                }
+                if (p1.contains("points") && p1["points"].is_number_integer())
+                {
+                    Player1->setPoints(p1["points"].get<int>());
+                }
                 movingEntities.add(Player1);
             }
         }
 
-        if (j.contains("Player2"))
+        if (j.contains("Player2") && j["Player2"].contains("position") && j["Player2"]["position"].contains("x") && j["Player2"]["position"].contains("y"))
         {
             auto p2 = j["Player2"];
             Player2 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(p2["position"]["x"], p2["position"]["y"]), ID::PLAYER2));
             if (Player2)
             {
-                Player2->set_health(p2["health"]);
-                Player2->setPoints(p2["points"]);
+                if (p2.contains("health") && p2["health"].is_number_integer())
+                {
+                    Player2->set_health(p2["health"].get<int>());
+                }
+                if (p2.contains("points") && p2["points"].is_number_integer())
+                {
+                    Player2->setPoints(p2["points"].get<int>());
+                }
                 movingEntities.add(Player2);
             }
         }
@@ -448,12 +518,15 @@ namespace States
         {
             for (const auto &o : j["obstacles"])
             {
-                auto position = TupleF(o["position"]["x"], o["position"]["y"]);
-                auto type = o["type"].get<ID>(); // Supondo que você tenha um método get<ID>() que converte o tipo
-                auto obstacle = Create(oFactory, position, type);
-                if (obstacle)
+                if (o.contains("position") && o["position"].contains("x") && o["position"].contains("y"))
                 {
-                    obstacles.add(obstacle);
+                    auto position = TupleF(o["position"]["x"], o["position"]["y"]);
+                    auto type = o["type"].get<ID>();
+                    auto obstacle = Create(oFactory, position, type);
+                    if (obstacle)
+                    {
+                        obstacles.add(obstacle);
+                    }
                 }
             }
         }
@@ -463,19 +536,32 @@ namespace States
         {
             for (const auto &e : j["enemies"])
             {
-                auto position = TupleF(e["position"]["x"], e["position"]["y"]);
-                auto type = e["type"].get<ID>(); // Supondo que você tenha um método get<ID>() que converte o tipo
-                auto enemy = Create(eFactory, position, type);
-                if (enemy)
+                if (e.contains("position") && e["position"].contains("x") && e["position"].contains("y") && e.contains("health") && e["health"].is_number_integer())
                 {
-                    movingEntities.add(enemy);
+                    if (e["health"].get<int>() > 0)
+                    {
+                        auto position = TupleF(e["position"]["x"], e["position"]["y"]);
+                        auto health = e["health"].get<int>();
+                        auto type = e["type"].get<ID>();
+                        auto enemy = Create(eFactory, position, type);
+                        if (enemy)
+                        {
+                            movingEntities.add(enemy);
+                        }
+                    }
                 }
             }
         }
 
         // Carregar pontos dos jogadores
-        player1Points = j["player1Points"];
-        player2Points = j["player2Points"];
+        if (j.contains("player1Points") && j["player1Points"].is_number_integer())
+        {
+            player1Points = j["player1Points"].get<int>();
+        }
+        if (j.contains("player2Points") && j["player2Points"].is_number_integer())
+        {
+            player2Points = j["player2Points"].get<int>();
+        }
     }
 
 } // namespace States

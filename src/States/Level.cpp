@@ -161,7 +161,7 @@ namespace States
 
         if (levelEnded)
         {
-            createFase("fase 2.tmj");
+            createFase("fase1.tmj");
             levelEnded = false;
         }
     }
@@ -227,14 +227,14 @@ namespace States
         int height = layer["height"];
         Entity *pE = nullptr;
 
-        Player1 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(1502.0f, 196.0f), ID::PLAYER1));
+        Player1 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(152.0f, 1450.0f) /*TupleF(1502.0f, 196.0f)*/, ID::PLAYER1));
         if (Player1)
         {
             movingEntities.add(Player1);
             pControl.setPlayer(Player1);
             movingEntities.add(dynamic_cast<Weapons::Sword *>(Player1->get_weapon()));
         }
-        Player2 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(1502.0f, 196.0f), ID::PLAYER2));
+        Player2 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(152.0f, 1450.0f) /*TupleF(1502.0f, 196.0f)*/, ID::PLAYER2));
         if (Player2)
         {
             movingEntities.add(Player2);

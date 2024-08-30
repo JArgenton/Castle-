@@ -34,11 +34,17 @@ namespace Control
                 exit(1);
             }
 
-            if (key == "Space" && !pPlayer2->getFullyCreated())
+            if (key == "Space")
             {
+                if (!pPlayer2->getFullyCreated())
                 {
                     pPlayer2->initialize();
                     pPlayer2->setPosition(pPlayer1->getPosition());
+                }
+                else if (!pPlayer1->getFullyCreated())
+                {
+                    pPlayer1->initialize();
+                    pPlayer1->setPosition(pPlayer2->getPosition());
                 }
             }
             if (pPlayer1->isActive())

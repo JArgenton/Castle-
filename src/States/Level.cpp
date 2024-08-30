@@ -20,13 +20,13 @@ namespace States
                                       oFactory(),
                                       Player1(nullptr),
                                       Player2(nullptr),
-                                      hpDisplay1(),
-                                      hpDisplay2(),
                                       background(),
                                       obstacles(),
                                       collisionManager(&obstacles, &Level::movingEntities),
                                       pGraphicM(Managers::Graphics::get_instance()),
                                       pControl(),
+                                      hpDisplay1(),
+                                      hpDisplay2(),
                                       levelEnded(true),
                                       player1Points(10),
                                       player2Points(0)
@@ -169,10 +169,6 @@ namespace States
         }
     }
 
-    bool Level::setLevelEnded(bool troca)
-    {
-        levelEnded = troca;
-    }
     Entity *Level::Create(Factories::EntityFactory *pFactory, TupleF _position, ID _id)
     {
         return pFactory->FactoryMethood(_position, _id);
@@ -426,13 +422,14 @@ namespace States
             auto e = movingEntities[i];
             if (e->getId() != ID::PLAYER1 && e->getId() != ID::PLAYER2)
             {
-                if (e->getId() == ID::ENEMY)
+                if (e->getId() == ID::ARCHER || e->getId() == ID::SOLDIER || e->getId() == ID::BOSS)
                 {
                     json enemy;
                     enemy["type"] = e->getId();
                     enemy["position"]["x"] = e->getPosition().x;
                     enemy["position"]["y"] = e->getPosition().y;
                     enemy["health"] = static_cast<Characters::Enemies::Enemy *>(e)->getHealth();
+                    enemy["targetedPlayer"] = static_cast<Characters::Enemies::Enemy *>(e)->getTargetPlayerId();
                     j["enemies"].push_back(enemy);
                 }
             }
@@ -467,6 +464,58 @@ namespace States
         // Resetar referências aos jogadores
         Player1 = nullptr;
         Player2 = nullptr;
+    }
+
+    void Level::loadEnemiesFromJson(const std::string &filePath)
+    {
+        std::ifstream file(filePath);
+        if (!file.is_open())
+        {
+            std::cerr << "Erro ao abrir o arquivo: " << filePath << std::endl;
+            return;
+        }
+
+        json j;
+        file >> j;
+
+        if (j.contains("enemies"))
+        {
+            for (const auto &enemyData : j["enemies"])
+            {
+                if (enemyData.contains("position") && enemyData["position"].contains("x") && enemyData["position"].contains("y"))
+                {
+                    TupleF position(enemyData["position"]["x"], enemyData["position"]["y"]);
+                    ID enemyType = enemyData["type"].get<ID>();
+                    auto enemy = Create(eFactory, position, enemyType);
+                    if (enemy)
+                    {
+                        if (enemyData.contains("health"))
+                        {
+                            static_cast<Characters::Enemies::Enemy *>(enemy)->set_health(enemyData["health"].get<int>());
+                        }
+
+                        if (enemyData.contains("targetedPlayer"))
+                        {
+                            ID targetedPlayerId = enemyData["targetedPlayer"].get<ID>();
+                            if (targetedPlayerId == ID::PLAYER1 && Player1 && Player1->isActive())
+                            {
+                                static_cast<Characters::Enemies::Enemy *>(enemy)->setPlayer(Player1);
+                            }
+                            else if (targetedPlayerId == ID::PLAYER2 && Player2 && Player2->isActive())
+                            {
+                                static_cast<Characters::Enemies::Enemy *>(enemy)->setPlayer(Player2);
+                            }
+                        }
+
+                        movingEntities.add(enemy);
+                    }
+                    else
+                    {
+                        std::cerr << "Falha ao criar inimigo do tipo " << enemyType << "." << std::endl;
+                    }
+                }
+            }
+        }
     }
 
     void Level::loadGameState(const std::string &filePath)
@@ -558,25 +607,7 @@ namespace States
         }
 
         // Carregar inimigos
-        if (j.contains("enemies"))
-        {
-            for (int i = 0; i < movingEntities.getSize(); ++i)
-            {
-                auto e = movingEntities[i];
-                if (e->getId() != ID::PLAYER1 && e->getId() != ID::PLAYER2)
-                {
-                    if (e->getId() == ID::ENEMY && static_cast<Characters::Enemies::Enemy *>(e)->getHealth() > 0)
-                    {
-                        json enemy;
-                        enemy["type"] = e->getId();
-                        enemy["position"]["x"] = e->getPosition().x;
-                        enemy["position"]["y"] = e->getPosition().y;
-                        enemy["health"] = static_cast<Characters::Enemies::Enemy *>(e)->getHealth();
-                        j["enemies"].push_back(enemy);
-                    }
-                }
-            }
-        }
+        loadEnemiesFromJson("Saves/SAVEGAME.json");
 
         // Carregar pontos dos jogadores
         if (j.contains("player1Points") && j["player1Points"].is_number_integer())

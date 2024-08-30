@@ -36,11 +36,13 @@ namespace Entities
             Player(TupleF _position, Weapons::Weapon *pW = nullptr, ID _id = PLAYER1);
             ~Player();
             bool getFullyCreated();
+
             /*SETs*/
             void set_weapon(Weapons::Weapon *pweapon);
             void setJump(bool jump);
             void setWalk(bool walk);
             void setPoints(int points);
+            static void disablePlayerCreationFlag();
 
             /*GETs*/
             Weapons::Weapon *get_weapon();

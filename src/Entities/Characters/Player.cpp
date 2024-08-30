@@ -69,6 +69,11 @@ namespace Entities
             points = points;
         }
 
+        void Player::disablePlayerCreationFlag()
+        {
+            PlayerCreationFlag = false;
+        }
+
         /*GETs*/
         Weapons::Weapon *Player::get_weapon()
         {

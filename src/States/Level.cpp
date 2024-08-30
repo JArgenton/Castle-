@@ -483,7 +483,7 @@ namespace States
         {
             auto p1 = j["Player1"];
             Player1 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(p1["position"]["x"], p1["position"]["y"]), ID::PLAYER1));
-
+            Player1->disablePlayerCreationFlag();
             if (Player1)
             {
                 pControl.setPlayer(Player1);
@@ -555,24 +555,19 @@ namespace States
         // Carregar inimigos
         if (j.contains("enemies"))
         {
-            for (const auto &e : j["enemies"])
+            for (int i = 0; i < movingEntities.getSize(); ++i)
             {
-                if (e.contains("position") && e["position"].contains("x") && e["position"].contains("y") && e.contains("health") && e["health"].is_number_integer())
+                auto e = movingEntities[i];
+                if (e->getId() != ID::PLAYER1 && e->getId() != ID::PLAYER2)
                 {
-                    if (e["health"].get<int>() > 0)
+                    if (e->getId() == ID::ENEMY && static_cast<Characters::Enemies::Enemy *>(e)->getHealth() > 0)
                     {
-                        auto position = TupleF(e["position"]["x"], e["position"]["y"]);
-                        auto health = e["health"].get<int>();
-                        auto type = e["type"].get<ID>();
-                        auto enemy = Create(eFactory, position, type);
-                        if (enemy)
-                        {
-                            movingEntities.add(enemy);
-                        }
-                        else
-                        {
-                            std::cerr << "Falha ao criar inimigo do tipo " << type << "." << std::endl;
-                        }
+                        json enemy;
+                        enemy["type"] = e->getId();
+                        enemy["position"]["x"] = e->getPosition().x;
+                        enemy["position"]["y"] = e->getPosition().y;
+                        enemy["health"] = static_cast<Characters::Enemies::Enemy *>(e)->getHealth();
+                        j["enemies"].push_back(enemy);
                     }
                 }
             }

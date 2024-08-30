@@ -17,8 +17,8 @@ namespace States
                                       eFactory(),
                                       playerFactory(),
                                       oFactory(),
-                                      Player1(),
-                                      Player2(),
+                                      Player1(nullptr),
+                                      Player2(nullptr),
                                       hpDisplay1(),
                                       hpDisplay2(),
                                       background(),
@@ -82,7 +82,7 @@ namespace States
 
     void Level::update(const float dt)
     {
-        // cout << Player1->getPosition().x << "-------------" << Player1->getPosition().y << endl;
+        cout << Player1->getPosition().x << "-------------" << Player1->getPosition().y << endl;
         background.render();
         if (!Player2->getFullyCreated())
         {
@@ -355,15 +355,6 @@ namespace States
             }
         }
     }
-#include <nlohmann/json.hpp>
-#include <fstream>
-
-    using json = nlohmann::json;
-
-#include <nlohmann/json.hpp>
-#include <fstream>
-
-    using json = nlohmann::json;
 
     void Level::saveGameState(const std::string &filePath)
     {
@@ -432,28 +423,9 @@ namespace States
 
     void Level::clearState()
     {
-        for (int i = 0; i < movingEntities.getSize(); ++i)
-        {
-            Entity *entity = movingEntities[i];
-            if (entity)
-            {
-                delete entity; // Libere a memória alocada para a entidade
-            }
-        }
         movingEntities.cleanList(); // Limpar a lista de entidades em movimento
+        obstacles.cleanList();      // Limpar a lista de obstáculos
 
-        // Limpar obstáculos
-        for (int i = 0; i < obstacles.getSize(); ++i)
-        {
-            Entity *obstacle = obstacles[i];
-            if (obstacle)
-            {
-                delete obstacle; // Libere a memória alocada para o obstáculo
-            }
-        }
-        obstacles.cleanList(); // Limpar a lista de obstáculos
-
-        // Resetar variáveis de estado do nível
         levelEnded = false;
         player1Points = 0;
         player2Points = 0;
@@ -465,13 +437,14 @@ namespace States
 
     void Level::loadGameState(const std::string &filePath)
     {
+        clearState();
+
         std::ifstream file(filePath);
         if (!file.is_open())
         {
             std::cerr << "Erro ao abrir o arquivo: " << filePath << std::endl;
             return;
         }
-        levelEnded = false;
 
         json j;
         file >> j;
@@ -481,8 +454,10 @@ namespace States
         {
             auto p1 = j["Player1"];
             Player1 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(p1["position"]["x"], p1["position"]["y"]), ID::PLAYER1));
+
             if (Player1)
             {
+                pControl.setPlayer(Player1);
                 if (p1.contains("health") && p1["health"].is_number_integer())
                 {
                     Player1->set_health(p1["health"].get<int>());
@@ -505,6 +480,7 @@ namespace States
             Player2 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(p2["position"]["x"], p2["position"]["y"]), ID::PLAYER2));
             if (Player2)
             {
+                pControl.setPlayer(Player2);
                 if (p2.contains("health") && p2["health"].is_number_integer())
                 {
                     Player2->set_health(p2["health"].get<int>());

@@ -83,6 +83,8 @@ namespace States
 
     void Level::update(const float dt)
     {
+        // cout << &Player1 << endl;
+
         // cout << Player1->getPosition().x << "-------------" << Player1->getPosition().y << endl;
         background.render();
 
@@ -453,6 +455,8 @@ namespace States
 
     void Level::clearState()
     {
+        pControl.reset();
+
         movingEntities.cleanList(); // Limpar a lista de entidades em movimento
         obstacles.cleanList();      // Limpar a lista de obstáculos
 
@@ -484,10 +488,10 @@ namespace States
         {
             auto p1 = j["Player1"];
             Player1 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(p1["position"]["x"], p1["position"]["y"]), ID::PLAYER1));
-            Player1->disablePlayerCreationFlag();
+            pControl.setPlayer(Player1);
+
             if (Player1)
             {
-                pControl.setPlayer(Player1);
                 if (p1.contains("health") && p1["health"].is_number_integer())
                 {
                     Player1->set_health(p1["health"].get<int>());

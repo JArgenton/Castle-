@@ -26,6 +26,7 @@ namespace Control
 
         void setPlayer(Entities::Characters::Player *pP);
         void setMachine(StateMachine *pSTM);
+        void reset();
     };
 
 } // namespace Control

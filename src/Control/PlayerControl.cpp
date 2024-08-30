@@ -12,8 +12,8 @@ namespace Control
 
     PlayerControl::~PlayerControl()
     {
-        pPlayer1 = NULL;
-        pPlayer2 = NULL;
+        pPlayer1 = nullptr;
+        pPlayer2 = nullptr;
     }
 
     void PlayerControl::notifyPressed(std::string key)
@@ -27,7 +27,6 @@ namespace Control
 
         if (pStateM->getStateID() == stateID::FASE)
         {
-
             if (!pPlayer1 || !pPlayer2)
             {
                 cout << "players estao nulos" << endl;
@@ -138,19 +137,32 @@ namespace Control
     }
     void PlayerControl::setPlayer(Entities::Characters::Player *pL)
     {
+        cout << "set player recebido --> " << &pL << endl;
+
         if (pPlayer1)
         {
+            cout << "set player 2 --> " << &pPlayer2 << endl;
+
             pPlayer2 = pL;
         }
         else
         {
+
+            cout << "set player 1 --> " << &pPlayer1 << endl;
+
             pPlayer1 = pL;
         }
+        cout << "---------- " << endl;
     }
 
     void PlayerControl::setMachine(StateMachine *pSTM)
     {
         pStateM = pSTM;
+    }
+    void PlayerControl::reset()
+    {
+        pPlayer1 = nullptr;
+        pPlayer2 = nullptr;
     }
 
 } // namespace Control

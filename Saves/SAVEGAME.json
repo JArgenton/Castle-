@@ -1,28 +1,28 @@
 {
     "Player1": {
-        "health": 198,
+        "health": 894,
         "points": 0,
         "position": {
-            "x": 578.1575927734375,
-            "y": 1545.3663330078125
+            "x": 560.8358764648438,
+            "y": 1524.0
         }
     },
     "Player2": {
-        "health": 575,
+        "health": 990,
         "points": 0,
         "position": {
-            "x": 579.581298828125,
-            "y": 1553.97900390625
+            "x": 467.95001220703125,
+            "y": 2043.170166015625
         }
     },
     "enemies": [
         {
-            "health": 1256,
+            "health": 1401,
             "position": {
-                "x": 628.0,
+                "x": 636.489990234375,
                 "y": 1548.0
             },
-            "targetedPlayer": 2,
+            "targetedPlayer": 1,
             "type": 11
         },
         {
@@ -35,13 +35,13 @@
             "type": 8
         },
         {
-            "health": 150,
+            "health": 500,
             "position": {
                 "x": 516.0,
                 "y": 308.0
             },
             "targetedPlayer": 1,
-            "type": 8
+            "type": 10
         },
         {
             "health": 500,
@@ -112,7 +112,7 @@
                 "x": 1636.0,
                 "y": 1460.0
             },
-            "targetedPlayer": 2,
+            "targetedPlayer": 1,
             "type": 10
         },
         {
@@ -121,16 +121,16 @@
                 "x": 1092.0,
                 "y": 1524.0
             },
-            "targetedPlayer": 2,
+            "targetedPlayer": 1,
             "type": 8
         },
         {
-            "health": 269,
+            "health": 500,
             "position": {
-                "x": 612.0,
+                "x": 1028.0,
                 "y": 1556.0
             },
-            "targetedPlayer": 2,
+            "targetedPlayer": 1,
             "type": 10
         }
     ],
@@ -623,7 +623,7 @@
                 "x": 228.0,
                 "y": 356.0
             },
-            "type": 4
+            "type": 6
         },
         {
             "position": {
@@ -637,7 +637,7 @@
                 "x": 292.0,
                 "y": 356.0
             },
-            "type": 5
+            "type": 6
         },
         {
             "position": {
@@ -735,14 +735,14 @@
                 "x": 740.0,
                 "y": 356.0
             },
-            "type": 5
+            "type": 4
         },
         {
             "position": {
                 "x": 772.0,
                 "y": 356.0
             },
-            "type": 5
+            "type": 4
         },
         {
             "position": {
@@ -2058,14 +2058,14 @@
                 "x": 452.0,
                 "y": 740.0
             },
-            "type": 5
+            "type": 6
         },
         {
             "position": {
                 "x": 484.0,
                 "y": 740.0
             },
-            "type": 6
+            "type": 5
         },
         {
             "position": {
@@ -2408,7 +2408,7 @@
                 "x": 356.0,
                 "y": 804.0
             },
-            "type": 5
+            "type": 4
         },
         {
             "position": {
@@ -2982,7 +2982,7 @@
                 "x": 260.0,
                 "y": 868.0
             },
-            "type": 5
+            "type": 4
         },
         {
             "position": {
@@ -4144,14 +4144,14 @@
                 "x": 1028.0,
                 "y": 1284.0
             },
-            "type": 6
+            "type": 4
         },
         {
             "position": {
                 "x": 1060.0,
                 "y": 1284.0
             },
-            "type": 4
+            "type": 5
         },
         {
             "position": {

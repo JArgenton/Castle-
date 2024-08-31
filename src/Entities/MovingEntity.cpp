@@ -19,6 +19,11 @@ namespace Entities
     {
         velocity = pvelocity;
     }
+
+    void MovingEntity::setActive(bool active)
+    {
+        this->active = active;
+    }
     void MovingEntity::setFacing(bool direction)
     {
         if (direction)

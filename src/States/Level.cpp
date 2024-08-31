@@ -395,6 +395,7 @@ namespace States
             j["Player1"]["position"]["y"] = Player1->getPosition().y;
             j["Player1"]["health"] = Player1->getHealth();
             j["Player1"]["points"] = Player1->getPoints();
+            j["Player1"]["isActive"] = Player1->isActive();
         }
 
         if (Player2)
@@ -403,6 +404,7 @@ namespace States
             j["Player2"]["position"]["y"] = Player2->getPosition().y;
             j["Player2"]["health"] = Player2->getHealth();
             j["Player2"]["points"] = Player2->getPoints();
+            j["Player2"]["isActive"] = Player2->isActive();
         }
 
         // Salvar estado dos obstáculos
@@ -430,6 +432,7 @@ namespace States
                     enemy["position"]["y"] = e->getPosition().y;
                     enemy["health"] = static_cast<Characters::Enemies::Enemy *>(e)->getHealth();
                     enemy["targetedPlayer"] = static_cast<Characters::Enemies::Enemy *>(e)->getTargetPlayerId();
+
                     j["enemies"].push_back(enemy);
                 }
             }
@@ -501,21 +504,10 @@ namespace States
                         {
                             static_cast<Characters::Enemies::Enemy *>(enemy)->set_health(enemyData["health"].get<int>());
                         }
+                        ID targetedPlayerId = enemyData["targetedPlayer"].get<ID>();
 
-                        if (enemyData.contains("targetedPlayer"))
-                        {
-                            ID targetedPlayerId = enemyData["targetedPlayer"].get<ID>();
-                            if (targetedPlayerId == ID::PLAYER1 && Player1 && Player1->isActive())
-                            {
-                                static_cast<Characters::Enemies::Enemy *>(enemy)->setPlayer(Player1);
-                                static_cast<Characters::Enemies::Enemy *>(enemy)->setPlayer(Player2);
-                            }
-                            else if (targetedPlayerId == ID::PLAYER2 && Player2 && Player2->isActive())
-                            {
-                                static_cast<Characters::Enemies::Enemy *>(enemy)->setPlayer(Player2);
-                                static_cast<Characters::Enemies::Enemy *>(enemy)->setPlayer(Player1);
-                            }
-                        }
+                        static_cast<Characters::Enemies::Enemy *>(enemy)->setPlayer(Player1);
+                        static_cast<Characters::Enemies::Enemy *>(enemy)->setPlayer(Player2);
 
                         movingEntities.add(enemy);
                     }
@@ -559,6 +551,10 @@ namespace States
                 {
                     Player1->setPoints(p1["points"].get<int>());
                 }
+                if (p1.contains("isActive"))
+                {
+                    Player1->setActive(p1["isActive"].get<bool>());
+                }
                 movingEntities.add(Player1);
             }
             else
@@ -581,6 +577,10 @@ namespace States
                 if (p2.contains("points") && p2["points"].is_number_integer())
                 {
                     Player2->setPoints(p2["points"].get<int>());
+                }
+                if (p2.contains("isActive"))
+                {
+                    Player2->setActive(p2["isActive"].get<bool>());
                 }
                 movingEntities.add(Player2);
             }

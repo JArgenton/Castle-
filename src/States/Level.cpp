@@ -508,10 +508,12 @@ namespace States
                             if (targetedPlayerId == ID::PLAYER1 && Player1 && Player1->isActive())
                             {
                                 static_cast<Characters::Enemies::Enemy *>(enemy)->setPlayer(Player1);
+                                static_cast<Characters::Enemies::Enemy *>(enemy)->setPlayer(Player2);
                             }
                             else if (targetedPlayerId == ID::PLAYER2 && Player2 && Player2->isActive())
                             {
                                 static_cast<Characters::Enemies::Enemy *>(enemy)->setPlayer(Player2);
+                                static_cast<Characters::Enemies::Enemy *>(enemy)->setPlayer(Player1);
                             }
                         }
 

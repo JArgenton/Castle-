@@ -69,11 +69,33 @@ namespace Menus
                 break;
             case 1:
             {
-                States::Level *currentLevel = dynamic_cast<States::Level *>(pJogo->getState(States::stateID::FASE));
-                if (currentLevel)
+                std::ifstream file("Saves/SAVEGAME.json");
+                if (!file.is_open())
                 {
-                    changeState(States::stateID::FASE);
-                    currentLevel->loadGameState("Saves/SAVEGAME.json"); // Carregar o jogo
+                    std::cerr << "Erro ao abrir o arquivo: " << std::endl;
+                    return;
+                }
+
+                json j;
+                file >> j;
+
+                if (j.contains("GAME_STATE"))
+                {
+                    int gameStateID = j["GAME_STATE"].get<int>();                          // Obter o ID do estado do jogo
+                    pStateMachine->changeState(static_cast<States::stateID>(gameStateID)); // Mudar o estado do jogo
+
+                    // Obter o estado correspondente a partir da StateMachine
+                    States::State *state = pJogo->getState(static_cast<States::stateID>(gameStateID));
+                    States::Level *currentLevel = dynamic_cast<States::Level *>(state); // Tentar fazer o cast para Level
+
+                    if (currentLevel)
+                    {
+                        currentLevel->loadGameState("Saves/SAVEGAME.json"); // Carregar o jogo
+                    }
+                    else
+                    {
+                        std::cerr << "O estado atual não é do tipo Level." << std::endl;
+                    }
                 }
                 break;
             }

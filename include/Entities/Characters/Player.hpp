@@ -17,6 +17,7 @@ namespace Entities
         {
         private:
             bool fullyCreated;
+            bool pointsGranted;
 
             static bool PlayerCreationFlag;
             const float dmgCooldown; // tempo para tomar dano novamente
@@ -55,6 +56,7 @@ namespace Entities
             void jump();
             void walk(bool toLeft);
             void stop();
+
             void incrementPoints(const int points);
 
             /*visuals*/

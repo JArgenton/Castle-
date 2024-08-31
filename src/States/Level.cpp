@@ -202,9 +202,15 @@ namespace States
 
     int Level::getPlayerPoints() const
     {
-        if (Player1)
+        if (Player1 && !Player2->getFullyCreated())
         {
+            // out << Player1->getPoints() << endl;
             return Player1->getPoints();
+        }
+        else if (Player1 && Player2->getFullyCreated())
+        {
+            // uma fase com 2 em coop o score é a soma dos dois players
+            return Player1->getPoints() + Player2->getPoints();
         }
         else
         {
@@ -391,6 +397,8 @@ namespace States
         json j;
 
         // Salvar estado dos jogadores
+        j["GAME_STATE"] = pStateMachine->getLastStateID();
+
         if (Player1)
         {
             j["Player1"]["position"]["x"] = Player1->getPosition().x;
@@ -472,10 +480,6 @@ namespace States
                 j["projectiles"].push_back(projectiles);
             }
         }
-
-        // Salvar pontos dos jogadores
-        j["player1Points"] = player1Points;
-        j["player2Points"] = player2Points;
 
         // Abrir o arquivo para escrita, truncando o conteúdo existente
         std::ofstream file(filePath, std::ofstream::trunc);
@@ -565,6 +569,7 @@ namespace States
 
     void Level::loadGameState(const std::string &filePath)
     {
+
         clearState();
 
         std::ifstream file(filePath);
@@ -576,6 +581,12 @@ namespace States
 
         json j;
         file >> j;
+
+        if (j.contains("GAME_STATE"))
+        {
+            int gameStateID = j["GAME_STATE"].get<int>(); // Obter o ID do estado do jogo
+            pStateMachine->changeState(static_cast<States::stateID>(gameStateID));
+        }
 
         // Carregar estado dos jogadores
         if (j.contains("Player1") && j["Player1"].contains("position") && j["Player1"]["position"].contains("x") && j["Player1"]["position"].contains("y"))
@@ -590,10 +601,6 @@ namespace States
                 {
                     Player1->set_health(p1["health"].get<int>());
                 }
-                if (p1.contains("points") && p1["points"].is_number_integer())
-                {
-                    Player1->setPoints(p1["points"].get<int>());
-                }
                 if (p1.contains("isActive"))
                 {
                     Player1->setActive(p1["isActive"].get<bool>());
@@ -605,6 +612,10 @@ namespace States
                 if (p1.contains("isAttacking"))
                 {
                     Player1->set_isAtking(p1["isAttacking"].get<bool>());
+                }
+                if (p1.contains("points"))
+                {
+                    Player1->incrementPoints(p1["points"].get<int>());
                 }
                 movingEntities.add(Player1);
             }
@@ -625,10 +636,7 @@ namespace States
                 {
                     Player2->set_health(p2["health"].get<int>());
                 }
-                if (p2.contains("points") && p2["points"].is_number_integer())
-                {
-                    Player2->setPoints(p2["points"].get<int>());
-                }
+
                 if (p2.contains("isActive"))
                 {
                     Player2->setActive(p2["isActive"].get<bool>());
@@ -648,6 +656,10 @@ namespace States
                 if (p2.contains("isAttacking"))
                 {
                     Player2->set_isAtking(p2["isAttacking"].get<bool>());
+                }
+                if (p2.contains("points"))
+                {
+                    Player2->incrementPoints(p2["points"].get<int>());
                 }
                 movingEntities.add(Player2);
             }
@@ -718,16 +730,6 @@ namespace States
 
         // Carregar inimigos
         loadEnemiesFromJson("Saves/SAVEGAME.json", Player1, Player2);
-
-        // Carregar pontos dos jogadores
-        if (j.contains("player1Points") && j["player1Points"].is_number_integer())
-        {
-            player1Points = j["player1Points"].get<int>();
-        }
-        if (j.contains("player2Points") && j["player2Points"].is_number_integer())
-        {
-            player2Points = j["player2Points"].get<int>();
-        }
     }
 
 } // namespace States

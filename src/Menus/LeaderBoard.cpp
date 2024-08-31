@@ -3,7 +3,7 @@
 
 #define FONT_PATH "assets/Viking.ttf"
 #define BG_PATH "assets/BackGrounds/leaderBG.jpeg"
-#define LEADERBOARD_SAVES "assets/Saves/LeaderSave.txt"
+#define LEADERBOARD_SAVES "Saves/LeaderSave.txt"
 
 namespace Menus
 {
@@ -86,7 +86,7 @@ namespace Menus
             std::getline(file, name);
 
             // Criar textString com formatação
-            std::string textString = std::to_string(i + 1) + " - " + name + " ";
+            std::string textString = std::to_string(i + 1) + " " + name + " ";
 
             if (!pointsString.empty())
             {
@@ -104,13 +104,13 @@ namespace Menus
                 pointsString = formattedPointsString;
             }
 
-            while (text.length() + pointsString.length() < 20)
+            while (textString.length() + pointsString.length() < 30)
             {
-                text += "_";
+                textString += "_";
             }
 
-            txt = new GraphicalElements::Text(TupleF(Managers::Graphics::get_instance()->getWindowSize().x / 2.0f, 100 + 40 * i), text + pointsString, FONT_PATH);
-            txt->setFontSize(48);
+            txt = new GraphicalElements::Text(TupleF(Managers::Graphics::get_instance()->getWindowSize().x / 2.0f, 100 + 40 * i), textString + pointsString, FONT_PATH);
+            txt->setFontSize(20);
             txt->setTextAlignment(GraphicalElements::TextAlignment::center);
             txt->setTextColor(177.6, 168.2, 144.3);
             TotalPoints.push_back(txt);

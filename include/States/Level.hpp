@@ -39,14 +39,14 @@ namespace States
 
     class Level : public State
     {
-    private:
-        Factories::EnemiesFactory *eFactory;
-        Factories::PlayerFactory *playerFactory;
-        Factories::ObstaclesFactory *oFactory;
+    protected:
+        static Factories::EnemiesFactory eFactory;
+        static Factories::PlayerFactory playerFactory;
+        static Factories::ObstaclesFactory oFactory;
         static Factories::ProjectilesFactory projFactory;
 
-        Characters::Player *Player1;
-        Characters::Player *Player2;
+        static Characters::Player *Player1;
+        static Characters::Player *Player2;
 
         GraphicalElements::StaticAnimation background;
 
@@ -56,7 +56,7 @@ namespace States
         Managers::Collision collisionManager;
         Managers::Graphics *pGraphicM;
 
-        Control::PlayerControl pControl;
+        static Control::PlayerControl pControl;
 
         HealthBar hpDisplay1;
         HealthBar hpDisplay2;
@@ -66,39 +66,30 @@ namespace States
         bool levelEnded;
         int player1Points;
         int player2Points;
+
         TupleF nextPositionToRender;
 
     public:
-        Level(StateMachine *pSM = nullptr);
-
-        ~Level();
-
-        void update(const float dt);
-
-        void createFase(const std::string &path);
-
+        /*ALL LEVEL METHOODS*/
+        Level(StateMachine *pSM, stateID _id);
+        virtual ~Level();
         static void createProjectile(TupleF _position, ID _id, TupleF direction);
-
         static Entity *Create(Factories::EntityFactory *pFactory, TupleF _position, ID _id = empty);
-
         void render();
-
-        void resetState();
-
-        void endLevel();
-
-        int getPlayerPoints() const;
-
         TupleF centerView();
-
-        // funções usadas para salvar level
-        void saveGameState(const std::string &filePath);
-
-        void clearState();
-
-        void loadGameState(const std::string &filePath);
-
+        int getPlayerPoints() const;
+        virtual void update(const float dt);
         void loadEnemiesFromJson(const std::string &filePath, Characters::Player *pP1, Characters::Player *pP2);
+
+        /*Especific level Methods*/
+        virtual void createFase(const std::string &path) = 0;
+        virtual void resetState() = 0;
+        virtual void endLevel() = 0;
+        virtual void clearState() = 0;
+        // funções usadas para salvar level
+        // virtual void saveGameState(const std::string &filePath);
+        // virtual void loadGameState(const std::string &filePath);
+        virtual void executar();
     };
 
 } // namespace States

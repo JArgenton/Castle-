@@ -9,10 +9,11 @@ namespace States
     {
         UNKNOWN = -1,
         MAINMENU = 0,
-        FASE = 1,
-        PAUSEMENU = 2,
-        LEARDERBOARD = 3,
-        GAMEOVER = 4
+        LEVEL1,
+        LEVEL2,
+        PAUSEMENU,
+        LEARDERBOARD,
+        GAMEOVER,
     };
 
     class State
@@ -39,5 +40,4 @@ namespace States
 
         virtual void resetState() = 0;
     };
-
 }

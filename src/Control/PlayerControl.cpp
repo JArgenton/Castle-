@@ -25,7 +25,7 @@ namespace Control
             exit(1);
         }
 
-        if (pStateM->getStateID() == stateID::FASE)
+        if (pStateM->getStateID() == stateID::LEVEL2 || pStateM->getStateID() == stateID::LEVEL1)
         {
             if (!pPlayer1 || !pPlayer2)
             {
@@ -48,6 +48,7 @@ namespace Control
             }
             if (pPlayer1->isActive())
             {
+
                 if (key == "Up")
                 {
                     pPlayer1->jump();
@@ -98,7 +99,7 @@ namespace Control
             cout << "maquina de estados nula ???????" << endl;
             exit(1);
         }
-        if (pStateM->getStateID() == stateID::FASE)
+        if (pStateM->getStateID() == stateID::LEVEL2 || pStateM->getStateID() == stateID::LEVEL1)
         {
             if (!pPlayer1 && !pPlayer2)
             {
@@ -137,22 +138,17 @@ namespace Control
     }
     void PlayerControl::setPlayer(Entities::Characters::Player *pL)
     {
-        cout << "set player recebido --> " << &pL << endl;
 
         if (pPlayer1)
         {
-            cout << "set player 2 --> " << &pPlayer2 << endl;
 
             pPlayer2 = pL;
         }
         else
         {
 
-            cout << "set player 1 --> " << &pPlayer1 << endl;
-
             pPlayer1 = pL;
         }
-        cout << "---------- " << endl;
     }
 
     void PlayerControl::setMachine(StateMachine *pSTM)

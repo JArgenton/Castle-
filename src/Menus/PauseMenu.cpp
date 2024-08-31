@@ -46,7 +46,7 @@ namespace Menus
             switch (selected)
             {
             case 0:
-                changeState(States::stateID::FASE);
+                changeState(States::stateID::LEVEL1);
                 break;
 
             case 1:
@@ -56,10 +56,10 @@ namespace Menus
             case 2:
             {
                 // Bloco adicional para escopo local, se necessário
-                States::Level *currentLevel = dynamic_cast<States::Level *>(pJogo->getState(States::stateID::FASE));
+                States::Level *currentLevel = dynamic_cast<States::Level *>(pJogo->getState(States::stateID::LEVEL1));
                 if (currentLevel)
                 {
-                    currentLevel->saveGameState("Saves/SAVEGAME.json"); // Salvar o jogo
+                    // currentLevel->saveGameState("Saves/SAVEGAME.json"); // Salvar o jogo
                 }
                 pJogo->endJogo();
                 break;
@@ -96,7 +96,7 @@ namespace Menus
 
     void PauseMenu::initPause()
     {
-        if (pStateMachine->getStateID() == States::stateID::FASE)
+        if (pStateMachine->getStateID() == States::stateID::LEVEL1)
         {
             changeState(States::stateID::PAUSEMENU);
         }
@@ -104,6 +104,6 @@ namespace Menus
 
     States::Level *PauseMenu::getCurrentLevel()
     {
-        return dynamic_cast<States::Level *>(pJogo->getState(States::stateID::FASE)); // Obtém o estado Level
+        return dynamic_cast<States::Level *>(pJogo->getState(States::stateID::LEVEL1)); // Obtém o estado Level
     }
 } // namespace Menus

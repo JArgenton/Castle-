@@ -18,19 +18,13 @@ namespace Factories
         if (_id == empty)
         {
 
-            int randomId = rand() % 3;
-
-            if (randomId == 0)
-            {
-                obstacle = ID::TRAP;
-            }
-            else if (randomId == 1)
+            if (rand() % 2)
             {
                 obstacle = ID::LAVA;
             }
             else
             {
-                obstacle = ID::PLATAFORM;
+                obstacle = ID::PLATAFORM1;
             }
         }
         else
@@ -39,6 +33,7 @@ namespace Factories
         }
 
         Entity *pE = nullptr;
+
         switch (obstacle)
         {
         case TRAP:
@@ -49,14 +44,16 @@ namespace Factories
             pE = new Entities::Obstacles::Lava(_position);
 
             break;
-        case PLATAFORM:
+        case PLATAFORM1:
             pE = new Entities::Obstacles::Plataform(_position);
-            break;
 
+            break;
         default:
+
             break;
         }
         pE->initialize();
+
         return pE;
     }
 

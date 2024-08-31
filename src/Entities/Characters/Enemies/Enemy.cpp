@@ -169,7 +169,7 @@ namespace Entities
                     }
                     break;
                 }
-                case ID::PLATAFORM:
+                case ID::PLATAFORM1:
                 {
                     moveOnColision(otherEntity, intersect);
                     static_cast<Plataform *>(otherEntity)->toObstruct(this);

@@ -128,11 +128,11 @@ namespace Entities
                 if (pos.y < otherPos.y)
                 {
                     canJump = true;
-
                     body->move(0, intersection.y);
                 }
                 else
                 {
+
                     body->move(0, -intersection.y);
                 }
                 velocity.y = 0.0f;
@@ -140,14 +140,16 @@ namespace Entities
         }
         void Player::collide(Entity *other, TupleF intersec)
         {
+
             switch (other->getId())
             {
-            case ID::PLATAFORM:
+            case ID::PLATAFORM1:
             {
                 moveOnColision(other, intersec);
                 static_cast<Plataform *>(other)->toObstruct(this);
                 break;
             }
+
             case ID::LAVA:
             {
                 moveOnColision(other, intersec);
@@ -160,16 +162,12 @@ namespace Entities
                 static_cast<Trap *>(other)->toObstruct(this);
                 break;
             }
-            case ID::ARROW:
-            {
-                reciveDmg(static_cast<Projectiles::Arrow *>(other)->getDamage());
-                break;
-            }
             case ID::WEAPON:
             {
                 if (other != weapon)
                 {
                     Player *owner = dynamic_cast<Weapons::Sword *>(other)->getOwner();
+
                     if (owner->isAtking())
                     {
                         reciveDmg(owner->getAtkDamage());
@@ -189,7 +187,7 @@ namespace Entities
             {
                 moveOnColision(other, intersec);
 
-                static_cast<Enemies::Archer *>(other)->toDamage(this);
+                static_cast<Enemies::Enemy *>(other)->toDamage(this);
                 break;
             }
             case ID::HOOK:
@@ -197,6 +195,13 @@ namespace Entities
                 moveOnColision(other, intersec);
 
                 static_cast<Projectiles::Hook *>(other)->hook(this);
+                break;
+            }
+            case ID::ARROW:
+            {
+                moveOnColision(other, intersec);
+
+                reciveDmg(static_cast<Projectiles::Arrow *>(other)->getDamage());
                 break;
             }
             case ID::BOSS:
@@ -214,9 +219,11 @@ namespace Entities
 
         void Player::jump()
         {
+
             if (canJump)
             {
-                velocity.y -= 38 * GRAVITY;
+
+                velocity.y = 38 * -GRAVITY;
             }
             canJump = false;
         }
@@ -248,7 +255,6 @@ namespace Entities
                 setSize(PLAYER_SIZE_X, PLAYER_SIZE_Y); // chama a set Origin
                 std::string texturepath = "assets/player.png";
                 SetTexture(texturepath);
-
                 if (weapon)
                 {
                     weapon->WeaponInitialize(this); // todo

@@ -18,7 +18,7 @@ namespace Entities
         PLAYER2,
         WEAPON,
         LAVA,
-        PLATAFORM,
+        PLATAFORM1,
         TRAP,
         ENEMY,
         ARCHER,

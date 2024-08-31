@@ -4,7 +4,8 @@
 #include "Menus/LeaderBoard.hpp"
 #include "Menus/GameOver.hpp"
 
-#include "States/Level.hpp"
+#include "States/LevelOutterCastle.hpp"
+#include "States/LevelInnerClastle.hpp"
 
 namespace States
 {
@@ -24,10 +25,13 @@ namespace States
         pStates = static_cast<State *>(new Menus::LeaderBoard(this));
         insertState(pStates);
 
-        pStates = static_cast<State *>(new Level(this));
+        pStates = static_cast<State *>(new OutterCastle(this));
         insertState(pStates);
 
-        pStates = static_cast<State *>(new Menus::GameOver(this, dynamic_cast<States::Level *>(mapOfStates[stateID::FASE])));
+        pStates = static_cast<State *>(new InnerCastle(this));
+        insertState(pStates);
+
+        pStates = static_cast<State *>(new Menus::GameOver(this, dynamic_cast<States::Level *>(mapOfStates[stateID::LEVEL1])));
         insertState(pStates);
 
         changeState(stateID::MAINMENU);

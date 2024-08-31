@@ -6,32 +6,20 @@ namespace States
     class OutterCastle : public Level
     {
     private:
-        static List::EntityList movingEntities;
-        List::EntityList obstacles;
-
-        bool levelEnded;
-
-        int player1Points;
-        int player2Points;
+        int maxEasyEnemies;
 
     public:
-        OutterCastle(StateMachine *pSM = nullptr);
-
+        OutterCastle(StateMachine *pSM);
         ~OutterCastle();
 
         void createFase(const std::string &path);
-
         void resetState();
-
         void endLevel();
-
-        int getPlayerPoints() const;
-
         void clearState();
+        // funções usadas para salvar level
 
-        void createHardEnemys();
-
-        void crateEasyObstacles();
+        void CreateEasyEnemy();
+        void CreateHardObstacle();
     };
 
 } // namespace States

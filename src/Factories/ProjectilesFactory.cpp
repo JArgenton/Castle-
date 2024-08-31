@@ -23,12 +23,13 @@ namespace Factories
             pE = new Entities::Projectiles::Arrow(_position);
             break;
         }
-
         case HOOK:
         {
             pE = new Entities::Projectiles::Hook(_position);
             break;
         }
+        default:
+            break;
         }
 
         if (pE)

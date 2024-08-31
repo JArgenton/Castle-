@@ -7,7 +7,7 @@ namespace Entities
 {
     namespace Obstacles
     {
-        Plataform::Plataform(TupleF _position) : Obstacle(_position, Entities::ID::PLATAFORM),
+        Plataform::Plataform(TupleF _position) : Obstacle(_position, Entities::ID::PLATAFORM1),
                                                  fake(rand() % 100 == 1 ? true : false)
         {
         }

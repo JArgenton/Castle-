@@ -1,26 +1,34 @@
 #pragma once
-
+#include "AnimationFrame.hpp"
+#include <map>
+#include "GraphElements/AnimationFrame.hpp"
 #include "Ent.hpp"
 
 namespace GraphicalElements
 {
+    enum AnimationID
+    {
+        walk = 0,
+        idle,
+        attack,
+        cooldown,
 
-    class StaticAnimation : public Ent
+        run, // soldado corre perto de player
+    };
+
+    class MultiFrameAnimation : public Ent
     {
     private:
-        sf::Texture *texture;
+        std::map<AnimationID, AnimationFrame *> animationMap;
+        AnimationID CurrentID;
 
     public:
-        StaticAnimation();
+        MultiFrameAnimation();
 
-        virtual ~StaticAnimation();
+        ~MultiFrameAnimation();
 
-        void initialize(const char *path, TupleF position, TupleF size);
-
-        void update(TupleF position);
-
-        void execute() override {}
-        void initialize() override {}
+        void addNewAnimation(AnimationID, string path, int imageCount, float switchTime);
+        void update(AnimationID id, bool facingLeft, TupleF _position, float dt);
     };
 
 } // namespace GraphicalElements

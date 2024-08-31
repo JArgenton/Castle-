@@ -91,14 +91,14 @@ namespace States
 
         TupleF centerView();
 
+        // funções usadas para salvar level
         void saveGameState(const std::string &filePath);
 
         void clearState();
 
         void loadGameState(const std::string &filePath);
 
-        // necessario para LoadGameState
-        bool setLevelEnded(bool troca);
+        void loadEnemiesFromJson(const std::string &filePath, Characters::Player *pP1, Characters::Player *pP2);
     };
 
 } // namespace States

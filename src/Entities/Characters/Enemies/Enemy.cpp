@@ -85,6 +85,20 @@ namespace Entities
                     }
                 }
             }
+
+            ID Enemy::getTargetPlayerId()
+            {
+                updatePlayerDistance();
+
+                if (player1Distance < player2Distance)
+                {
+                    return ID::PLAYER1;
+                }
+                else
+                {
+                    return ID::PLAYER2;
+                }
+            }
             float Enemy::updatePlayerDistance()
             {
                 if (!pPlayer1 && pPlayer2)

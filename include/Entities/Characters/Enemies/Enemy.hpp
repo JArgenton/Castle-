@@ -28,7 +28,10 @@ namespace Entities
                 void setPlayer(Player *pP);
 
                 TupleF getPlayerPosition();
+
                 bool isP1NearestPlayer();
+
+                ID getTargetPlayerId();
 
                 float updatePlayerDistance();
 

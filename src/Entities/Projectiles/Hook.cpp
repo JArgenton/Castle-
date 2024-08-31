@@ -38,11 +38,13 @@ namespace Entities
 
         float Hook::getDirectionX()
         {
+            geometry::NormalizeVector(&velocity);
             return velocity.x;
         }
 
         float Hook::getDirectionY()
         {
+            geometry::NormalizeVector(&velocity);
             return velocity.y;
         }
 

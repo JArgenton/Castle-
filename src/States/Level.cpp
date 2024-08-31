@@ -4,6 +4,7 @@
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Weapons/Sword.hpp"
 #include "Entities/Projectiles/Hook.hpp"
+#include "Utilis/geometry.hpp"
 
 #define BACKGROUND_LEVEL1 "assets/BackGrounds/OutSideCastle.png"
 
@@ -189,7 +190,7 @@ namespace States
         {
             movingEntities.add(pE);
         }
-        cout << pE->getId() << " velocidade: " << direction.x << " ---- " << direction.y << " id: " << endl;
+        // cout << pE->getId() << " velocidade: " << direction.x << " ---- " << direction.y << endl;
     }
 
     void Level::endLevel()

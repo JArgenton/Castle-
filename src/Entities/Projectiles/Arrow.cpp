@@ -45,11 +45,13 @@ namespace Entities
 
         float Arrow::getDirectionX()
         {
+            geometry::NormalizeVector(&velocity);
             return velocity.x;
         }
 
         float Arrow::getDirectionY()
         {
+            geometry::NormalizeVector(&velocity);
             return velocity.y;
         }
         void Arrow::update(float dt)

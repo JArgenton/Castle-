@@ -104,7 +104,7 @@ namespace Menus
                 pointsString = formattedPointsString;
             }
 
-            while (text.length() + pointsString.length() < 50)
+            while (text.length() + pointsString.length() < 20)
             {
                 text += "_";
             }

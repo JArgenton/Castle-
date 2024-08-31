@@ -1,136 +1,156 @@
 {
     "Player1": {
-        "health": 894,
+        "coolDownTimer": 13.118423461914063,
+        "health": 675,
+        "isActive": true,
+        "isAttacking": false,
         "points": 0,
         "position": {
-            "x": 560.8358764648438,
-            "y": 1524.0
+            "x": 743.907470703125,
+            "y": 1494.3846435546875
         }
     },
     "Player2": {
-        "health": 990,
+        "coolDownTimer": 13.118423461914063,
+        "fullyCreated": false,
+        "health": 1000,
+        "isActive": true,
+        "isAttacking": false,
         "points": 0,
         "position": {
-            "x": 467.95001220703125,
-            "y": 2043.170166015625
+            "x": 152.0,
+            "y": 1523.949951171875
         }
     },
     "enemies": [
         {
-            "health": 1401,
+            "coolDownTimer": 0.8247499465942383,
+            "health": 1367,
+            "isAttacking": false,
             "position": {
-                "x": 636.489990234375,
+                "x": 696.1199340820313,
                 "y": 1548.0
             },
-            "targetedPlayer": 1,
             "type": 11
         },
         {
-            "health": 150,
+            "coolDownTimer": 15.618422508239746,
+            "health": 500,
+            "isAttacking": false,
             "position": {
                 "x": 132.0,
                 "y": 276.0
             },
-            "targetedPlayer": 1,
-            "type": 8
+            "type": 10
         },
         {
+            "coolDownTimer": 15.618422508239746,
             "health": 500,
+            "isAttacking": false,
             "position": {
                 "x": 516.0,
                 "y": 308.0
             },
-            "targetedPlayer": 1,
             "type": 10
         },
         {
-            "health": 500,
+            "coolDownTimer": 15.618422508239746,
+            "health": 150,
+            "isAttacking": false,
             "position": {
                 "x": 1092.0,
                 "y": 308.0
             },
-            "targetedPlayer": 1,
-            "type": 10
+            "type": 8
         },
         {
-            "health": 150,
+            "coolDownTimer": 15.618422508239746,
+            "health": 500,
+            "isAttacking": false,
             "position": {
                 "x": 740.0,
                 "y": 724.0
             },
-            "targetedPlayer": 1,
-            "type": 8
+            "type": 10
         },
         {
+            "coolDownTimer": 15.618422508239746,
             "health": 150,
+            "isAttacking": false,
             "position": {
                 "x": 1188.0,
                 "y": 724.0
             },
-            "targetedPlayer": 1,
             "type": 8
         },
         {
+            "coolDownTimer": 10.190668106079102,
             "health": 150,
+            "isAttacking": false,
             "position": {
                 "x": 228.0,
                 "y": 980.0
             },
-            "targetedPlayer": 1,
             "type": 8
         },
         {
+            "coolDownTimer": 0.9592158794403076,
             "health": 150,
+            "isAttacking": false,
             "position": {
                 "x": 772.0,
                 "y": 1108.0
             },
-            "targetedPlayer": 1,
             "type": 8
         },
         {
+            "coolDownTimer": 15.618422508239746,
             "health": 150,
+            "isAttacking": false,
             "position": {
                 "x": 1572.0,
                 "y": 1140.0
             },
-            "targetedPlayer": 1,
             "type": 8
         },
         {
+            "coolDownTimer": 15.618422508239746,
             "health": 500,
+            "isAttacking": false,
             "position": {
                 "x": 900.0,
                 "y": 1236.0
             },
-            "targetedPlayer": 1,
             "type": 10
         },
         {
+            "coolDownTimer": 15.618422508239746,
             "health": 500,
+            "isAttacking": false,
             "position": {
                 "x": 1636.0,
                 "y": 1460.0
             },
-            "targetedPlayer": 1,
             "type": 10
         },
         {
+            "coolDownTimer": 0.0,
             "health": 150,
+            "isAttacking": true,
             "position": {
                 "x": 1092.0,
                 "y": 1524.0
             },
-            "targetedPlayer": 1,
             "type": 8
         },
         {
-            "health": 500,
+            "coolDownTimer": 0.0,
+            "health": 375,
+            "isAttacking": true,
             "position": {
-                "x": 1028.0,
+                "x": 776.3023071289063,
                 "y": 1556.0
             },
-            "targetedPlayer": 1,
             "type": 10
         }
     ],
@@ -735,7 +755,7 @@
                 "x": 740.0,
                 "y": 356.0
             },
-            "type": 4
+            "type": 5
         },
         {
             "position": {
@@ -763,7 +783,7 @@
                 "x": 868.0,
                 "y": 356.0
             },
-            "type": 4
+            "type": 6
         },
         {
             "position": {
@@ -1687,7 +1707,7 @@
                 "x": 1028.0,
                 "y": 580.0
             },
-            "type": 6
+            "type": 5
         },
         {
             "position": {
@@ -2058,14 +2078,14 @@
                 "x": 452.0,
                 "y": 740.0
             },
-            "type": 6
+            "type": 5
         },
         {
             "position": {
                 "x": 484.0,
                 "y": 740.0
             },
-            "type": 5
+            "type": 4
         },
         {
             "position": {
@@ -3262,7 +3282,7 @@
                 "x": 292.0,
                 "y": 1092.0
             },
-            "type": 4
+            "type": 5
         },
         {
             "position": {
@@ -5194,14 +5214,14 @@
                 "x": 356.0,
                 "y": 1636.0
             },
-            "type": 4
+            "type": 5
         },
         {
             "position": {
                 "x": 388.0,
                 "y": 1636.0
             },
-            "type": 6
+            "type": 5
         },
         {
             "position": {
@@ -5835,5 +5855,18 @@
         }
     ],
     "player1Points": 10,
-    "player2Points": 0
+    "player2Points": 0,
+    "projectiles": [
+        {
+            "direction": {
+                "x": -496.36151123046875,
+                "y": -12.209672927856445
+            },
+            "position": {
+                "x": 893.0234375,
+                "y": 1480.22802734375
+            },
+            "type": 9
+        }
+    ]
 }

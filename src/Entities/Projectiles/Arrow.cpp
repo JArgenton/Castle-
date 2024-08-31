@@ -35,11 +35,22 @@ namespace Entities
         {
             return damage;
         }
+
         void Arrow::setDirection(TupleF _direction)
         {
             velocity = _direction;
 
             geometry::escalateVector(&velocity, ARROW_SPEED);
+        }
+
+        float Arrow::getDirectionX()
+        {
+            return velocity.x;
+        }
+
+        float Arrow::getDirectionY()
+        {
+            return velocity.y;
         }
         void Arrow::update(float dt)
         {

@@ -189,6 +189,7 @@ namespace States
         {
             movingEntities.add(pE);
         }
+        cout << pE->getId() << " velocidade: " << direction.x << " ---- " << direction.y << " id: " << endl;
     }
 
     void Level::endLevel()
@@ -396,6 +397,8 @@ namespace States
             j["Player1"]["health"] = Player1->getHealth();
             j["Player1"]["points"] = Player1->getPoints();
             j["Player1"]["isActive"] = Player1->isActive();
+            j["Player1"]["coolDownTimer"] = Player1->getCoolDownTimer();
+            j["Player1"]["isAttacking"] = Player1->isAtking();
         }
 
         if (Player2)
@@ -405,6 +408,9 @@ namespace States
             j["Player2"]["health"] = Player2->getHealth();
             j["Player2"]["points"] = Player2->getPoints();
             j["Player2"]["isActive"] = Player2->isActive();
+            j["Player2"]["fullyCreated"] = Player2->getFullyCreated();
+            j["Player2"]["coolDownTimer"] = Player2->getCoolDownTimer();
+            j["Player2"]["isAttacking"] = Player2->isAtking();
         }
 
         // Salvar estado dos obstáculos
@@ -431,10 +437,38 @@ namespace States
                     enemy["position"]["x"] = e->getPosition().x;
                     enemy["position"]["y"] = e->getPosition().y;
                     enemy["health"] = static_cast<Characters::Enemies::Enemy *>(e)->getHealth();
-                    enemy["targetedPlayer"] = static_cast<Characters::Enemies::Enemy *>(e)->getTargetPlayerId();
+                    enemy["coolDownTimer"] = static_cast<Characters::Enemies::Enemy *>(e)->getCoolDownTimer();
+                    enemy["isAttacking"] = static_cast<Characters::Enemies::Enemy *>(e)->isAtking();
 
                     j["enemies"].push_back(enemy);
                 }
+            }
+        }
+
+        // Salvar estado projeteis
+        for (int i = 0; i < movingEntities.getSize(); ++i)
+        {
+            auto e = movingEntities[i];
+            if (e->getId() == ID::ARROW || e->getId() == ID::HOOK)
+            {
+                json projectiles;
+                projectiles["type"] = e->getId();
+                projectiles["position"]["x"] = e->getPosition().x;
+                projectiles["position"]["y"] = e->getPosition().y;
+                switch (e->getId())
+                {
+                case ID::ARROW:
+                    projectiles["direction"]["x"] = (static_cast<Entities::Projectiles::Arrow *>(e)->getDirectionX());
+                    projectiles["direction"]["y"] = (static_cast<Entities::Projectiles::Arrow *>(e)->getDirectionY());
+                    break;
+                case ID::HOOK:
+                    projectiles["direction"]["x"] = (static_cast<Entities::Projectiles::Hook *>(e)->getDirectionY());
+                    projectiles["direction"]["y"] = (static_cast<Entities::Projectiles::Hook *>(e)->getDirectionX());
+                    break;
+                default:
+                    break;
+                }
+                j["projectiles"].push_back(projectiles);
             }
         }
 
@@ -504,10 +538,18 @@ namespace States
                         {
                             static_cast<Characters::Enemies::Enemy *>(enemy)->set_health(enemyData["health"].get<int>());
                         }
-                        ID targetedPlayerId = enemyData["targetedPlayer"].get<ID>();
 
                         static_cast<Characters::Enemies::Enemy *>(enemy)->setPlayer(Player1);
                         static_cast<Characters::Enemies::Enemy *>(enemy)->setPlayer(Player2);
+
+                        if (enemyData.contains("coolDownTimer"))
+                        {
+                            static_cast<Characters::Enemies::Enemy *>(enemy)->set_coolDownTimer(enemyData["coolDownTimer"].get<float>());
+                        }
+                        if (enemyData.contains("isAttacking"))
+                        {
+                            static_cast<Characters::Enemies::Enemy *>(enemy)->set_isAtking(enemyData["isAttacking"].get<bool>());
+                        }
 
                         movingEntities.add(enemy);
                     }
@@ -555,6 +597,14 @@ namespace States
                 {
                     Player1->setActive(p1["isActive"].get<bool>());
                 }
+                if (p1.contains("coolDownTimer") && p1["coolDownTimer"].is_number_float())
+                {
+                    Player1->set_coolDownTimer(p1["coolDownTimer"].get<float>());
+                }
+                if (p1.contains("isAttacking"))
+                {
+                    Player1->set_isAtking(p1["isAttacking"].get<bool>());
+                }
                 movingEntities.add(Player1);
             }
             else
@@ -581,6 +631,22 @@ namespace States
                 if (p2.contains("isActive"))
                 {
                     Player2->setActive(p2["isActive"].get<bool>());
+                }
+                if (p2.contains("fullyCreated"))
+                {
+                    Player2->setFullyCreated(p2["fullyCreated"].get<bool>());
+                    if (Player2->getFullyCreated())
+                    {
+                        Player2->initializeAfterLoad();
+                    }
+                }
+                if (p2.contains("coolDownTimer") && p2["coolDownTimer"].is_number_float())
+                {
+                    Player2->set_coolDownTimer(p2["coolDownTimer"].get<float>());
+                }
+                if (p2.contains("isAttacking"))
+                {
+                    Player2->set_isAtking(p2["isAttacking"].get<bool>());
                 }
                 movingEntities.add(Player2);
             }
@@ -612,6 +678,39 @@ namespace States
                     {
                         std::cerr << "Falha ao criar obstáculo do tipo " << type << "." << std::endl;
                     }
+                }
+            }
+        }
+
+        // Carregar Projeteis
+        if (j.contains("projectiles"))
+        {
+            for (const auto &p : j["projectiles"])
+            {
+
+                if (p.contains("position") && p["position"].contains("x") && p["position"].contains("y"))
+                {
+                    try
+                    {
+                        auto position = Tuples::TupleF(p["position"]["x"], p["position"]["y"]);
+
+                        // Ajuste a conversão de tipo conforme necessário
+                        auto type = static_cast<Entities::ID>(p["type"].get<int>());
+
+                        float x = p["direction"]["x"];
+                        float y = p["direction"]["y"];
+                        auto velocity = Tuples::TupleF(x, y);
+
+                        createProjectile(position, type, velocity);
+                    }
+                    catch (const std::exception &e)
+                    {
+                        std::cout << "Erro ao processar projétil: " << e.what() << std::endl;
+                    }
+                }
+                else
+                {
+                    std::cerr << "Dados de posição incompletos para projétil." << std::endl;
                 }
             }
         }

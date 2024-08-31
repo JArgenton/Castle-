@@ -43,6 +43,7 @@ namespace Entities
             void setWalk(bool walk);
             void setPoints(int points);
             static void disablePlayerCreationFlag();
+            void setFullyCreated(bool fullyCreated);
 
             /*GETs*/
             Weapons::Weapon *get_weapon();
@@ -59,6 +60,8 @@ namespace Entities
             /*visuals*/
             void execute();
             void initialize(); // carrega as texturas
+            void initializeAfterLoad();
+
             /*Colisions*/
             void moveOnColision(Entity *other, TupleF intersection);
             void collide(Entity *other, TupleF intersec);

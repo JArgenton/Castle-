@@ -36,6 +36,16 @@ namespace Entities
             geometry::escalateVector(&velocity, HOOK_SPEED);
         }
 
+        float Hook::getDirectionX()
+        {
+            return velocity.x;
+        }
+
+        float Hook::getDirectionY()
+        {
+            return velocity.y;
+        }
+
         void Hook::update(float dt)
         {
             if (velocity.x > 0)

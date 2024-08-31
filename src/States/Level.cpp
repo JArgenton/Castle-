@@ -144,6 +144,7 @@ namespace States
             {
 
                 endLevel();
+                changeState(States::stateID::GAMEOVER);
             }
         }
 

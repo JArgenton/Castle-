@@ -1,51 +1,51 @@
 {
     "GAME_STATE": 1,
     "Player1": {
-        "coolDownTimer": 10.108378410339355,
-        "health": 740,
+        "coolDownTimer": 2.884687900543213,
+        "health": 983,
         "isActive": true,
         "isAttacking": false,
-        "points": 200,
+        "points": 100,
         "position": {
-            "x": 679.341552734375,
-            "y": 1430.569580078125
+            "x": 411.284912109375,
+            "y": 1588.0
         }
     },
     "Player2": {
-        "coolDownTimer": 10.108378410339355,
-        "fullyCreated": false,
+        "coolDownTimer": 2.884687900543213,
+        "fullyCreated": true,
         "health": 1000,
         "isActive": true,
         "isAttacking": false,
-        "points": 200,
+        "points": 100,
         "position": {
-            "x": 152.0,
-            "y": 1523.949951171875
+            "x": 264.9339294433594,
+            "y": 1421.4132080078125
         }
     },
     "enemies": [
         {
-            "coolDownTimer": 0.37043803930282593,
-            "health": 1402,
+            "coolDownTimer": 2.4719367027282715,
+            "health": 1500,
             "isAttacking": false,
             "position": {
-                "x": 676.0426025390625,
+                "x": 756.4910888671875,
                 "y": 1548.0
             },
             "type": 11
         },
         {
-            "coolDownTimer": 12.608383178710938,
-            "health": 500,
+            "coolDownTimer": 5.384688377380371,
+            "health": 150,
             "isAttacking": false,
             "position": {
                 "x": 132.0,
                 "y": 276.0
             },
-            "type": 10
+            "type": 8
         },
         {
-            "coolDownTimer": 12.608383178710938,
+            "coolDownTimer": 5.384688377380371,
             "health": 500,
             "isAttacking": false,
             "position": {
@@ -55,7 +55,7 @@
             "type": 10
         },
         {
-            "coolDownTimer": 12.608383178710938,
+            "coolDownTimer": 5.384688377380371,
             "health": 150,
             "isAttacking": false,
             "position": {
@@ -65,17 +65,17 @@
             "type": 8
         },
         {
-            "coolDownTimer": 12.608383178710938,
-            "health": 500,
+            "coolDownTimer": 5.384688377380371,
+            "health": 150,
             "isAttacking": false,
             "position": {
                 "x": 740.0,
                 "y": 724.0
             },
-            "type": 10
+            "type": 8
         },
         {
-            "coolDownTimer": 12.608383178710938,
+            "coolDownTimer": 5.384688377380371,
             "health": 150,
             "isAttacking": false,
             "position": {
@@ -85,9 +85,9 @@
             "type": 8
         },
         {
-            "coolDownTimer": 7.581811904907227,
+            "coolDownTimer": 0.0,
             "health": 150,
-            "isAttacking": false,
+            "isAttacking": true,
             "position": {
                 "x": 228.0,
                 "y": 980.0
@@ -95,9 +95,9 @@
             "type": 8
         },
         {
-            "coolDownTimer": 0.0,
+            "coolDownTimer": 5.384688377380371,
             "health": 150,
-            "isAttacking": true,
+            "isAttacking": false,
             "position": {
                 "x": 772.0,
                 "y": 1108.0
@@ -105,7 +105,7 @@
             "type": 8
         },
         {
-            "coolDownTimer": 12.608383178710938,
+            "coolDownTimer": 5.384688377380371,
             "health": 150,
             "isAttacking": false,
             "position": {
@@ -115,7 +115,7 @@
             "type": 8
         },
         {
-            "coolDownTimer": 12.608383178710938,
+            "coolDownTimer": 5.384688377380371,
             "health": 500,
             "isAttacking": false,
             "position": {
@@ -125,7 +125,7 @@
             "type": 10
         },
         {
-            "coolDownTimer": 12.608383178710938,
+            "coolDownTimer": 5.384688377380371,
             "health": 500,
             "isAttacking": false,
             "position": {
@@ -135,9 +135,9 @@
             "type": 10
         },
         {
-            "coolDownTimer": 0.0,
+            "coolDownTimer": 5.384688377380371,
             "health": 150,
-            "isAttacking": true,
+            "isAttacking": false,
             "position": {
                 "x": 1092.0,
                 "y": 1524.0
@@ -145,7 +145,7 @@
             "type": 8
         },
         {
-            "coolDownTimer": 12.608383178710938,
+            "coolDownTimer": 5.384688377380371,
             "health": 500,
             "isAttacking": false,
             "position": {
@@ -644,21 +644,21 @@
                 "x": 228.0,
                 "y": 356.0
             },
-            "type": 5
+            "type": 4
         },
         {
             "position": {
                 "x": 260.0,
                 "y": 356.0
             },
-            "type": 5
+            "type": 6
         },
         {
             "position": {
                 "x": 292.0,
                 "y": 356.0
             },
-            "type": 5
+            "type": 6
         },
         {
             "position": {
@@ -756,14 +756,14 @@
                 "x": 740.0,
                 "y": 356.0
             },
-            "type": 6
+            "type": 5
         },
         {
             "position": {
                 "x": 772.0,
                 "y": 356.0
             },
-            "type": 5
+            "type": 6
         },
         {
             "position": {
@@ -777,14 +777,14 @@
                 "x": 836.0,
                 "y": 356.0
             },
-            "type": 6
+            "type": 5
         },
         {
             "position": {
                 "x": 868.0,
                 "y": 356.0
             },
-            "type": 4
+            "type": 5
         },
         {
             "position": {
@@ -2086,7 +2086,7 @@
                 "x": 484.0,
                 "y": 740.0
             },
-            "type": 6
+            "type": 5
         },
         {
             "position": {
@@ -2429,7 +2429,7 @@
                 "x": 356.0,
                 "y": 804.0
             },
-            "type": 5
+            "type": 6
         },
         {
             "position": {
@@ -3003,7 +3003,7 @@
                 "x": 260.0,
                 "y": 868.0
             },
-            "type": 4
+            "type": 5
         },
         {
             "position": {
@@ -3283,7 +3283,7 @@
                 "x": 292.0,
                 "y": 1092.0
             },
-            "type": 4
+            "type": 6
         },
         {
             "position": {
@@ -4165,7 +4165,7 @@
                 "x": 1028.0,
                 "y": 1284.0
             },
-            "type": 4
+            "type": 6
         },
         {
             "position": {
@@ -4179,7 +4179,7 @@
                 "x": 1092.0,
                 "y": 1284.0
             },
-            "type": 6
+            "type": 4
         },
         {
             "position": {
@@ -5222,7 +5222,7 @@
                 "x": 388.0,
                 "y": 1636.0
             },
-            "type": 6
+            "type": 5
         },
         {
             "position": {
@@ -5858,12 +5858,12 @@
     "projectiles": [
         {
             "direction": {
-                "x": -0.9931416511535645,
-                "y": -0.11691724509000778
+                "x": 0.010611002333462238,
+                "y": 0.9999436736106873
             },
             "position": {
-                "x": 960.5821533203125,
-                "y": 1477.62939453125
+                "x": 261.2301940917969,
+                "y": 1060.7899169921875
             },
             "type": 9
         }

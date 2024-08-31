@@ -466,8 +466,16 @@ namespace States
         Player2 = nullptr;
     }
 
-    void Level::loadEnemiesFromJson(const std::string &filePath)
+    void Level::loadEnemiesFromJson(const std::string &filePath, Characters::Player *pP1, Characters::Player *pP2)
     {
+        if (pP1)
+        {
+            Player1 = pP1;
+        }
+        if (pP2)
+        {
+            Player2 = pP2;
+        }
         std::ifstream file(filePath);
         if (!file.is_open())
         {
@@ -607,7 +615,7 @@ namespace States
         }
 
         // Carregar inimigos
-        loadEnemiesFromJson("Saves/SAVEGAME.json");
+        loadEnemiesFromJson("Saves/SAVEGAME.json", Player1, Player2);
 
         // Carregar pontos dos jogadores
         if (j.contains("player1Points") && j["player1Points"].is_number_integer())

@@ -98,7 +98,7 @@ namespace States
 
         void loadGameState(const std::string &filePath);
 
-        void loadEnemiesFromJson(const std::string &filePath);
+        void loadEnemiesFromJson(const std::string &filePath, Characters::Player *pP1, Characters::Player *pP2);
     };
 
 } // namespace States

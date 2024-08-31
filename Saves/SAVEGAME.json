@@ -3,8 +3,8 @@
         "health": 1000,
         "points": 0,
         "position": {
-            "x": 525.8977661132813,
-            "y": 1504.383056640625
+            "x": 242.86558532714844,
+            "y": 1426.6917724609375
         }
     },
     "Player2": {
@@ -19,20 +19,20 @@
         {
             "health": 1500,
             "position": {
-                "x": 722.1217651367188,
+                "x": 793.9185791015625,
                 "y": 1548.0
             },
             "targetedPlayer": 1,
             "type": 11
         },
         {
-            "health": 150,
+            "health": 500,
             "position": {
                 "x": 132.0,
                 "y": 276.0
             },
             "targetedPlayer": 1,
-            "type": 8
+            "type": 10
         },
         {
             "health": 500,
@@ -44,31 +44,31 @@
             "type": 10
         },
         {
-            "health": 150,
+            "health": 500,
             "position": {
                 "x": 1092.0,
                 "y": 308.0
             },
             "targetedPlayer": 1,
-            "type": 8
+            "type": 10
         },
         {
-            "health": 150,
+            "health": 500,
             "position": {
                 "x": 740.0,
                 "y": 724.0
             },
             "targetedPlayer": 1,
-            "type": 8
+            "type": 10
         },
         {
-            "health": 150,
+            "health": 500,
             "position": {
                 "x": 1188.0,
                 "y": 724.0
             },
             "targetedPlayer": 1,
-            "type": 8
+            "type": 10
         },
         {
             "health": 150,
@@ -623,21 +623,21 @@
                 "x": 228.0,
                 "y": 356.0
             },
-            "type": 5
+            "type": 6
         },
         {
             "position": {
                 "x": 260.0,
                 "y": 356.0
             },
-            "type": 4
+            "type": 5
         },
         {
             "position": {
                 "x": 292.0,
                 "y": 356.0
             },
-            "type": 4
+            "type": 6
         },
         {
             "position": {
@@ -735,7 +735,7 @@
                 "x": 740.0,
                 "y": 356.0
             },
-            "type": 4
+            "type": 5
         },
         {
             "position": {
@@ -763,7 +763,7 @@
                 "x": 868.0,
                 "y": 356.0
             },
-            "type": 6
+            "type": 5
         },
         {
             "position": {
@@ -1687,7 +1687,7 @@
                 "x": 1028.0,
                 "y": 580.0
             },
-            "type": 5
+            "type": 6
         },
         {
             "position": {
@@ -2058,14 +2058,14 @@
                 "x": 452.0,
                 "y": 740.0
             },
-            "type": 5
+            "type": 6
         },
         {
             "position": {
                 "x": 484.0,
                 "y": 740.0
             },
-            "type": 6
+            "type": 5
         },
         {
             "position": {
@@ -2408,7 +2408,7 @@
                 "x": 356.0,
                 "y": 804.0
             },
-            "type": 5
+            "type": 4
         },
         {
             "position": {
@@ -3262,7 +3262,7 @@
                 "x": 292.0,
                 "y": 1092.0
             },
-            "type": 6
+            "type": 5
         },
         {
             "position": {
@@ -4151,14 +4151,14 @@
                 "x": 1060.0,
                 "y": 1284.0
             },
-            "type": 5
+            "type": 6
         },
         {
             "position": {
                 "x": 1092.0,
                 "y": 1284.0
             },
-            "type": 4
+            "type": 5
         },
         {
             "position": {
@@ -5194,14 +5194,14 @@
                 "x": 356.0,
                 "y": 1636.0
             },
-            "type": 6
+            "type": 4
         },
         {
             "position": {
                 "x": 388.0,
                 "y": 1636.0
             },
-            "type": 4
+            "type": 5
         },
         {
             "position": {

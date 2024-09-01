@@ -227,11 +227,11 @@ namespace States
         TupleF pos;
         if (rand() % 2)
         {
-            pos(1302.0f, 200.0f);
+            pos(1302.0f, 1000.0f);
         }
         else
         {
-            pos(1302.0f, 200.0f);
+            pos(1302.0f, 1000.0f);
         }
         boss = static_cast<Characters::Enemies::BigBoss *>(Create(&Level::eFactory, pos, ID::BOSS));
 

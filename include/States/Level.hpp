@@ -88,8 +88,8 @@ namespace States
         virtual void endLevel() = 0;
         virtual void clearState() = 0;
         // funções usadas para salvar level
-        // virtual void saveGameState(const std::string &filePath);
-        // virtual void loadGameState(const std::string &filePath);
+        virtual void saveGameState(const std::string &filePath);
+        virtual void loadGameState(const std::string &filePath);
         virtual void executar();
     };
 

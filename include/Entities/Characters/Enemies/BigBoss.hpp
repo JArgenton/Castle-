@@ -31,6 +31,12 @@ namespace Entities
                 float getGrabTimmer();
                 float getGrabCooldown();
 
+                void setIsHitting(bool _isHitting);
+                void setGrabTimmer(float _grabTimmer);
+                void setGrabCooldown(float _grabCooldown);
+                void setHitTimmer(float _hitTimmer);
+                void setHitLimit(float _hitLimit);
+
                 void update(const float dt);
 
                 void shoot();

@@ -30,13 +30,11 @@ namespace Menus
 
         void render();
 
-        void exec();
-
         void resetState();
 
         void writeIntoFile();
 
-        void execute() override {}
+        void execute();
     };
 
 }

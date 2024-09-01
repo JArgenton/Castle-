@@ -41,13 +41,17 @@ namespace Entities
             /*SETs*/
             void set_health(int _healt);
             void set_atkCooldown(float _Cooldown);
+            void set_coolDownTimer(float _Timer);
             void set_atkDuration(float _Duration);
             void set_atkRange(float _Range);
             void set_atkDamage(int _damage);
+            void set_isAtking(bool _isAtking);
 
             /*gets*/
             int getHealth();
             int getAtkDamage();
+            float getCoolDownTimer();
+            float getAtkCooldown();
 
             /*Actions*/
             virtual void atack();

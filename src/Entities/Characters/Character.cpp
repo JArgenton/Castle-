@@ -42,6 +42,16 @@ namespace Entities
             atkDamage = _damage;
         }
 
+        void Character::set_coolDownTimer(float _Timer)
+        {
+            coolDownTimer = _Timer;
+        }
+
+        void Character::set_isAtking(bool _isAtking)
+        {
+            flagIsAtking = _isAtking;
+        }
+
         /*gets*/
         int Character::getHealth()
         {
@@ -50,6 +60,15 @@ namespace Entities
         int Character::getAtkDamage()
         {
             return atkDamage;
+        }
+
+        float Character::getCoolDownTimer()
+        {
+            return coolDownTimer;
+        }
+        float Character::getAtkCooldown()
+        {
+            return atkCooldown;
         }
 
         /*Actions*/

@@ -1,7 +1,7 @@
 #include "Menus/GameOver.hpp"
 
 #define BACKGROUND_PATH "assets/BackGrounds/GameOver.jpeg"
-#define LEADERBOARD_PATH "saves/LeaderSave.txt"
+#define LEADERBOARD_PATH "Saves/LeaderSave.txt"
 
 #include <fstream>
 #include <map>
@@ -23,15 +23,11 @@ namespace Menus
 
         GraphicalElements::Button *bt = NULL;
 
-        bt = new GraphicalElements::Button(TupleF(GM->getWindowSize().x / 2.0f - 200, GM->getWindowSize().y - 100), "PLAY AGAIN");
-        bt->select(true);
-        vectorOfButtons.push_back(bt);
-
-        bt = new GraphicalElements::Button(TupleF(GM->getWindowSize().x / 2.0f + 200, GM->getWindowSize().y - 100), "MAIN MENU");
+        bt = new GraphicalElements::Button(TupleF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y - 100), "MAIN MENU");
         vectorOfButtons.push_back(bt);
 
         selected = 0;
-        max = 1;
+        max = 0;
 
         title.setPosition(TupleF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2 - 200));
         title.setFontSize(100);
@@ -78,7 +74,7 @@ namespace Menus
         nameLabel.render();
     }
 
-    void GameOver::exec()
+    void GameOver::execute()
     {
         if (active)
         {
@@ -139,8 +135,7 @@ namespace Menus
         }
 
         /* ================================= Writing File ================================= */
-        if (playerPoints != 0 && input.getString().length() > 1)
-            pointsAndNamesMap.insert(std::pair<int, std::string>(playerPoints, input.getString()));
+        pointsAndNamesMap.insert(std::pair<int, std::string>(playerPoints, input.getString()));
 
         std::ofstream writeFile;
 

@@ -14,6 +14,8 @@ namespace Entities
             void update(float dt);
             void initialize();
             void setDirection(TupleF _direction);
+            float getDirectionX();
+            float getDirectionY();
             void collide(Entity *otherEntity, TupleF intersect);
             void hook(Entities::Characters::Player *pP);
             // void updateSprite(const float dt) override;

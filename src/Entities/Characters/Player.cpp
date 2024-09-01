@@ -29,7 +29,7 @@ namespace Entities
         bool Player::PlayerCreationFlag(true);
         Player::Player(TupleF _position, Weapons::Weapon *pW, ID _id) : Character(_position, _id),
                                                                         fullyCreated(false),
-
+                                                                        pointsGranted(false),
                                                                         dmgCooldown(PLAYER_DMG_COOLDOWN),
                                                                         canWalk(true),
                                                                         canJump(true),
@@ -73,6 +73,11 @@ namespace Entities
             PlayerCreationFlag = false;
         }
 
+        void Player::setFullyCreated(bool fullyCreated)
+        {
+            this->fullyCreated = fullyCreated;
+        }
+
         /*GETs*/
         Weapons::Weapon *Player::get_weapon()
         {
@@ -96,6 +101,7 @@ namespace Entities
             {
 
                 flagIsAtking = true;
+                pointsGranted = false;
                 weapon->atack();
             }
         }
@@ -181,14 +187,23 @@ namespace Entities
                 moveOnColision(other, intersec);
 
                 static_cast<Enemies::Archer *>(other)->toDamage(this);
-                break;
+                if (isAtking() && !pointsGranted) // Verifica se já concedeu pontos
+                {
+                    incrementPoints(10);
+                    pointsGranted = true; // Marca como concedido
+                }
             }
             case ID::SOLDIER:
             {
                 moveOnColision(other, intersec);
 
-                static_cast<Enemies::Enemy *>(other)->toDamage(this);
-                break;
+                static_cast<Enemies::Soldier *>(other)->toDamage(this);
+
+                if (isAtking() && !pointsGranted) // Verifica se já concedeu pontos
+                {
+                    incrementPoints(20);
+                    pointsGranted = true; // Marca como concedido
+                }
             }
             case ID::HOOK:
             {
@@ -209,6 +224,13 @@ namespace Entities
                 moveOnColision(other, intersec);
 
                 static_cast<Enemies::BigBoss *>(other)->toDamage(this);
+
+                if (isAtking() && !pointsGranted) // Verifica se já concedeu pontos
+                {
+                    cout << "points granted" << endl;
+                    incrementPoints(40);
+                    pointsGranted = true; // Marca como concedido
+                }
                 break;
             }
 
@@ -249,7 +271,7 @@ namespace Entities
         {
             if (PlayerCreationFlag)
             {
-                points = 0;
+                points = 100;
                 set_health(PLAYER_HEALTH);
                 active = true;
                 setSize(PLAYER_SIZE_X, PLAYER_SIZE_Y); // chama a set Origin
@@ -264,11 +286,40 @@ namespace Entities
             }
             else
             {
-                points = 0;
+                points = 100;
                 active = true;
-                set_health(200);
+                set_health(PLAYER_HEALTH);
                 setSize(0.1f, 0.1f); // chama a set Origin
 
+                if (weapon)
+                {
+                    weapon->setSize(0.1f, 0.1f);
+                }
+                PlayerCreationFlag = true;
+            }
+        }
+
+        void Player::initializeAfterLoad()
+        {
+
+            if (PlayerCreationFlag)
+            {
+                active = true;
+                setSize(PLAYER_SIZE_X, PLAYER_SIZE_Y); // chama a set Origin
+                std::string texturepath = "assets/player.png";
+                SetTexture(texturepath);
+
+                if (weapon)
+                {
+                    weapon->WeaponInitialize(this); // todo
+                }
+                PlayerCreationFlag = false;
+                fullyCreated = true;
+            }
+            else
+            {
+                active = true;
+                setSize(0.1f, 0.1f); // chama a set Origin
                 if (weapon)
                 {
                     weapon->setSize(0.1f, 0.1f);

@@ -17,6 +17,7 @@ namespace Entities
         {
         private:
             bool fullyCreated;
+            bool pointsGranted;
 
             static bool PlayerCreationFlag;
             const float dmgCooldown; // tempo para tomar dano novamente
@@ -43,6 +44,7 @@ namespace Entities
             void setWalk(bool walk);
             void setPoints(int points);
             static void disablePlayerCreationFlag();
+            void setFullyCreated(bool fullyCreated);
 
             /*GETs*/
             Weapons::Weapon *get_weapon();
@@ -54,11 +56,14 @@ namespace Entities
             void jump();
             void walk(bool toLeft);
             void stop();
+
             void incrementPoints(const int points);
 
             /*visuals*/
             void execute();
             void initialize(); // carrega as texturas
+            void initializeAfterLoad();
+
             /*Colisions*/
             void moveOnColision(Entity *other, TupleF intersection);
             void collide(Entity *other, TupleF intersec);

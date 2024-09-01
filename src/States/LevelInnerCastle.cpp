@@ -11,6 +11,7 @@ namespace States
     {
         background.initialize(BACKGROUND_LEVEL2, TupleF(pGraphicM->getWindowSize().x / 2.0f, pGraphicM->getWindowSize().y / 2), TupleF(pGraphicM->getWindowSize().x, pGraphicM->getWindowSize().y));
         background.render();
+        levelEnded = true;
     }
 
     InnerCastle::~InnerCastle()
@@ -34,6 +35,7 @@ namespace States
         background.update(centerView());
         collisionManager.check_collision();
 
+        cout << movingEntities.getSize() << endl;
         if (!Player1->isActive())
         {
 
@@ -84,14 +86,14 @@ namespace States
         // Player1 = static_cast<Characters::Player *>(Create(&playerFactory, TupleF(250.0f, 1500.0f), ID::PLAYER1));
         if (Level::Player1)
         {
-            Player1->setPosition(TupleF(1502.0f, 250.0f));
+            Player1->setPosition(TupleF(1302.0f, 200.0f));
             pControl.setPlayer(Level::Player1);
         }
         // Player2 = static_cast<Characters::Player *>(Create(&playerFactory, TupleF(250.0f, 1500.0f), ID::PLAYER2));
 
         if (Level::Player2)
         {
-            Player2->setPosition(TupleF(1502.0f, 250.0f));
+            Player2->setPosition(TupleF(1302.0f, 200.0f));
             pControl.setPlayer(Player2);
         }
 
@@ -225,11 +227,11 @@ namespace States
         TupleF pos;
         if (rand() % 2)
         {
-            pos(292.0f, 1000.0f);
+            pos(1302.0f, 200.0f);
         }
         else
         {
-            pos(292.0f, 1000.0f);
+            pos(1302.0f, 200.0f);
         }
         boss = static_cast<Characters::Enemies::BigBoss *>(Create(&Level::eFactory, pos, ID::BOSS));
 

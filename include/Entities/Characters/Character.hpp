@@ -52,6 +52,8 @@ namespace Entities
             int getAtkDamage();
             float getCoolDownTimer();
             float getAtkCooldown();
+            float getTrapDuration();
+            float getTrapTimmer();
 
             /*Actions*/
             virtual void atack();

@@ -25,6 +25,12 @@ namespace Entities
 
                 void initialize();
 
+                bool getIsHitting();
+                float getHitTimmer();
+                float getHitLimit();
+                float getGrabTimmer();
+                float getGrabCooldown();
+
                 void update(const float dt);
 
                 void shoot();

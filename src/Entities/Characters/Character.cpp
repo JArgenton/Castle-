@@ -70,6 +70,14 @@ namespace Entities
         {
             return atkCooldown;
         }
+        float Character::getTrapDuration()
+        {
+            return trapedDuration;
+        }
+        float Character::getTrapTimmer()
+        {
+            return trapTimmer;
+        }
 
         /*Actions*/
         void Character::atack()

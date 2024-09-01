@@ -1,6 +1,6 @@
 
 #include "Entities/Projectiles/Projectile.hpp"
-
+using namespace GraphicalElements;
 namespace Entities
 {
     namespace Projectiles
@@ -21,6 +21,10 @@ namespace Entities
         const int Projectile::getDamage()
         {
             return damage;
+        }
+        void Projectile::updateSprite(float dt)
+        {
+            sprite.update(AnimationID::attack, facingLeft, getPosition(), dt);
         }
 
     }

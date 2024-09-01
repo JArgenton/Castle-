@@ -16,7 +16,7 @@ namespace Entities
                                                                    atkCooldown(0.0f),
                                                                    atkDuration(0.0f),
                                                                    dmgTimer(0.5f),
-                                                                   dmgCooldown(1.0f),
+                                                                   dmgCooldown(0.5f),
                                                                    trapTimmer(1000.0f),
                                                                    trapedDuration(0.0f)
 

@@ -19,6 +19,10 @@ namespace Entities
     {
         velocity = pvelocity;
     }
+    void MovingEntity::render()
+    {
+        sprite.render();
+    }
     void MovingEntity::setFacing(bool direction)
     {
         if (direction)

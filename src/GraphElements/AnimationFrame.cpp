@@ -16,15 +16,16 @@ namespace GraphicalElements
             exit(1);
         }
         rectSize.width = texture->getSize().x / float(frameCount);
-        rectSize.width = texture->getSize().y;
+        rectSize.height = texture->getSize().y;
     }
     AnimationFrame::~AnimationFrame() {}
     void AnimationFrame::update(float dt, bool facingLeft)
     {
+        totalTime += dt;
         /*based on burda's tutorial*/
         if (totalTime >= switchTime)
         {
-            totalTime - switchTime; // necessario pois o tempo "extra" tem que ser considerado na proxima troca;
+            totalTime -= switchTime; // necessario pois o tempo "extra" tem que ser considerado na proxima troca;
             currentFrame++;
             if (currentFrame >= frameCount)
             {

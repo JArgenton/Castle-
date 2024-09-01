@@ -12,8 +12,9 @@ namespace GraphicalElements
         idle,
         attack,
         cooldown,
+        reciveDamage,
+        jump,
 
-        run, // soldado corre perto de player
     };
 
     class MultiFrameAnimation : public Ent
@@ -26,9 +27,13 @@ namespace GraphicalElements
         MultiFrameAnimation();
 
         ~MultiFrameAnimation();
-
+        void execute() override {}
+        void initialize() override {}
         void addNewAnimation(AnimationID, string path, int imageCount, float switchTime);
         void update(AnimationID id, bool facingLeft, TupleF _position, float dt);
+        void setSize(float tam1, float tam2);
+        void setRotation(float angle);
+        void setBodyScale(float tam1, float tam2);
     };
 
 } // namespace GraphicalElements

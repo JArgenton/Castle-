@@ -37,6 +37,7 @@ namespace Entities
                 void toDamage(Player *pP);
 
                 bool canGrab();
+                void updateSprite(float dt);
             };
         } // namespace Enemies
 

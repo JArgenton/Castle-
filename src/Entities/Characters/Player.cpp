@@ -20,6 +20,14 @@
 #define JUMP_HEIGH 3.0f
 using namespace std;
 
+#define ATACK_PATH "assets/Knight_2/Attack 2.png"
+#define WALK_PATH "assets/Knight_2/Run.png"
+#define IDLE "assets/Knight_2/Idle.png"
+#define DAMAGE "assets/Knight_2/Hurt.png"
+#define JUMP "assets/Knight_2/Jump.png"
+#include "GraphElements/MultiFrameAnimation.hpp"
+using namespace GraphicalElements;
+
 namespace Entities
 {
     using namespace Obstacles;
@@ -269,6 +277,11 @@ namespace Entities
                 }
                 PlayerCreationFlag = true;
             }
+            sprite.addNewAnimation(AnimationID::walk, WALK_PATH, 7, 0.1);
+            sprite.addNewAnimation(AnimationID::attack, ATACK_PATH, 4, 0.3);
+            sprite.addNewAnimation(AnimationID::idle, IDLE, 4, 10);
+            sprite.addNewAnimation(AnimationID::jump, JUMP, 6, 0.3);
+            sprite.addNewAnimation(AnimationID::reciveDamage, DAMAGE, 2, 2);
         }
         void Player::execute()
         {
@@ -277,17 +290,41 @@ namespace Entities
         /*GAME*/
         void Player::updateSprite(const float dt)
         {
-            /*TODO*/
+            TupleF pos = getPosition();
+            pos(pos.x, pos.y - 10);
+            if (!canReciveDmg())
+            {
+
+                sprite.update(AnimationID::reciveDamage, facingLeft, pos, dt);
+            }
+            else if (isAtking())
+            {
+                sprite.update(AnimationID::attack, facingLeft, pos, dt);
+            }
+            else if (!canMove() || !isMoving)
+            {
+                sprite.update(AnimationID::idle, facingLeft, pos, dt);
+            }
+            else if (!canJump)
+            {
+                sprite.update(AnimationID::jump, facingLeft, pos, dt);
+            }
+            else if (isMoving)
+            {
+                sprite.update(AnimationID::walk, facingLeft, pos, dt);
+            }
         }
 
         void Player::update(const float dt)
         {
-            if (!isActive())
+            if (!isActive() || !getFullyCreated())
             {
                 setPosition(TupleF(9000.0f, 9000.0f));
                 return;
             }
             trapTimmer += dt;
+            dmgTimer += dt;
+
             incrementAtkTimer(dt);
             incrementDmgTimer(dt);
 
@@ -317,9 +354,8 @@ namespace Entities
             {
                 weapon->update(dt);
             }
+            updateSprite(dt);
             render(); // desenha player
-
-            dmgTimer += dt;
 
             if (position.y > 5000)
                 active = false;

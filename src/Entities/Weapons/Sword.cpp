@@ -5,7 +5,7 @@
 #define WIDITH 32.0f
 #define DAMAGE 50
 #define ATKCOOLDOWN 0.5f
-#define ATKDURATION 0.5f
+#define ATKDURATION 1.0f
 namespace Entities
 {
     namespace Weapons

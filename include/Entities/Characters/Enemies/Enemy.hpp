@@ -40,7 +40,7 @@ namespace Entities
 
                 virtual void collide(Entity *otherEntity, TupleF intersec);
 
-                //  virtual void updateSprite(const float dt) = 0;
+                virtual void updateSprite(const float dt) = 0;
             };
         } // namespace Enemies
 

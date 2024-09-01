@@ -1,3 +1,4 @@
+#pragma once
 #include "Managers/GraphicManager.hpp"
 
 namespace GraphicalElements

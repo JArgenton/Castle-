@@ -16,6 +16,32 @@ namespace States
     OutterCastle::~OutterCastle()
     {
     }
+
+    void OutterCastle::executar()
+    {
+        background.update(centerView());
+
+        collisionManager.check_collision();
+
+        if (!Player1->isActive())
+        {
+
+            if (!Player2->getFullyCreated())
+            {
+                endLevel();
+            }
+            else if (!Player2->isActive())
+            {
+
+                endLevel();
+            }
+        }
+        if (movingEntities.getSize() <= 15)
+        {
+            endLevel();
+        }
+    }
+
     void OutterCastle::resetState()
     {
         if (levelEnded)
@@ -31,15 +57,17 @@ namespace States
         {
             Player2->setActive(false);
         }
-        movingEntities.cleanList();
-        obstacles.cleanList();
         if (Player1->isActive() || Player2->isActive())
         {
+            obstacles.cleanList();
             changeState(States::stateID::LEVEL2);
         }
         else
         {
+            levelEnded = true;
             pControl.reset();
+            movingEntities.cleanList();
+            obstacles.cleanList();
             changeState(States::stateID::GAMEOVER);
         }
     }
@@ -84,8 +112,6 @@ namespace States
         // iterate through the matrixa
         for (int y = 0; y < height; y++)
         {
-            changeState(States::stateID::LEVEL1);
-
             for (int x = 0; x < width; x++)
             {
 
@@ -172,11 +198,11 @@ namespace States
                     {
                         cout << "nao foi possivel criar entidade, ponteiro nulo" << endl;
                     }
+                    break;
                 }
                 case 7:
                 {
-                    /*NO PLANNED LAVA HERE*/
-                    pE = Create(&Level::oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::PLATAFORM1);
+                    pE = Create(&Level::oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::TRAP);
                     if (pE)
                     {
                         obstacles.add(pE);

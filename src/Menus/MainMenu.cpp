@@ -65,15 +65,15 @@ namespace Menus
             switch (selected)
             {
             case 0:
-                changeState(States::stateID::FASE);
+                changeState(States::stateID::LEVEL1);
                 break;
             case 1:
             {
-                States::Level *currentLevel = dynamic_cast<States::Level *>(pJogo->getState(States::stateID::FASE));
+                States::Level *currentLevel = dynamic_cast<States::Level *>(pJogo->getState(States::stateID::LEVEL1));
                 if (currentLevel)
                 {
-                    changeState(States::stateID::FASE);
-                    currentLevel->loadGameState("Saves/SAVEGAME.json"); // Carregar o jogo
+                    changeState(States::stateID::LEVEL1);
+                    // currentLevel->loadGameState("Saves/SAVEGAME.json"); // Carregar o jogo
                 }
                 break;
             }

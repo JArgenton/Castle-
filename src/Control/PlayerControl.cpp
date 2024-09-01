@@ -40,7 +40,7 @@ namespace Control
                     pPlayer2->initialize();
                     pPlayer2->setPosition(pPlayer1->getPosition());
                 }
-                else if (!pPlayer1->getFullyCreated())
+                else if (!pPlayer1->getFullyCreated() && pPlayer1->isActive())
                 {
                     pPlayer1->initialize();
                     pPlayer1->setPosition(pPlayer2->getPosition());

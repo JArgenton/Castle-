@@ -29,6 +29,7 @@ namespace Control
             pMenu->selectUp();
         if (key == "Enter")
             pMenu->execute();
+
         if (key == "Escape")
             if (dynamic_cast<Menus::PauseMenu *>(pMenu) != nullptr)
                 dynamic_cast<Menus::PauseMenu *>(pMenu)->initPause();

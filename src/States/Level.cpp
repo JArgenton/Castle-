@@ -38,6 +38,10 @@ namespace States
     Level::~Level()
     {
     }
+    bool Level::getEnded()
+    {
+        return levelEnded;
+    }
     TupleF Level::centerView()
     {
         TupleF centerPosition;
@@ -67,20 +71,25 @@ namespace States
 
     void Level::executar()
     {
-    }
-    void Level::update(const float dt)
-    {
-        if (id == stateID::LEVEL1)
+        collisionManager.check_collision();
+
+        if (!Player1->isActive())
         {
+
             if (!Player2->getFullyCreated())
             {
-                background.update(TupleF(Player1->getPosition().x, Player1->getPosition().y));
+                endLevel();
             }
-            else
+            else if (!Player2->isActive())
             {
-                background.update(TupleF((Player1->getPosition().x + Player2->getPosition().x) / 2, (Player1->getPosition().y + Player2->getPosition().y) / 2));
+
+                endLevel();
             }
         }
+    }
+
+    void Level::update(const float dt)
+    {
 
         float healthPercentage = static_cast<float>(Player1->getHealth()) / Player1->getTotalHealth();
         hpDisplay1.update(healthPercentage, TupleF(Player1->getPosition().x - 20, Player1->getPosition().y - 50));
@@ -96,7 +105,6 @@ namespace States
         pGraphicM->centerViewOn(centerpos);
 
         background.render();
-
         for (int i = 0; i < movingEntities.getSize(); i++)
         {
             movingEntities[i]->update(dt);
@@ -117,21 +125,7 @@ namespace States
             obstacles[i]->update(dt);
         }
         /* oque esta aqui estava depois das updates*/
-        collisionManager.check_collision();
-
-        if (!Player1->isActive())
-        {
-
-            if (!Player2->getFullyCreated())
-            {
-                endLevel();
-            }
-            else if (!Player2->isActive())
-            {
-
-                endLevel();
-            }
-        }
+        executar();
     }
 
     void Level::render()

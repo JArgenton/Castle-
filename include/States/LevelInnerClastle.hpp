@@ -15,7 +15,7 @@ namespace States
         InnerCastle(StateMachine *pSM = nullptr);
 
         ~InnerCastle();
-
+        void executar();
         void createFase(const std::string &path);
         void resetState();
         void endLevel();

@@ -80,6 +80,7 @@ namespace States
         int getPlayerPoints() const;
         virtual void update(const float dt);
         void loadEnemiesFromJson(const std::string &filePath, Characters::Player *pP1, Characters::Player *pP2);
+        bool getEnded();
 
         /*Especific level Methods*/
         virtual void createFase(const std::string &path) = 0;

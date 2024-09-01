@@ -3,37 +3,62 @@
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Weapons/Sword.hpp"
 #include "Entities/Projectiles/Hook.hpp"
+#define BACKGROUND_LEVEL2 "assets/Battleground2.png"
 namespace States
 {
     InnerCastle::InnerCastle(StateMachine *pSM) : Level(pSM, stateID::LEVEL2),
                                                   maxArchers((rand() % 5) + 1)
     {
-        // background.initialize(BACKGROUND_LEVEL1, TupleF(pGraphicM->getWindowSize().x / 2.0f, pGraphicM->getWindowSize().y / 2), TupleF(pGraphicM->getWindowSize().x, pGraphicM->getWindowSize().y));
-        // background.render();
+        background.initialize(BACKGROUND_LEVEL2, TupleF(pGraphicM->getWindowSize().x / 2.0f, pGraphicM->getWindowSize().y / 2), TupleF(pGraphicM->getWindowSize().x, pGraphicM->getWindowSize().y));
+        background.render();
     }
 
     InnerCastle::~InnerCastle()
     {
+        movingEntities.cleanList();
+        Player1 = nullptr;
+        Player2 = nullptr;
     }
+
     void InnerCastle::resetState()
     {
+        pGraphicM->clear();
         if (levelEnded)
         {
             createFase("fase 2.tmj");
             levelEnded = false;
         }
     }
+    void InnerCastle::executar()
+    {
+        background.update(centerView());
+        collisionManager.check_collision();
+
+        if (!Player1->isActive())
+        {
+
+            if (!Player2->getFullyCreated())
+            {
+                endLevel();
+            }
+            else if (!Player2->isActive())
+            {
+
+                endLevel();
+            }
+        }
+    }
 
     void InnerCastle::endLevel()
     {
-        movingEntities.cleanList();
         obstacles.cleanList();
-
         changeState(States::stateID::GAMEOVER);
     }
 
     void InnerCastle::createFase(const std::string &path)
     {
+        cout << "HAha i criateHA" << endl;
+
         std::ifstream file(path);
         json tmjData;
         file >> tmjData;
@@ -51,18 +76,19 @@ namespace States
 
         Entity *pE = nullptr;
 
-        /*-------------------------------------INSERTS PLAYER INTO MOV.ENTITIES-------------------------------------*/
+        /*-------------------------------------CREATES AND INSERTS PLAYER INTO MOV.ENTITIES-------------------------------------*/
+        // Player1 = static_cast<Characters::Player *>(Create(&playerFactory, TupleF(250.0f, 1500.0f), ID::PLAYER1));
         if (Level::Player1)
         {
-            movingEntities.add(Level::Player1);
+            Player1->setPosition(TupleF(292.0f, 338.0f));
             pControl.setPlayer(Level::Player1);
-            //  movingEntities.add(dynamic_cast<Weapons::Sword *>(Level::Player1->get_weapon()));
         }
+        // Player2 = static_cast<Characters::Player *>(Create(&playerFactory, TupleF(250.0f, 1500.0f), ID::PLAYER2));
+
         if (Level::Player2)
         {
-            movingEntities.add(Player2);
+            Player2->setPosition(TupleF(292.0f, 338.0f));
             pControl.setPlayer(Player2);
-            //  movingEntities.add(dynamic_cast<Weapons::Sword *>(Level::Player2->get_weapon()));
         }
 
         /*---------------------------------LEVEL TERRAIN AND BASIC ENEMY CREATION---------------------------------*/
@@ -130,8 +156,6 @@ namespace States
                 }
                 case 5:
 
-                    Level::Player1->setPosition(TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)));
-                    Level::Player2->setPosition(TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)));
                     break;
 
                 case 6:
@@ -175,6 +199,7 @@ namespace States
                 }
             }
         }
+
         CreateHardEnemy();
     }
 
@@ -196,13 +221,14 @@ namespace States
         TupleF pos;
         if (rand() % 2)
         {
-            pos(804.0f, 1508.0f);
+            pos(292.0f, 1000.0f);
         }
         else
         {
-            pos(504.0f, 1008.0f);
+            pos(292.0f, 1000.0f);
         }
         boss = static_cast<Characters::Enemies::BigBoss *>(Create(&Level::eFactory, pos, ID::BOSS));
+
         if (boss)
         {
             movingEntities.add(boss);

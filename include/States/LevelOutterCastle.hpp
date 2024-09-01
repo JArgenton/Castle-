@@ -20,6 +20,8 @@ namespace States
 
         void CreateEasyEnemy();
         void CreateHardObstacle();
+
+        void executar();
     };
 
 } // namespace States

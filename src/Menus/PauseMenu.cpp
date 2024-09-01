@@ -59,7 +59,7 @@ namespace Menus
                 States::Level *currentLevel = dynamic_cast<States::Level *>(pJogo->getState(pStateMachine->getLastStateID()));
                 if (currentLevel)
                 {
-                    // currentLevel->saveGameState("Saves/SAVEGAME.json"); // Salvar o jogo
+                    currentLevel->saveGameState("Saves/SAVEGAME.json"); // Salvar o jogo
                 }
                 pJogo->endJogo();
                 break;

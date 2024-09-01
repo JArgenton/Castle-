@@ -127,28 +127,8 @@ namespace States
         {
             obstacles[i]->update(dt);
         }
-        /* oque esta aqui estava depois das updates*/
+
         executar();
-        collisionManager.check_collision();
-
-        if (!Player1->isActive())
-        {
-
-            if (!Player2->getFullyCreated())
-            {
-
-                endLevel();
-                changeState(States::stateID::GAMEOVER);
-            }
-            else if (!Player2->isActive())
-            {
-
-                endLevel();
-                changeState(States::stateID::GAMEOVER);
-            }
-        }
-
-        // Atualiza a janela
     }
 
     void Level::render()
@@ -202,7 +182,7 @@ namespace States
         }
     }
 
-    /*void Level::saveGameState(const std::string &filePath)
+    void Level::saveGameState(const std::string &filePath)
     {
         json j;
 
@@ -346,7 +326,7 @@ namespace States
                 {
                     TupleF position(enemyData["position"]["x"], enemyData["position"]["y"]);
                     ID enemyType = enemyData["type"].get<ID>();
-                    auto enemy = Create(eFactory, position, enemyType);
+                    auto enemy = Create(&eFactory, position, enemyType);
                     if (enemy)
                     {
                         if (enemyData.contains("health"))
@@ -402,7 +382,7 @@ namespace States
         if (j.contains("Player1") && j["Player1"].contains("position") && j["Player1"]["position"].contains("x") && j["Player1"]["position"].contains("y"))
         {
             auto p1 = j["Player1"];
-            Player1 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(p1["position"]["x"], p1["position"]["y"]), ID::PLAYER1));
+            Player1 = static_cast<Characters::Player *>(Create(&playerFactory, TupleF(p1["position"]["x"], p1["position"]["y"]), ID::PLAYER1));
             pControl.setPlayer(Player1);
 
             if (Player1)
@@ -438,7 +418,7 @@ namespace States
         if (j.contains("Player2") && j["Player2"].contains("position") && j["Player2"]["position"].contains("x") && j["Player2"]["position"].contains("y"))
         {
             auto p2 = j["Player2"];
-            Player2 = static_cast<Characters::Player *>(Create(playerFactory, TupleF(p2["position"]["x"], p2["position"]["y"]), ID::PLAYER2));
+            Player2 = static_cast<Characters::Player *>(Create(&playerFactory, TupleF(p2["position"]["x"], p2["position"]["y"]), ID::PLAYER2));
             if (Player2)
             {
                 pControl.setPlayer(Player2);
@@ -492,7 +472,7 @@ namespace States
                 {
                     auto position = TupleF(o["position"]["x"], o["position"]["y"]);
                     auto type = o["type"].get<ID>();
-                    auto obstacle = Create(oFactory, position, type);
+                    auto obstacle = Create(&oFactory, position, type);
                     if (obstacle)
                     {
                         obstacles.add(obstacle);

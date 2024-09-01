@@ -19,6 +19,57 @@ namespace Entities
                 pPlayer2 = nullptr;
                 pPlayer1 = nullptr;
             }
+
+            void BigBoss::setIsHitting(bool _isHitting)
+            {
+                flagIsHitting = _isHitting;
+            }
+
+            bool BigBoss::getIsHitting()
+            {
+                return flagIsHitting;
+            }
+
+            void BigBoss::setGrabTimmer(float _grabTimmer)
+            {
+                grabTimmer = _grabTimmer;
+            }
+
+            float BigBoss::getGrabTimmer()
+            {
+                return grabTimmer;
+            }
+
+            void BigBoss::setGrabCooldown(float _grabCooldown)
+            {
+                grabCooldown = _grabCooldown;
+            }
+
+            float BigBoss::getGrabCooldown()
+            {
+                return grabCooldown;
+            }
+
+            void BigBoss::setHitTimmer(float _hitTimmer)
+            {
+                hitTimmer = _hitTimmer;
+            }
+
+            float BigBoss::getHitTimmer()
+            {
+                return hitTimmer;
+            }
+
+            void BigBoss::setHitLimit(float _hitLimit)
+            {
+                hitLimit = _hitLimit;
+            }
+
+            float BigBoss::getHitLimit()
+            {
+                return hitLimit;
+            }
+
             void BigBoss::initialize()
             {
                 set_health(1500);

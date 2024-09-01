@@ -2,6 +2,8 @@
 
 #include "Entities/Obstacles/Plataform.hpp"
 #include "Entities/Characters/Enemies/Archer.hpp"
+#include "Entities/Characters/Enemies/BigBoss.hpp"
+
 #include "Entities/Weapons/Sword.hpp"
 #include "Entities/Projectiles/Hook.hpp"
 #include "Utilis/geometry.hpp"
@@ -198,6 +200,8 @@ namespace States
             j["Player1"]["isActive"] = Player1->isActive();
             j["Player1"]["coolDownTimer"] = Player1->getCoolDownTimer();
             j["Player1"]["isAttacking"] = Player1->isAtking();
+            j["Player1"]["TrapDuration"] = Player1->getTrapDuration();
+            j["Player1"]["TrapTimmer"] = Player1->getTrapTimmer();
         }
 
         if (Level::Player2)
@@ -210,6 +214,8 @@ namespace States
             j["Player2"]["fullyCreated"] = Player2->getFullyCreated();
             j["Player2"]["coolDownTimer"] = Player2->getCoolDownTimer();
             j["Player2"]["isAttacking"] = Player2->isAtking();
+            j["Player2"]["TrapDuration"] = Player2->getTrapDuration();
+            j["Player2"]["TrapTimmer"] = Player2->getTrapTimmer();
         }
 
         // Salvar estado dos obstáculos
@@ -220,6 +226,7 @@ namespace States
             obstacle["type"] = o->getId();
             obstacle["position"]["x"] = o->getPosition().x;
             obstacle["position"]["y"] = o->getPosition().y;
+
             j["obstacles"].push_back(obstacle);
         }
 
@@ -238,6 +245,17 @@ namespace States
                     enemy["health"] = static_cast<Characters::Enemies::Enemy *>(e)->getHealth();
                     enemy["coolDownTimer"] = static_cast<Characters::Enemies::Enemy *>(e)->getCoolDownTimer();
                     enemy["isAttacking"] = static_cast<Characters::Enemies::Enemy *>(e)->isAtking();
+                    enemy["trapDuration"] = static_cast<Characters::Enemies::Enemy *>(e)->getTrapDuration();
+                    enemy["trapTimer"] = static_cast<Characters::Enemies::Enemy *>(e)->getTrapTimmer();
+
+                    if (e->getId() == ID::BOSS)
+                    {
+                        enemy["isHitting"] = static_cast<Characters::Enemies::BigBoss *>(e)->getIsHitting();
+                        enemy["hitTimmer"] = static_cast<Characters::Enemies::BigBoss *>(e)->getHitTimmer();
+                        enemy["hitLimit"] = static_cast<Characters::Enemies::BigBoss *>(e)->getHitLimit();
+                        enemy["grabTimmer"] = static_cast<Characters::Enemies::BigBoss *>(e)->getGrabTimmer();
+                        enemy["grabCooldown"] = static_cast<Characters::Enemies::BigBoss *>(e)->getGrabCooldown();
+                    }
 
                     j["enemies"].push_back(enemy);
                 }
@@ -345,12 +363,37 @@ namespace States
                         {
                             static_cast<Characters::Enemies::Enemy *>(enemy)->set_isAtking(enemyData["isAttacking"].get<bool>());
                         }
-
-                        movingEntities.add(enemy);
-                    }
-                    else
-                    {
-                        std::cerr << "Falha ao criar inimigo do tipo " << enemyType << "." << std::endl;
+                        if (enemyData.contains("trapDuration"))
+                        {
+                            static_cast<Characters::Enemies::Enemy *>(enemy)->isTraped(enemyData["trapDuration"].get<float>());
+                        }
+                        /*if (enemyType == ID::BOSS)
+                        {
+                            if (enemyData.contains("isHitting"))
+                            {
+                                static_cast<Characters::Enemies::BigBoss *>(enemy)->setIsHitting(enemyData["isHitting"].get<bool>());
+                            }
+                            if (enemyData.contains("grabTimmer"))
+                            {
+                                static_cast<Characters::Enemies::BigBoss *>(enemy)->setGrabTimmer(enemyData["grabTimmer"].get<float>());
+                            }
+                            if (enemyData.contains("grabCooldown"))
+                            {
+                                static_cast<Characters::Enemies::BigBoss *>(enemy)->setGrabCooldown(enemyData["grabCooldown"].get<float>());
+                            }
+                            if (enemyData.contains("hitTimmer"))
+                            {
+                                static_cast<Characters::Enemies::BigBoss *>(enemy)->setHitTimmer(enemyData["hitTimmer"].get<float>());
+                            }
+                            if (enemyData.contains("hitLimit"))
+                            {
+                                static_cast<Characters::Enemies::BigBoss *>(enemy)->setHitLimit(enemyData["hitLimit"].get<float>());
+                            }
+                        }*/
+                        else
+                        {
+                            std::cerr << "Falha ao criar inimigo do tipo " << enemyType << "." << std::endl;
+                        }
                     }
                 }
             }
@@ -407,6 +450,13 @@ namespace States
                 {
                     Player1->incrementPoints(p1["points"].get<int>());
                 }
+                if (p1.contains("trapTimmer") && p1["trapTimmer"].is_number_float())
+                {
+                }
+                if (p1.contains("trapDuration") && p1["trapDuration"].is_number_float())
+                {
+                    Player1->isTraped(p1["trapDuration"].get<float>());
+                }
                 movingEntities.add(Player1);
             }
             else
@@ -450,6 +500,10 @@ namespace States
                 if (p2.contains("points"))
                 {
                     Player2->incrementPoints(p2["points"].get<int>());
+                }
+                if (p2.contains("trapDuration") && p2["trapDuration"].is_number_float())
+                {
+                    Player2->isTraped(p2["trapDuration"].get<float>());
                 }
                 movingEntities.add(Player2);
             }

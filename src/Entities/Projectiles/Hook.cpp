@@ -2,6 +2,8 @@
 #include "Entities/Weapons/Sword.hpp"
 #include "Utilis/geometry.hpp"
 #define HOOK_SPEED 200.0f
+using namespace GraphicalElements;
+
 namespace Entities
 {
     namespace Projectiles
@@ -16,7 +18,7 @@ namespace Entities
         }
         void Hook::initialize()
         {
-            std::string path = "assets/freetileset/png/Object/Mushroom_1.png";
+            std::string path = "assets/Charge.png";
 
             setSize(30.0f, 50.0f);
             setDamage(15);
@@ -27,6 +29,7 @@ namespace Entities
 
             body->rotate(90.0f);
             velocity(0.0f, 0.0f);
+            sprite.addNewAnimation(AnimationID::attack, path, 9, 0.1);
         }
 
         void Hook::setDirection(TupleF _direction)
@@ -67,6 +70,7 @@ namespace Entities
             // Atualiza a posição do projétil com base na velocidade e delta time
             velocity.y += GRAVITY * 0.2f;
             body->move(velocity.x * dt, velocity.y * dt);
+            updateSprite(dt);
 
             render();
         }

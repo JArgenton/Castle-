@@ -1,5 +1,5 @@
 #pragma once
-
+#include "GraphElements/MultiFrameAnimation.hpp"
 #include "Entity.hpp"
 using namespace Tuples;
 namespace Entities
@@ -15,6 +15,8 @@ namespace Entities
 
         int animationId;
 
+        GraphicalElements::MultiFrameAnimation sprite;
+
     public:
         MovingEntity(TupleF _position = TupleF(0.0f, 0.0f), ID id = empty);
 
@@ -23,8 +25,7 @@ namespace Entities
         /*SETs*/
         void set_velocity(TupleF pvelocity);
         void setFacing(bool direction);
-        void setActive(bool active);
-
+        void render();
         /*GETs*/
         TupleF getVelocity();
         int getDamage();

@@ -2,17 +2,19 @@
 #include "Entities/Projectiles/Arrow.hpp"
 #include "Entities/Weapons/Sword.hpp"
 #include "Entities/Characters/Player.hpp"
+
 #include "Utilis/geometry.hpp"
 #define ARROW_DAMAGE 10
 #define ARROW_SPEED 500.0f
 #define HEIGHT 10.0F
 #define LENTH 30.0F
+using namespace GraphicalElements;
 
 namespace Entities
 {
     namespace Projectiles
     {
-        std::string path = "assets/freetileset/png/Object/Mushroom_1.png";
+        std::string path = "assets/Skeleton_Archer/Arrow.png";
 
         Arrow::Arrow(TupleF _position) : Projectile(_position, ARROW)
         {
@@ -27,9 +29,9 @@ namespace Entities
             setDamage(ARROW_DAMAGE);
             damage = 10;
             active = true;
-            SetTexture(path);
             body->rotate(90.0f);
             velocity(0.0f, 0.0f);
+            sprite.addNewAnimation(AnimationID::attack, path, 1, 1);
         }
         const float Arrow::getDamage()
         {
@@ -39,6 +41,9 @@ namespace Entities
         void Arrow::setDirection(TupleF _direction)
         {
             velocity = _direction;
+            float angle = std::atan2(_direction.y, _direction.x);
+            body->rotate(angle);
+            sprite.setRotation(angle);
 
             geometry::escalateVector(&velocity, ARROW_SPEED);
         }
@@ -56,6 +61,10 @@ namespace Entities
         }
         void Arrow::update(float dt)
         {
+            TupleF _direction = velocity;
+            float angle = std::atan2(_direction.y, _direction.x);
+            body->rotate(angle);
+            sprite.setRotation(angle);
             // Desativa o projétil se o tempo em tela ultrapassar o limite
             if (getPosition().y > 10000)
             {
@@ -65,7 +74,7 @@ namespace Entities
             // Atualiza a posição do projétil com base na velocidade e delta time
             velocity.y += GRAVITY * 0.4f;
             body->move(velocity.x * dt, velocity.y * dt);
-
+            updateSprite(dt);
             render();
         }
 

@@ -23,13 +23,11 @@ namespace Entities
 
                 void initialize();
 
-                void updateSprite(const float dt);
-
                 void execute();
 
                 void toDamage(Player *pP);
 
-                // void updateSprite(const float dt);
+                void updateSprite(float dt);
             };
 
         } // namespace Enemies

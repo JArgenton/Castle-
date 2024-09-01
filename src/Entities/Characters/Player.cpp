@@ -15,7 +15,7 @@
 #define PLAYER_SIZE_X 32.0f
 #define PLAYER_SIZE_Y 64.0f
 #define PLAYER_VELOCITY 100.0f
-#define PLAYER_HEALTH 1000
+#define PLAYER_HEALTH 2500
 #define PLAYER_DMG_COOLDOWN 0.0f
 #define JUMP_HEIGH 3.0f
 using namespace std;
@@ -279,7 +279,8 @@ namespace Entities
         {
             if (PlayerCreationFlag)
             {
-                points = 100;
+                points = 0;
+
                 set_health(PLAYER_HEALTH);
                 active = true;
                 setSize(PLAYER_SIZE_X, PLAYER_SIZE_Y); // chama a set Origin
@@ -294,7 +295,7 @@ namespace Entities
             }
             else
             {
-                points = 100;
+                points = 0;
                 active = true;
                 set_health(PLAYER_HEALTH);
                 setSize(0.1f, 0.1f); // chama a set Origin

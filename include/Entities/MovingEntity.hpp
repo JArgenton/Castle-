@@ -25,6 +25,8 @@ namespace Entities
         /*SETs*/
         void set_velocity(TupleF pvelocity);
         void setFacing(bool direction);
+        void setActive(bool active);
+
         void render();
         /*GETs*/
         TupleF getVelocity();

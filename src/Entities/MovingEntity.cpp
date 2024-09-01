@@ -23,6 +23,11 @@ namespace Entities
     {
         sprite.render();
     }
+    void MovingEntity::setActive(bool active)
+    {
+        active = active;
+    }
+
     void MovingEntity::setFacing(bool direction)
     {
         if (direction)

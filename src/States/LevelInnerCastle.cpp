@@ -46,6 +46,10 @@ namespace States
 
                 endLevel();
             }
+            else if (movingEntities.getSize() <= 4)
+            {
+                endLevel();
+            }
         }
     }
 
@@ -80,14 +84,14 @@ namespace States
         // Player1 = static_cast<Characters::Player *>(Create(&playerFactory, TupleF(250.0f, 1500.0f), ID::PLAYER1));
         if (Level::Player1)
         {
-            Player1->setPosition(TupleF(292.0f, 338.0f));
+            Player1->setPosition(TupleF(1502.0f, 250.0f));
             pControl.setPlayer(Level::Player1);
         }
         // Player2 = static_cast<Characters::Player *>(Create(&playerFactory, TupleF(250.0f, 1500.0f), ID::PLAYER2));
 
         if (Level::Player2)
         {
-            Player2->setPosition(TupleF(292.0f, 338.0f));
+            Player2->setPosition(TupleF(1502.0f, 250.0f));
             pControl.setPlayer(Player2);
         }
 

@@ -3,7 +3,7 @@
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Weapons/Sword.hpp"
 #include "Entities/Projectiles/Hook.hpp"
-#define BACKGROUND_LEVEL2 "assets/Battleground2.png"
+#define BACKGROUND_LEVEL2 "assets/BackGrounds/leaderBG.jpeg"
 namespace States
 {
     InnerCastle::InnerCastle(StateMachine *pSM) : Level(pSM, stateID::LEVEL2),

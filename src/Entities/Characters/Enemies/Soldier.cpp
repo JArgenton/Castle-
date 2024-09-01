@@ -1,16 +1,22 @@
 #include "Entities/Characters/Enemies/Soldier.hpp"
 #include "Entities/Characters/Player.hpp"
+#include "GraphElements/MultiFrameAnimation.hpp"
+
 #include <math.h>
 
 #define BASE_SPEED 55.0f
+
+#define ATACK_PATH "assets/Skeleton_Warrior/Run+attack.png"
+#define WALK_PATH "assets/Skeleton_Warrior/Walk.png"
+#define IDLE "assets/Skeleton_Warrior/Idle.png"
+#define HURT "assets/Skeleton_Warrior/Hurt.png"
+using namespace GraphicalElements;
 namespace Entities
 {
     namespace Characters
     {
         namespace Enemies
         {
-
-            std::string Soldier::texturepath("assets/warrior.png");
 
             Soldier::Soldier(TupleF _position) : Enemy(_position, ID::SOLDIER)
             {
@@ -21,9 +27,8 @@ namespace Entities
 
             void Soldier::initialize()
             {
-                dmgCooldown = 0.5f;
 
-                set_health(500);
+                set_health(300);
                 set_atkCooldown(1.0f);
                 set_atkDuration(0.5f);
                 atkTimer = 2.0f;
@@ -31,9 +36,12 @@ namespace Entities
 
                 set_atkDamage(25);
                 setSize(32.0f, 64.0f);
-                SetTexture(texturepath);
                 isTraped(1.0f);
-                render();
+
+                sprite.addNewAnimation(AnimationID::walk, WALK_PATH, 7, 0.3);
+                sprite.addNewAnimation(AnimationID::attack, ATACK_PATH, 7, 0.2);
+                sprite.addNewAnimation(AnimationID::idle, IDLE, 7, 10);
+                sprite.addNewAnimation(AnimationID::reciveDamage, HURT, 2, dmgCooldown * 2);
             }
             void Soldier::update(const float dt)
             {
@@ -71,6 +79,7 @@ namespace Entities
 
                     body->move(velocity.x * dt, velocity.y * dt);
                 }
+                updateSprite(dt);
                 render();
             }
 
@@ -92,6 +101,28 @@ namespace Entities
                 else
                 {
                     pP->set_velocity(TupleF(50.0f, -10.0f));
+                }
+            }
+
+            void Soldier::updateSprite(float dt)
+            {
+                TupleF pos = getPosition();
+                pos(pos.x, pos.y - getSize().y / 2);
+                if (!canReciveDmg())
+                {
+                }
+                else if (isAtking())
+                {
+
+                    sprite.update(AnimationID::attack, facingLeft, pos, dt);
+                }
+                else if (velocity.x != 0)
+                {
+                    sprite.update(AnimationID::walk, facingLeft, pos, dt);
+                }
+                else
+                {
+                    sprite.update(AnimationID::idle, facingLeft, pos, dt);
                 }
             }
 

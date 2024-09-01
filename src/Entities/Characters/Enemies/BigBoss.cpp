@@ -3,13 +3,16 @@
 #include "Utilis/geometry.hpp"
 
 #define BOSS_SPEED 25.0f
+#define ATACK_PATH "assets/Knight_2/Attack 1.png"
+#define WALK_PATH "assets/Knight_2/Run.png"
+#define IDLE "assets/Knight_2/Idle.png"
+#define DAMAGE "assets/Knight_2/Hurt.png"
 namespace Entities
 {
     namespace Characters
     {
         namespace Enemies
         {
-            std::string BigBoss::texturepath("assets/boss.jpeg");
 
             BigBoss::BigBoss(TupleF _position) : Enemy(_position, ID::BOSS)
             {
@@ -22,7 +25,8 @@ namespace Entities
             void BigBoss::initialize()
             {
                 set_health(1500);
-
+                body->setOutlineThickness(2.0f);
+                body->setOutlineColor(sf::Color::White);
                 dmgCooldown = 0.5f;
                 grabCooldown = 5.0f;
                 set_atkCooldown(2.0f);
@@ -33,16 +37,20 @@ namespace Entities
                 grabTimmer = 0.0f;
                 atkTimer = 0.0f;
                 hitTimmer = 0.0f;
+                setSize(64.0f, 64.0f);
 
                 set_atkDamage(100);
 
-                setSize(64.0f, 80.0f);
-
-                SetTexture(texturepath);
-
                 isTraped(1.0f);
+                facingLeft = true;
+                setPosition(TupleF(804.0f, 1508.0f));
 
-                render();
+                sprite.addNewAnimation(AnimationID::walk, WALK_PATH, 7, 0.1);
+                sprite.addNewAnimation(AnimationID::attack, ATACK_PATH, 5, 0.4);
+                sprite.addNewAnimation(AnimationID::idle, IDLE, 4, 10);
+                sprite.addNewAnimation(AnimationID::reciveDamage, DAMAGE, 2, 2);
+
+                sprite.setBodyScale(2, 1.5);
             }
 
             void BigBoss::update(const float dt)
@@ -82,7 +90,9 @@ namespace Entities
 
                 velocity.y += GRAVITY;
                 body->move(velocity.x * dt, velocity.y * dt);
+                updateSprite(dt);
                 render();
+
                 execute();
             }
 
@@ -182,16 +192,38 @@ namespace Entities
                 // Calcule a posição central do arqueiro
                 if (facingLeft)
                 {
-                    projectilePosition = TupleF(BossPosition.x - BossSize.x, BossPosition.y);
+                    projectilePosition = TupleF(BossPosition.x - BossSize.x, BossPosition.y - BossSize.y / 2);
                 }
                 else
                 {
-                    projectilePosition = TupleF(BossPosition.x + BossSize.x, BossPosition.y);
+                    projectilePosition = TupleF(BossPosition.x + BossSize.x, BossPosition.y - BossSize.y / 2);
                 }
 
                 TupleF direction = geometry::getDirectionalVector(projectilePosition, PlayerPosition);
 
                 States::Level::createProjectile(projectilePosition, ID::HOOK, direction);
+            }
+            void BigBoss::updateSprite(float dt)
+            {
+                TupleF pos = getPosition();
+                pos(pos.x, pos.y - getSize().y / 2);
+                if (!canReciveDmg())
+                {
+                    sprite.update(AnimationID::reciveDamage, facingLeft, pos, dt);
+                }
+                else if (isAtking())
+                {
+
+                    sprite.update(AnimationID::attack, facingLeft, pos, dt);
+                }
+                else if (velocity.x != 0)
+                {
+                    sprite.update(AnimationID::walk, facingLeft, pos, dt);
+                }
+                else
+                {
+                    sprite.update(AnimationID::idle, facingLeft, pos, dt);
+                }
             }
 
         } // namespace Enemies

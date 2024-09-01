@@ -19,10 +19,9 @@ namespace Entities
     {
         velocity = pvelocity;
     }
-
-    void MovingEntity::setActive(bool active)
+    void MovingEntity::render()
     {
-        this->active = active;
+        sprite.render();
     }
     void MovingEntity::setFacing(bool direction)
     {

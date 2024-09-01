@@ -8,7 +8,10 @@
 #define ARCHER_WIDGHT 70.0f
 #define ARCHER_HEIGHT 70.0f
 #define ARCHER_POINTS 200
-#define ARCHER_RANGE 150.0f
+
+#define ATACK_PATH "assets/Skeleton_Archer/Shot_1.png"
+#define WALK_PATH "assets/Skeleton_Archer/Evasion.png"
+#define IDLE "assets/Skeleton_Archer/Idle.png"
 
 std::string ARCHER_PATH = "assets/arqueiro.jpeg";
 
@@ -61,6 +64,7 @@ namespace Entities
                 velocity.y += GRAVITY;
 
                 body->move(velocity.x * dt, velocity.y * dt);
+                updateSprite(dt);
                 render();
             }
 
@@ -80,15 +84,16 @@ namespace Entities
 
                 set_health(150);
                 set_atkCooldown(1.0f);
-                set_atkDuration(0.5f);
+                set_atkDuration(1.0f);
                 atkTimer = 2.0f;
                 coolDownTimer = 2.5f;
 
                 set_atkDamage(ARCHER_DMG);
                 setSize(32.0f, 64.0f);
-                SetTexture(ARCHER_PATH);
 
-                render();
+                sprite.addNewAnimation(AnimationID::attack, ATACK_PATH, 15, 0.3);
+                sprite.addNewAnimation(AnimationID::walk, WALK_PATH, 6, 0.5);
+                sprite.addNewAnimation(AnimationID::idle, WALK_PATH, 7, 1);
             }
 
             void Archer::execute()
@@ -110,7 +115,21 @@ namespace Entities
 
             void Archer::updateSprite(const float dt)
             {
-                // TODO
+                TupleF pos = getPosition();
+                pos(pos.x, pos.y - getSize().y / 2);
+                if (isAtking())
+                {
+
+                    sprite.update(AnimationID::attack, facingLeft, pos, dt);
+                }
+                else if (velocity.x != 0)
+                {
+                    sprite.update(AnimationID::walk, facingLeft, pos, dt);
+                }
+                else
+                {
+                    sprite.update(AnimationID::idle, facingLeft, pos, dt);
+                }
             }
             void Archer::toDamage(Player *pP)
             {

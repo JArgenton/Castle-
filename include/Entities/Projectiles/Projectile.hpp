@@ -1,4 +1,5 @@
 #pragma once
+#include "GraphElements/MultiFrameAnimation.hpp"
 
 #include "Entities/MovingEntity.hpp"
 
@@ -20,7 +21,7 @@ namespace Entities
             virtual void initialize() = 0;
             virtual void collide(Entity *otherEntity, TupleF intersect) = 0;
             void execute() override {}
-            // void updateSprite(const float dt) override;
+            void updateSprite(float dt);
         };
     }
 

@@ -201,7 +201,6 @@ namespace States
             j["Player1"]["coolDownTimer"] = Player1->getCoolDownTimer();
             j["Player1"]["isAttacking"] = Player1->isAtking();
             j["Player1"]["TrapDuration"] = Player1->getTrapDuration();
-            j["Player1"]["TrapTimmer"] = Player1->getTrapTimmer();
         }
 
         if (Level::Player2)
@@ -215,7 +214,6 @@ namespace States
             j["Player2"]["coolDownTimer"] = Player2->getCoolDownTimer();
             j["Player2"]["isAttacking"] = Player2->isAtking();
             j["Player2"]["TrapDuration"] = Player2->getTrapDuration();
-            j["Player2"]["TrapTimmer"] = Player2->getTrapTimmer();
         }
 
         // Salvar estado dos obstáculos
@@ -367,7 +365,7 @@ namespace States
                         {
                             static_cast<Characters::Enemies::Enemy *>(enemy)->isTraped(enemyData["trapDuration"].get<float>());
                         }
-                        /*if (enemyType == ID::BOSS)
+                        if (enemyType == ID::BOSS)
                         {
                             if (enemyData.contains("isHitting"))
                             {
@@ -389,11 +387,13 @@ namespace States
                             {
                                 static_cast<Characters::Enemies::BigBoss *>(enemy)->setHitLimit(enemyData["hitLimit"].get<float>());
                             }
-                        }*/
+                        }
                         else
                         {
                             std::cerr << "Falha ao criar inimigo do tipo " << enemyType << "." << std::endl;
                         }
+
+                        movingEntities.add(enemy);
                     }
                 }
             }

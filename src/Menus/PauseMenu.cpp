@@ -1,7 +1,7 @@
 #include "Menus/PauseMenu.hpp"
 #include "States/Jogo.hpp"
 
-#define BACKGROUND "assets/BackGrounds/leaderBG.jpeg"
+#define BACKGROUND "assets/BackGrounds/Castle2.jpeg"
 
 namespace Menus
 {

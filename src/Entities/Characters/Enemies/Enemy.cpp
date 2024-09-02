@@ -159,6 +159,7 @@ namespace Entities
                     if (owner->isAtking())
                     {
                         reciveDmg(owner->getAtkDamage());
+                        // cout << "reciveu dano" << endl;
                         isTraped(1.0f);
                         if (facingLeft)
                             set_velocity(TupleF(50.0f, -50.0f));

@@ -3,7 +3,7 @@
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Weapons/Sword.hpp"
 #include "Entities/Projectiles/Hook.hpp"
-#define BACKGROUND_LEVEL1 "assets/BackGrounds/OutSideCastle.png"
+#define BACKGROUND_LEVEL1 "assets/BackGrounds/PauseMenu.jpg"
 namespace States
 {
     OutterCastle::OutterCastle(StateMachine *pSM) : Level(pSM, stateID::LEVEL1),
@@ -36,10 +36,11 @@ namespace States
                 endLevel();
             }
         }
-        if (movingEntities.getSize() <= 4)
+        if (movingEntities.getSize() <= 12)
         {
             endLevel();
         }
+        // cout << Player1->getAtkDamage() << endl;
     }
 
     void OutterCastle::resetState()

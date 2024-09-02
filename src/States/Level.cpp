@@ -367,6 +367,7 @@ namespace States
                         }
                         if (enemyType == ID::BOSS)
                         {
+                            static_cast<Characters::Enemies::BigBoss *>(enemy)->setPosition(TupleF(position));
                             if (enemyData.contains("isHitting"))
                             {
                                 static_cast<Characters::Enemies::BigBoss *>(enemy)->setIsHitting(enemyData["isHitting"].get<bool>());
@@ -388,12 +389,12 @@ namespace States
                                 static_cast<Characters::Enemies::BigBoss *>(enemy)->setHitLimit(enemyData["hitLimit"].get<float>());
                             }
                         }
-                        else
-                        {
-                            std::cerr << "Falha ao criar inimigo do tipo " << enemyType << "." << std::endl;
-                        }
 
                         movingEntities.add(enemy);
+                    }
+                    else
+                    {
+                        std::cerr << "Falha ao criar inimigo do tipo " << enemyType << "." << std::endl;
                     }
                 }
             }
@@ -426,6 +427,8 @@ namespace States
         {
             auto p1 = j["Player1"];
             Player1 = static_cast<Characters::Player *>(Create(&playerFactory, TupleF(p1["position"]["x"], p1["position"]["y"]), ID::PLAYER1));
+            Player1->get_weapon();
+            movingEntities.add(Player1->get_weapon());
             pControl.setPlayer(Player1);
 
             if (Player1)
@@ -457,6 +460,7 @@ namespace States
                 {
                     Player1->isTraped(p1["trapDuration"].get<float>());
                 }
+
                 movingEntities.add(Player1);
             }
             else
@@ -469,6 +473,8 @@ namespace States
         {
             auto p2 = j["Player2"];
             Player2 = static_cast<Characters::Player *>(Create(&playerFactory, TupleF(p2["position"]["x"], p2["position"]["y"]), ID::PLAYER2));
+            Player2->get_weapon();
+            movingEntities.add(Player2->get_weapon());
             if (Player2)
             {
                 pControl.setPlayer(Player2);

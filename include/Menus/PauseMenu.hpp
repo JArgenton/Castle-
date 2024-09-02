@@ -6,7 +6,7 @@
 
 namespace States
 {
-    class Jogo;
+    class Game;
 }
 
 namespace Menus
@@ -14,12 +14,12 @@ namespace Menus
     class PauseMenu : public Menu, public States::State
     {
     private:
-        States::Jogo *pJogo;
+        States::Game *pJogo;
         GraphicalElements::Text title;
         States::Level *getCurrentLevel();
 
     public:
-        PauseMenu(States::Jogo *pJ = nullptr);
+        PauseMenu(States::Game *pJ = nullptr);
         ~PauseMenu();
         void execute();
         void update(float dt);

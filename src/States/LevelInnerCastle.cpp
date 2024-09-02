@@ -3,7 +3,7 @@
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Weapons/Sword.hpp"
 #include "Entities/Projectiles/Hook.hpp"
-#define BACKGROUND_LEVEL2 "assets/BackGrounds/leaderBG.jpeg"
+#define BACKGROUND_LEVEL2 "assets/BackGrounds/brickbg.jpg"
 namespace States
 {
     InnerCastle::InnerCastle(StateMachine *pSM) : Level(pSM, stateID::LEVEL2),
@@ -32,10 +32,12 @@ namespace States
     }
     void InnerCastle::executar()
     {
+        // cout << boss->getPosition().x << " " << boss->getPosition().y << endl;
+
         background.update(centerView());
         collisionManager.check_collision();
 
-        cout << movingEntities.getSize() << endl;
+        // cout << movingEntities.getSize() << endl;
         if (!Player1->isActive())
         {
 
@@ -108,7 +110,7 @@ namespace States
 
                 switch (entityType)
                 {
-                case 1:
+                case 13:
                 {
                     pE = Create(&Level::oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::PLATAFORM1);
                     if (pE)
@@ -234,6 +236,7 @@ namespace States
             pos(1302.0f, 1000.0f);
         }
         boss = static_cast<Characters::Enemies::BigBoss *>(Create(&Level::eFactory, pos, ID::BOSS));
+        static_cast<Characters::Enemies::Enemy *>(boss)->setPosition(pos);
 
         if (boss)
         {

@@ -3,6 +3,8 @@
 #include "Entities/Obstacles/Lava.hpp"
 #include "Entities/Obstacles/Plataform.hpp"
 
+std::string texturepath2 = "assets/chaof2.jpg";
+
 namespace Factories
 {
     ObstaclesFactory::ObstaclesFactory(/* args */)
@@ -38,21 +40,28 @@ namespace Factories
         {
         case TRAP:
             pE = new Entities::Obstacles::Trap(_position);
+            pE->initialize();
 
             break;
         case LAVA:
             pE = new Entities::Obstacles::Lava(_position);
+            pE->initialize();
 
             break;
         case PLATAFORM1:
             pE = new Entities::Obstacles::Plataform(_position);
+            pE->initialize();
 
+            break;
+        case BLOCO2:
+            pE = new Entities::Obstacles::Plataform(_position);
+            pE->initialize();
+            pE->SetTexture(texturepath2);
             break;
         default:
 
             break;
         }
-        pE->initialize();
 
         return pE;
     }

@@ -1,11 +1,11 @@
 #include "Menus/PauseMenu.hpp"
-#include "States/Jogo.hpp"
+#include "States/Game.hpp"
 
 #define BACKGROUND "assets/BackGrounds/leaderBG.jpeg"
 
 namespace Menus
 {
-    PauseMenu::PauseMenu(States::Jogo *pG) : Menu(),
+    PauseMenu::PauseMenu(States::Game *pG) : Menu(),
                                              State(static_cast<States::StateMachine *>(pG), States::stateID::PAUSEMENU),
                                              pJogo(pG),
                                              title()
@@ -61,7 +61,7 @@ namespace Menus
                 {
                     currentLevel->saveGameState("Saves/SAVEGAME.json"); // Salvar o jogo
                 }
-                pJogo->endJogo();
+                pJogo->endGame();
                 break;
             }
 

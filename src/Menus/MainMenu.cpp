@@ -1,11 +1,11 @@
 #include "Menus/MainMenu.hpp"
-#include "States/Jogo.hpp"
+#include "States/Game.hpp"
 #include "States/Level.hpp"
 
 namespace Menus
 {
 
-    MainMenuState::MainMenuState(States::Jogo *pG) : Menu(),
+    MainMenuState::MainMenuState(States::Game *pG) : Menu(),
                                                      State(static_cast<States::StateMachine *>(pG), States::stateID::MAINMENU),
                                                      pJogo(pG),
                                                      title()
@@ -103,7 +103,7 @@ namespace Menus
                 changeState(States::stateID::LEARDERBOARD);
                 break;
             case 3:
-                pJogo->endJogo();
+                pJogo->endGame();
                 break;
             default:
                 break;

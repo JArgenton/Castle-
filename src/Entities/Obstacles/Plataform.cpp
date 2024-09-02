@@ -19,7 +19,7 @@ namespace Entities
         void Plataform::initialize()
         {
             setSize(WIDGHT, HEIGHT);
-            std::string texturepath = "assets/tile5.png";
+            std::string texturepath = "assets/chao2.jpeg";
             SetTexture(texturepath);
         }
         void Plataform::update(float dt)

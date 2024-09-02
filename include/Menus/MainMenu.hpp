@@ -5,7 +5,7 @@
 
 namespace States
 {
-    class Jogo;
+    class Game;
 }
 
 namespace Menus
@@ -14,11 +14,11 @@ namespace Menus
     class MainMenuState : public Menu, public States::State
     {
     private:
-        States::Jogo *pJogo;
+        States::Game *pJogo;
         GraphicalElements::Text title;
 
     public:
-        MainMenuState(States::Jogo *pG = nullptr);
+        MainMenuState(States::Game *pG = nullptr);
 
         ~MainMenuState();
 

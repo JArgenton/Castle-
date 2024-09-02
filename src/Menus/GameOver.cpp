@@ -82,9 +82,6 @@ namespace Menus
             switch (selected)
             {
             case 0:
-                changeState(States::stateID::LEVEL1);
-                break;
-            case 1:
                 changeState(States::stateID::MAINMENU);
                 break;
             default:

@@ -26,6 +26,7 @@ namespace Entities
         SOLDIER,
         BOSS,
         HOOK,
+        BLOCO2,
     };
     class Entity : public Ent
     {

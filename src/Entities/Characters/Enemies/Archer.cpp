@@ -1,6 +1,6 @@
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "States/Level.hpp"
-#include "Utilis/geometry.hpp"
+#include "Math/geometry.hpp"
 #define ARCHER_DMG 10
 #define ATK_DURATION 1.0f
 #define ARCHER_ATK_COOLDOWN 1.0f

@@ -1,9 +1,9 @@
 #pragma once
 
 #include <iostream>
-#include "Utilis/Tuple.hpp"
+#include "Math/Tuple.hpp"
 #include "Ent.hpp"
-#include "Utilis/EntityList.hpp"
+#include "Lists/EntityList.hpp"
 
 using namespace Tuples;
 

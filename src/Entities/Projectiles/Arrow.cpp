@@ -3,7 +3,7 @@
 #include "Entities/Weapons/Sword.hpp"
 #include "Entities/Characters/Player.hpp"
 
-#include "Utilis/geometry.hpp"
+#include "Math/geometry.hpp"
 #define ARROW_DAMAGE 10
 #define ARROW_SPEED 500.0f
 #define HEIGHT 10.0F

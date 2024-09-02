@@ -1,6 +1,6 @@
 #include "Entities/Characters/Enemies/EliteKnight.hpp"
 #include "States/Level.hpp"
-#include "Utilis/geometry.hpp"
+#include "Math/geometry.hpp"
 
 #define ATACK_PATH "assets/Knight_2/Attack 1.png"
 #define WALK_PATH "assets/Knight_2/Run.png"

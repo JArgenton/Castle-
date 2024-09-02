@@ -23,8 +23,8 @@ using namespace GraphicalElements;
 #include "Entities/Characters/Enemies/Enemy.hpp"
 
 // Utilitarios
-#include "Utilis/EntityList.hpp"
-#include "Utilis/Tuple.hpp"
+#include "Lists/EntityList.hpp"
+#include "Math/Tuple.hpp"
 
 #include "Control/PlayerControl.hpp"
 

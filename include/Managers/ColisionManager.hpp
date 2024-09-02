@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Utilis/Tuple.hpp"
-#include "Utilis/EntityList.hpp"
+#include "Math/Tuple.hpp"
+#include "Lists/EntityList.hpp"
 namespace Managers
 {
     class Collision

@@ -1,5 +1,5 @@
 #pragma once
-#include "Utilis/Tuple.hpp"
+#include "Math/Tuple.hpp"
 #include <SFML/Graphics.hpp>
 
 using namespace Tuples;

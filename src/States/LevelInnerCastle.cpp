@@ -50,7 +50,7 @@ namespace States
 
                 endLevel();
             }
-            else if (movingEntities.getSize() <= 4)
+            else if (movingEntities.getSize() <= 5)
             {
                 endLevel();
             }
@@ -110,7 +110,7 @@ namespace States
 
                 switch (entityType)
                 {
-                case 13:
+                case 1:
                 {
                     pE = Create(&Level::oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::PLATAFORM1);
                     if (pE)
@@ -143,6 +143,7 @@ namespace States
                 case 3:
                 {
                     /*NO SOLDIERS IN THIS FASE*/
+                    break;
                 }
                 case 4:
                 {
@@ -169,10 +170,11 @@ namespace States
                 case 6:
                 {
                     /* NO TRAPS IN THIS FASE*/
+                    break;
                 }
                 case 7:
                 {
-                    pE = Create(&Level::oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::empty);
+                    pE = Create(&Level::oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::LAVA);
                     if (pE)
                     {
                         obstacles.add(pE);
@@ -185,9 +187,20 @@ namespace States
                 }
                 case 8:
                 {
-                    /* NO Random obstacles IN THIS FASE*/
+                    if (rand() % 2)
+                    {
+                        pE = Create(&Level::oFactory, TupleF((100.0f + x * tileWidth), (100.0f + y * tileheight)), ID::LAVA);
+                        if (pE)
+                        {
+                            obstacles.add(pE);
+                        }
+                        else
+                        {
+                            cout << "nao foi possivel criar entidade, ponteiro nulo" << endl;
+                        }
+                    }
+                    break;
                 }
-                break;
 
                 case 9:
                 {
@@ -229,11 +242,11 @@ namespace States
         TupleF pos;
         if (rand() % 2)
         {
-            pos(1302.0f, 1000.0f);
+            pos(1302.0f, 800.0f);
         }
         else
         {
-            pos(1302.0f, 1000.0f);
+            pos(1302.0f, 800.0f);
         }
         boss = static_cast<Characters::Enemies::BigBoss *>(Create(&Level::eFactory, pos, ID::BOSS));
         static_cast<Characters::Enemies::Enemy *>(boss)->setPosition(pos);

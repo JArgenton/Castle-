@@ -2,6 +2,7 @@
 
 namespace GraphicalElements
 {
+    /*CLASSE BASEADA NA IMPLEMENTAÇAO DO MONITOR BURDA*/
 
     std::map<AnimationID, AnimationFrame *> animationMap;
     AnimationID CurrentID;

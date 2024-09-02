@@ -40,7 +40,6 @@ namespace States
         {
             endLevel();
         }
-        // cout << Player1->getAtkDamage() << endl;
     }
 
     void OutterCastle::resetState()

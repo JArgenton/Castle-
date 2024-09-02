@@ -5,7 +5,7 @@
 #include <iostream>
 
 namespace States
-{
+{ // Classe implementada com auxilio dos videos disponibilizados pelos monitores
 
     StateMachine::StateMachine()
     {

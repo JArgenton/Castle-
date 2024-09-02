@@ -10,7 +10,9 @@ namespace Entities
 {
     namespace Weapons
     {
-        Sword::Sword() : Weapon()
+        Sword::Sword() : Weapon(),
+                         critChance(rand() % 10),
+                         crit(float((rand() % 10) / 10 + 1.5f))
         {
         }
         Sword::~Sword()
@@ -37,14 +39,19 @@ namespace Entities
         }
         void Sword::atack()
         {
-            owner->set_atkDamage(static_cast<int>(DAMAGE * Crit));
+            if (rand() % 10 >= critChance)
+            {
+                owner->set_atkDamage(static_cast<int>(DAMAGE * crit));
+            }
+            else
+            {
+                owner->set_atkDamage(static_cast<int>(DAMAGE));
+            }
         }
         void Sword::update(const float dt)
         {
             if (owner)
             {
-                Crit = 0.3 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (3 - 0.3)));
-
                 TupleF position;
                 position = owner->getPosition();
                 if (!owner->isFacingLeft())

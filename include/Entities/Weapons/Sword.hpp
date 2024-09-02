@@ -12,7 +12,8 @@ namespace Entities
         class Sword : public Weapon
         {
         private:
-            float Crit;
+            const int critChance;
+            const float crit;
 
         public:
             Sword();

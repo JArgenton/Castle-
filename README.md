@@ -19,8 +19,8 @@ O projeto inclui um `Makefile` para simplificar o processo de compilação no am
 
 ## Autores
 
-- **João Pedro de Andrade Argenton - Eng. da Computação UTFPR**
-- **Geovane Carlos Sabadin - Eng. da Computação UTFPR**
+- **João Pedro de Andrade Argenton - 3º periodo Eng da Computação UTFPR**
+- **Geovane Carlos Sabadin -  3º periodo Eng da Computação UTFPR**
 
 ## Disciplina
 

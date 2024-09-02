@@ -5,7 +5,7 @@
 
 namespace States
 {
-
+    // classes state e statemachine implementadas com auxilio dos videos disponibilizados pelos monitores
     State::State(StateMachine *pSM, States::stateID id) : pStateMachine(pSM),
                                                           id(id) {}
 

@@ -2,7 +2,7 @@
 #include <fstream>
 
 #define FONT_PATH "assets/Viking.ttf"
-#define BG_PATH "assets/BackGrounds/leaderBG.jpeg"
+#define BG_PATH "assets/BackGrounds/leaderBG.jpeg" // Arte de IA Copilot
 #define LEADERBOARD_SAVES "Saves/LeaderSave.txt"
 
 namespace Menus

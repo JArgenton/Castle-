@@ -1,7 +1,8 @@
 #include "Menus/PauseMenu.hpp"
 #include "States/Game.hpp"
 
-#define BACKGROUND "assets/BackGrounds/OutSideCastle.png"
+#define BACKGROUND "assets/BackGrounds/OutSideCastle.png" // arte por ia copilot
+// por que ela desconfigurou sozinha? °-°
 
 namespace Menus
 {
@@ -55,7 +56,6 @@ namespace Menus
 
             case 2:
             {
-                // Bloco adicional para escopo local, se necessário
                 States::Level *currentLevel = dynamic_cast<States::Level *>(pJogo->getState(pStateMachine->getLastStateID()));
                 if (currentLevel)
                 {

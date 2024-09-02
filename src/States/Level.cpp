@@ -209,7 +209,7 @@ namespace States
             j["Player2"]["health"] = Player2->getHealth();
             j["Player2"]["points"] = Player2->getPoints();
             j["Player2"]["isActive"] = Player2->isActive();
-            j["Player2"]["fullyCreated"] = Player2->getFullyCreated();
+            j["Player2"]["fullyCreated"] = Player2->getFullyCreated(); // atributo que apenas o player 2 usa
             j["Player2"]["coolDownTimer"] = Player2->getCoolDownTimer();
             j["Player2"]["isAttacking"] = Player2->isAtking();
             j["Player2"]["TrapDuration"] = Player2->getTrapDuration();
@@ -313,6 +313,8 @@ namespace States
         Player2 = nullptr;
     }
 
+    // Tanto loadEnemiesFromJson quanto loadGameState houve a contribuiççao de IA para logica, isso pode ter acarretado num codigo ineficiente.
+    //  não foi verificada o quão eficiente é essa logica
     void Level::loadEnemiesFromJson(const std::string &filePath, Characters::Player *pP1, Characters::Player *pP2)
     {
         if (pP1)

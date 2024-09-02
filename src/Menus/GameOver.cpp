@@ -1,6 +1,6 @@
 #include "Menus/GameOver.hpp"
 
-#define BACKGROUND_PATH "assets/BackGrounds/GameOver.jpeg"
+#define BACKGROUND_PATH "assets/BackGrounds/GameOver.jpeg" // Arte de IA Copilot
 #define LEADERBOARD_PATH "Saves/LeaderSave.txt"
 
 #include <fstream>
@@ -8,7 +8,6 @@
 
 namespace Menus
 {
-
     GameOver::GameOver(States::StateMachine *pSM, States::Level *plvl) : Menu(),
                                                                          State(pSM, States::stateID::GAMEOVER),
                                                                          title(TupleF(0, 0), "GAME OVER"),
@@ -32,21 +31,21 @@ namespace Menus
         title.setPosition(TupleF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2 - 200));
         title.setFontSize(100);
         title.setTextAlignment(GraphicalElements::TextAlignment::center);
-        title.setTextColor(177.6, 168.2, 144.3);
+        title.setTextColor(177.0, 168.0, 144.0);
 
         points.setPosition(TupleF(GM->getWindowSize().x / 2.0f - 100, GM->getWindowSize().y / 2));
         points.setFontSize(40);
-        points.setTextColor(177.6, 168.2, 144.3);
+        points.setTextColor(177.0, 168.0, 144.0);
         points.setTextAlignment(GraphicalElements::TextAlignment::center);
 
         nameLabel.setPosition(TupleF(GM->getWindowSize().x / 2.0f - 200, GM->getWindowSize().y / 2 + 100));
         nameLabel.setFontSize(40);
-        nameLabel.setTextColor(177.6, 168.2, 144.3);
+        nameLabel.setTextColor(177.0, 168.0, 144.0);
         nameLabel.setTextAlignment(GraphicalElements::TextAlignment::center);
 
         name.setPosition(TupleF(GM->getWindowSize().x / 2.0f + nameLabel.getSize().x - 200, GM->getWindowSize().y / 2 + 100 - nameLabel.getSize().y));
         name.setFontSize(40);
-        name.setTextColor(177.6, 168.2, 144.3);
+        name.setTextColor(177.0, 168.0, 144.0);
         name.setTextAlignment(GraphicalElements::TextAlignment::center);
     }
 
@@ -102,6 +101,7 @@ namespace Menus
         input.reset();
     }
 
+    // inspirado nos exemplos do monitor Burda em video
     void GameOver::writeIntoFile()
     {
         int playerPoints = plvl->getPlayerPoints();

@@ -2,7 +2,7 @@
 
 namespace Managers
 {
-
+    // Classe inspirada na implementação do monitor Burda para gerenciador de eventos
     /* ---------------------------------Singleton------------------------------------------ */
     EventsManager *EventsManager::instance = nullptr;
 

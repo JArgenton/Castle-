@@ -2,7 +2,7 @@
 
 namespace Control
 {
-
+    // classe baseada na implementação do monitor Burda
     Observer::Observer()
     {
         pIM = Managers::InputManager::getInstance();

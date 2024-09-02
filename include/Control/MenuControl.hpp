@@ -9,7 +9,7 @@ namespace Menus
 
 namespace Control
 {
-
+    // controles inspirados na implementação do monitor Burda
     class MenuControl : public Observer
     {
     private:

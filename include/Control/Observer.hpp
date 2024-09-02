@@ -5,6 +5,7 @@
 namespace Control
 {
 
+    // Classe base para os observadores Inspirada na implementação do monitor Burda
     class Observer
     {
     private:

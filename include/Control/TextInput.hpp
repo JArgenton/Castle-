@@ -5,6 +5,8 @@
 namespace Control
 {
 
+    // Inspirado na aplicação do monitor Burda
+
     class TextInput : public Observer
     {
     private:

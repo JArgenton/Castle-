@@ -5,6 +5,8 @@
 namespace Control
 {
 
+    // controles de menu inspirados na implementação do monitor Burda
+
     MenuControl::MenuControl(Menus::Menu *pM) : Observer()
     {
         pMenu = pM;

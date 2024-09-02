@@ -34,8 +34,6 @@ namespace Entities
             {
                 std::cout << "erro em SWORD, owner nulo " << std::endl;
             }
-            std::string texturepath = "assets/espada2.png";
-            SetTexture(texturepath);
         }
         void Sword::atack()
         {
@@ -93,7 +91,6 @@ namespace Entities
         }
         void Sword::updateSprite(const float dt)
         {
-            /*TODO */
         }
 
     }

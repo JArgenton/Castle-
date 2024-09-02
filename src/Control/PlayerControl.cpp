@@ -21,7 +21,7 @@ namespace Control
 
         if (!pStateM)
         {
-            cout << "maquina de estados nula ???????" << endl;
+            cout << "maquina de estados nula " << endl;
             exit(1);
         }
 

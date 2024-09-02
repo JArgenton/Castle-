@@ -4,6 +4,7 @@
 
 namespace Managers
 {
+    /*CLASSE INSPIRADA NA IMPLEMENTAÇAO DO MONITOR BURDA, MAS COM AS DEVIDAS MODIFICAÇOES*/
 
     InputManager *InputManager::instance = nullptr;
 

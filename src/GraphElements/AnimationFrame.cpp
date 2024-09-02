@@ -2,6 +2,7 @@
 
 namespace GraphicalElements
 {
+    /*CLASSE BASEADA NO TUTORIAL DO MONITOR BURDA*/
 
     AnimationFrame::AnimationFrame(string path, const int _FrameCount, float _switchTime) : frameCount(_FrameCount),
                                                                                             currentFrame(0),
@@ -12,7 +13,7 @@ namespace GraphicalElements
     {
         if (!texture)
         {
-            std::cout << "erro textura nula, implodi --> " << path << endl;
+            std::cout << "erro textura nula" << path << endl;
             exit(1);
         }
         rectSize.width = texture->getSize().x / float(frameCount);

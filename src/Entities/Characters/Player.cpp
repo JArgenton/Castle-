@@ -7,7 +7,7 @@
 
 #include "Entities/Characters/Enemies/Archer.hpp"
 #include "Entities/Characters/Enemies/Soldier.hpp"
-#include "Entities/Characters/Enemies/BigBoss.hpp"
+#include "Entities/Characters/Enemies/EliteKnight.hpp"
 
 #include "Entities/Projectiles/Arrow.hpp"
 #include "Entities/Projectiles/Hook.hpp"
@@ -231,7 +231,7 @@ namespace Entities
             {
                 moveOnColision(other, intersec);
 
-                static_cast<Enemies::BigBoss *>(other)->toDamage(this);
+                static_cast<Enemies::EliteKnight *>(other)->toDamage(this);
 
                 if (isAtking() && !pointsGranted) // Verifica se já concedeu pontos
                 {
@@ -284,8 +284,7 @@ namespace Entities
                 set_health(PLAYER_HEALTH);
                 active = true;
                 setSize(PLAYER_SIZE_X, PLAYER_SIZE_Y); // chama a set Origin
-                std::string texturepath = "assets/player.png";
-                SetTexture(texturepath);
+
                 if (weapon)
                 {
                     weapon->WeaponInitialize(this); // todo
@@ -320,8 +319,6 @@ namespace Entities
             {
                 active = true;
                 setSize(PLAYER_SIZE_X, PLAYER_SIZE_Y); // chama a set Origin
-                std::string texturepath = "assets/player.png";
-                SetTexture(texturepath);
 
                 if (weapon)
                 {
@@ -340,6 +337,11 @@ namespace Entities
                 }
                 PlayerCreationFlag = true;
             }
+            sprite.addNewAnimation(AnimationID::walk, WALK_PATH, 7, 0.1);
+            sprite.addNewAnimation(AnimationID::attack, ATACK_PATH, 4, 0.3);
+            sprite.addNewAnimation(AnimationID::idle, IDLE, 4, 10);
+            sprite.addNewAnimation(AnimationID::jump, JUMP, 6, 0.3);
+            sprite.addNewAnimation(AnimationID::reciveDamage, DAMAGE, 2, 2);
         }
         void Player::execute()
         {

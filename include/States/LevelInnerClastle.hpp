@@ -1,6 +1,6 @@
 #pragma once
 #include "States/Level.hpp"
-#include "Entities/Characters/Enemies/BigBoss.hpp"
+#include "Entities/Characters/Enemies/EliteKnight.hpp"
 
 namespace States
 {
@@ -9,7 +9,7 @@ namespace States
     {
     private:
         const int maxArchers;
-        Characters::Enemies::BigBoss *boss;
+        Characters::Enemies::EliteKnight *boss;
 
     public:
         InnerCastle(StateMachine *pSM = nullptr);

@@ -7,7 +7,7 @@ namespace Entities
     {
         namespace Enemies
         {
-            class BigBoss : public Enemy
+            class EliteKnight : public Enemy
             {
             private:
                 static std::string texturepath;
@@ -19,9 +19,9 @@ namespace Entities
                 bool flagIsHitting;
 
             public:
-                BigBoss(TupleF _position);
+                EliteKnight(TupleF _position);
 
-                ~BigBoss();
+                ~EliteKnight();
 
                 void initialize();
 

@@ -20,7 +20,7 @@ namespace Entities
         void Trap::initialize()
         {
 
-            std::string texturePath("assets/freetileset/png/Object/Bush (4).png");
+            std::string texturePath("assets/pressure_plate.png");
 
             setSize(HEIGHT, WIDGHT);
             SetTexture(texturePath);
@@ -31,6 +31,11 @@ namespace Entities
         }
         void Trap::update(float dt)
         {
+            if (operational())
+            {
+                string path = "assets/pressure_plate.png";
+                SetTexture(path);
+            }
             reloadTimmer += dt;
             body->move(0, GRAVITY + forcaBloco);
             render();
@@ -39,16 +44,13 @@ namespace Entities
         {
             if (operational())
             {
-                body->setFillColor(sf::Color::Red);
                 pC->reciveDmg(damage);
                 // isTraped ->Character
                 pC->isTraped(trapDuration);
                 pC->set_velocity(TupleF(0.0f, 0.0f));
                 reloadTimmer = 0;
-            }
-            else
-            {
-                body->setFillColor(sf::Color::Blue);
+                string path = "assets/trap_spear.png";
+                SetTexture(path);
             }
         }
         bool Trap::operational()

@@ -2,7 +2,7 @@
 
 #include "Entities/Obstacles/Plataform.hpp"
 #include "Entities/Characters/Enemies/Archer.hpp"
-#include "Entities/Characters/Enemies/BigBoss.hpp"
+#include "Entities/Characters/Enemies/EliteKnight.hpp"
 
 #include "Entities/Weapons/Sword.hpp"
 #include "Entities/Projectiles/Hook.hpp"
@@ -105,7 +105,6 @@ namespace States
             hpDisplay2.update(healthPercentage2, TupleF(Player2->getPosition().x - 20, Player2->getPosition().y - 50));
         }
 
-        // cout << Player1->getHealth() << endl;
         TupleF centerpos = centerView();
         pGraphicM->centerViewOn(centerpos);
 
@@ -248,11 +247,11 @@ namespace States
 
                     if (e->getId() == ID::BOSS)
                     {
-                        enemy["isHitting"] = static_cast<Characters::Enemies::BigBoss *>(e)->getIsHitting();
-                        enemy["hitTimmer"] = static_cast<Characters::Enemies::BigBoss *>(e)->getHitTimmer();
-                        enemy["hitLimit"] = static_cast<Characters::Enemies::BigBoss *>(e)->getHitLimit();
-                        enemy["grabTimmer"] = static_cast<Characters::Enemies::BigBoss *>(e)->getGrabTimmer();
-                        enemy["grabCooldown"] = static_cast<Characters::Enemies::BigBoss *>(e)->getGrabCooldown();
+                        enemy["isHitting"] = static_cast<Characters::Enemies::EliteKnight *>(e)->getIsHitting();
+                        enemy["hitTimmer"] = static_cast<Characters::Enemies::EliteKnight *>(e)->getHitTimmer();
+                        enemy["hitLimit"] = static_cast<Characters::Enemies::EliteKnight *>(e)->getHitLimit();
+                        enemy["grabTimmer"] = static_cast<Characters::Enemies::EliteKnight *>(e)->getGrabTimmer();
+                        enemy["grabCooldown"] = static_cast<Characters::Enemies::EliteKnight *>(e)->getGrabCooldown();
                     }
 
                     j["enemies"].push_back(enemy);
@@ -367,26 +366,26 @@ namespace States
                         }
                         if (enemyType == ID::BOSS)
                         {
-                            static_cast<Characters::Enemies::BigBoss *>(enemy)->setPosition(TupleF(position));
+                            static_cast<Characters::Enemies::EliteKnight *>(enemy)->setPosition(TupleF(position));
                             if (enemyData.contains("isHitting"))
                             {
-                                static_cast<Characters::Enemies::BigBoss *>(enemy)->setIsHitting(enemyData["isHitting"].get<bool>());
+                                static_cast<Characters::Enemies::EliteKnight *>(enemy)->setIsHitting(enemyData["isHitting"].get<bool>());
                             }
                             if (enemyData.contains("grabTimmer"))
                             {
-                                static_cast<Characters::Enemies::BigBoss *>(enemy)->setGrabTimmer(enemyData["grabTimmer"].get<float>());
+                                static_cast<Characters::Enemies::EliteKnight *>(enemy)->setGrabTimmer(enemyData["grabTimmer"].get<float>());
                             }
                             if (enemyData.contains("grabCooldown"))
                             {
-                                static_cast<Characters::Enemies::BigBoss *>(enemy)->setGrabCooldown(enemyData["grabCooldown"].get<float>());
+                                static_cast<Characters::Enemies::EliteKnight *>(enemy)->setGrabCooldown(enemyData["grabCooldown"].get<float>());
                             }
                             if (enemyData.contains("hitTimmer"))
                             {
-                                static_cast<Characters::Enemies::BigBoss *>(enemy)->setHitTimmer(enemyData["hitTimmer"].get<float>());
+                                static_cast<Characters::Enemies::EliteKnight *>(enemy)->setHitTimmer(enemyData["hitTimmer"].get<float>());
                             }
                             if (enemyData.contains("hitLimit"))
                             {
-                                static_cast<Characters::Enemies::BigBoss *>(enemy)->setHitLimit(enemyData["hitLimit"].get<float>());
+                                static_cast<Characters::Enemies::EliteKnight *>(enemy)->setHitLimit(enemyData["hitLimit"].get<float>());
                             }
                         }
 

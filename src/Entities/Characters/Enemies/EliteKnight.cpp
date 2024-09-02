@@ -1,12 +1,22 @@
-#include "Entities/Characters/Enemies/BigBoss.hpp"
+#include "Entities/Characters/Enemies/EliteKnight.hpp"
 #include "States/Level.hpp"
 #include "Utilis/geometry.hpp"
 
-#define BOSS_SPEED 25.0f
 #define ATACK_PATH "assets/Knight_2/Attack 1.png"
 #define WALK_PATH "assets/Knight_2/Run.png"
 #define IDLE "assets/Knight_2/Idle.png"
 #define DAMAGE "assets/Knight_2/Hurt.png"
+
+#define BOSS_SPEED 25.0f
+#define BOSS_HEALT 1500.0f
+#define BOSS_HOOK_COOLDOWN 5.0f
+#define BOSS_ATK_COOLDOWN 2.0f
+#define BOSS_HIT_LIMIT 0.4f
+#define BOSS_ATK_DURATION 0.5f
+#define WIDTH 64.0f
+#define HEIGHT 64.0f
+#define ATK_DAMAGE 100
+
 namespace Entities
 {
     namespace Characters
@@ -14,87 +24,85 @@ namespace Entities
         namespace Enemies
         {
 
-            BigBoss::BigBoss(TupleF _position) : Enemy(_position, ID::BOSS)
+            EliteKnight::EliteKnight(TupleF _position) : Enemy(_position, ID::BOSS)
             {
             }
-            BigBoss::~BigBoss()
+            EliteKnight::~EliteKnight()
             {
                 pPlayer2 = nullptr;
                 pPlayer1 = nullptr;
             }
 
-            void BigBoss::setIsHitting(bool _isHitting)
+            void EliteKnight::setIsHitting(bool _isHitting)
             {
                 flagIsHitting = _isHitting;
             }
 
-            bool BigBoss::getIsHitting()
+            bool EliteKnight::getIsHitting()
             {
                 return flagIsHitting;
             }
 
-            void BigBoss::setGrabTimmer(float _grabTimmer)
+            void EliteKnight::setGrabTimmer(float _grabTimmer)
             {
                 grabTimmer = _grabTimmer;
             }
 
-            float BigBoss::getGrabTimmer()
+            float EliteKnight::getGrabTimmer()
             {
                 return grabTimmer;
             }
 
-            void BigBoss::setGrabCooldown(float _grabCooldown)
+            void EliteKnight::setGrabCooldown(float _grabCooldown)
             {
                 grabCooldown = _grabCooldown;
             }
 
-            float BigBoss::getGrabCooldown()
+            float EliteKnight::getGrabCooldown()
             {
                 return grabCooldown;
             }
 
-            void BigBoss::setHitTimmer(float _hitTimmer)
+            void EliteKnight::setHitTimmer(float _hitTimmer)
             {
                 hitTimmer = _hitTimmer;
             }
 
-            float BigBoss::getHitTimmer()
+            float EliteKnight::getHitTimmer()
             {
                 return hitTimmer;
             }
 
-            void BigBoss::setHitLimit(float _hitLimit)
+            void EliteKnight::setHitLimit(float _hitLimit)
             {
                 hitLimit = _hitLimit;
             }
 
-            float BigBoss::getHitLimit()
+            float EliteKnight::getHitLimit()
             {
                 return hitLimit;
             }
 
-            void BigBoss::initialize()
+            void EliteKnight::initialize()
             {
-                set_health(1500);
-                body->setOutlineThickness(2.0f);
-                body->setOutlineColor(sf::Color::White);
+                set_health(BOSS_HEALT);
+
                 dmgCooldown = 0.5f;
                 grabCooldown = 5.0f;
-                set_atkCooldown(2.0f);
-                set_atkDuration(0.5f);
-                hitLimit = 0.4f;
+                set_atkCooldown(BOSS_ATK_COOLDOWN);
+                set_atkDuration(BOSS_ATK_DURATION);
+                hitLimit = BOSS_HIT_LIMIT;
 
                 dmgTimer = 0.0f;
                 grabTimmer = 0.0f;
                 atkTimer = 0.0f;
                 hitTimmer = 0.0f;
-                setSize(64.0f, 64.0f);
+                setSize(WIDTH, HEIGHT);
 
-                set_atkDamage(100);
+                set_atkDamage(ATK_DAMAGE);
 
                 isTraped(1.0f);
                 facingLeft = true;
-                setPosition(TupleF(804.0f, 1508.0f));
 
                 sprite.addNewAnimation(AnimationID::walk, WALK_PATH, 7, 0.1);
                 sprite.addNewAnimation(AnimationID::attack, ATACK_PATH, 5, 0.4);
@@ -104,7 +112,7 @@ namespace Entities
                 sprite.setBodyScale(2, 1.5);
             }
 
-            void BigBoss::update(const float dt)
+            void EliteKnight::update(const float dt)
             {
                 /*fazer funçao de carga de capacitor*/
                 grabTimmer += dt;
@@ -147,7 +155,7 @@ namespace Entities
                 execute();
             }
 
-            void BigBoss::execute()
+            void EliteKnight::execute()
             {
                 float playerDistance = updatePlayerDistance();
 
@@ -166,11 +174,11 @@ namespace Entities
                             if (isP1NearestPlayer())
                             {
 
-                                pPlayer1->reciveDmg(150);
+                                pPlayer1->reciveDmg(atkDamage);
                             }
                             else
                             {
-                                pPlayer2->reciveDmg(150);
+                                pPlayer2->reciveDmg(atkDamage);
                             }
                         }
                         else
@@ -181,7 +189,7 @@ namespace Entities
                 }
             }
 
-            void BigBoss::atack()
+            void EliteKnight::atack()
             {
                 if (canAtk())
                 {
@@ -189,7 +197,7 @@ namespace Entities
                 }
             }
 
-            void BigBoss::incrementAtkTimer(const float dt)
+            void EliteKnight::incrementAtkTimer(const float dt)
             {
                 if (flagIsAtking)
                 {
@@ -221,17 +229,17 @@ namespace Entities
                 }
             }
 
-            void BigBoss::toDamage(Player *pP)
+            void EliteKnight::toDamage(Player *pP)
             {
                 pP->reciveDmg(50);
             }
 
-            bool BigBoss::canGrab()
+            bool EliteKnight::canGrab()
             {
                 return grabCooldown < grabTimmer;
             }
 
-            void BigBoss::shoot()
+            void EliteKnight::shoot()
             {
                 TupleF BossPosition = getPosition();
                 TupleF BossSize = getSize();
@@ -254,7 +262,7 @@ namespace Entities
 
                 States::Level::createProjectile(projectilePosition, ID::HOOK, direction);
             }
-            void BigBoss::updateSprite(float dt)
+            void EliteKnight::updateSprite(float dt)
             {
                 TupleF pos = getPosition();
                 pos(pos.x, pos.y - getSize().y / 2);

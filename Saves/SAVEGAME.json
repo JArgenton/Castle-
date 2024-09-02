@@ -2,32 +2,32 @@
     "GAME_STATE": 1,
     "Player1": {
         "TrapDuration": 0.0,
-        "coolDownTimer": 5.780429363250732,
-        "health": 2448,
+        "coolDownTimer": 1.8717979192733765,
+        "health": 2398,
         "isActive": true,
         "isAttacking": false,
         "points": 0,
         "position": {
-            "x": 623.5881958007813,
-            "y": 1556.0
+            "x": 521.0558471679688,
+            "y": 1474.0802001953125
         }
     },
     "Player2": {
         "TrapDuration": 0.0,
-        "coolDownTimer": 0.0,
-        "fullyCreated": false,
+        "coolDownTimer": 1.88894784450531,
+        "fullyCreated": true,
         "health": 2500,
         "isActive": true,
         "isAttacking": false,
         "points": 0,
         "position": {
-            "x": 9000.0,
-            "y": 9000.0
+            "x": 452.0,
+            "y": 1556.0
         }
     },
     "enemies": [
         {
-            "coolDownTimer": 8.263659477233887,
+            "coolDownTimer": 6.513720989227295,
             "health": 150,
             "isAttacking": false,
             "position": {
@@ -39,7 +39,7 @@
             "type": 8
         },
         {
-            "coolDownTimer": 8.28042984008789,
+            "coolDownTimer": 9.013718605041504,
             "health": 300,
             "isAttacking": false,
             "position": {
@@ -47,11 +47,11 @@
                 "y": 308.0
             },
             "trapDuration": 1.0,
-            "trapTimer": 0.6825809478759766,
+            "trapTimer": 4.797303199768066,
             "type": 10
         },
         {
-            "coolDownTimer": 8.28042984008789,
+            "coolDownTimer": 6.513720989227295,
             "health": 150,
             "isAttacking": false,
             "position": {
@@ -63,7 +63,19 @@
             "type": 8
         },
         {
-            "coolDownTimer": 4.0761332511901855,
+            "coolDownTimer": 9.013718605041504,
+            "health": 300,
+            "isAttacking": false,
+            "position": {
+                "x": 740.0,
+                "y": 724.0
+            },
+            "trapDuration": 1.0,
+            "trapTimer": 4.797303199768066,
+            "type": 10
+        },
+        {
+            "coolDownTimer": 3.79415225982666,
             "health": 150,
             "isAttacking": false,
             "position": {
@@ -87,7 +99,7 @@
             "type": 8
         },
         {
-            "coolDownTimer": 8.28042984008789,
+            "coolDownTimer": 6.513720989227295,
             "health": 150,
             "isAttacking": false,
             "position": {
@@ -99,7 +111,7 @@
             "type": 8
         },
         {
-            "coolDownTimer": 8.28042984008789,
+            "coolDownTimer": 9.013718605041504,
             "health": 300,
             "isAttacking": false,
             "position": {
@@ -107,11 +119,11 @@
                 "y": 1236.0
             },
             "trapDuration": 1.0,
-            "trapTimer": 0.6825809478759766,
+            "trapTimer": 4.797303199768066,
             "type": 10
         },
         {
-            "coolDownTimer": 8.28042984008789,
+            "coolDownTimer": 9.013718605041504,
             "health": 300,
             "isAttacking": false,
             "position": {
@@ -119,11 +131,11 @@
                 "y": 1460.0
             },
             "trapDuration": 1.0,
-            "trapTimer": 0.6825809478759766,
+            "trapTimer": 4.797303199768066,
             "type": 10
         },
         {
-            "coolDownTimer": 0.6097139716148376,
+            "coolDownTimer": 6.513720989227295,
             "health": 150,
             "isAttacking": false,
             "position": {
@@ -135,7 +147,7 @@
             "type": 8
         },
         {
-            "coolDownTimer": 8.28042984008789,
+            "coolDownTimer": 9.013718605041504,
             "health": 300,
             "isAttacking": false,
             "position": {
@@ -143,55 +155,55 @@
                 "y": 1556.0
             },
             "trapDuration": 1.0,
-            "trapTimer": 0.6825809478759766,
+            "trapTimer": 4.797303199768066,
             "type": 10
         },
         {
-            "coolDownTimer": 0.6097139716148376,
-            "health": 255,
-            "isAttacking": false,
-            "position": {
-                "x": 674.3239135742188,
-                "y": 1556.0
-            },
-            "trapDuration": 1.5733721256256104,
-            "trapTimer": 0.6825809478759766,
-            "type": 10
-        },
-        {
-            "coolDownTimer": 8.28042984008789,
-            "health": 290,
-            "isAttacking": false,
-            "position": {
-                "x": 754.19775390625,
-                "y": 1556.0
-            },
-            "trapDuration": 1.0,
-            "trapTimer": 0.6825809478759766,
-            "type": 10
-        },
-        {
-            "coolDownTimer": 8.28042984008789,
+            "coolDownTimer": 9.013718605041504,
             "health": 300,
             "isAttacking": false,
             "position": {
-                "x": 834.731201171875,
+                "x": 767.7776489257813,
                 "y": 1556.0
             },
             "trapDuration": 1.0,
-            "trapTimer": 0.6825809478759766,
+            "trapTimer": 4.797303199768066,
             "type": 10
         },
         {
-            "coolDownTimer": 8.28042984008789,
+            "coolDownTimer": 9.013718605041504,
             "health": 300,
             "isAttacking": false,
             "position": {
-                "x": 917.0361938476563,
+                "x": 847.5208129882813,
                 "y": 1556.0
             },
             "trapDuration": 1.0,
-            "trapTimer": 0.6825809478759766,
+            "trapTimer": 4.797303199768066,
+            "type": 10
+        },
+        {
+            "coolDownTimer": 9.013718605041504,
+            "health": 247,
+            "isAttacking": false,
+            "position": {
+                "x": 904.0,
+                "y": 1556.0
+            },
+            "trapDuration": 1.697916030883789,
+            "trapTimer": 0.08433299511671066,
+            "type": 10
+        },
+        {
+            "coolDownTimer": 9.013718605041504,
+            "health": 300,
+            "isAttacking": false,
+            "position": {
+                "x": 954.0,
+                "y": 1556.0
+            },
+            "trapDuration": 1.0,
+            "trapTimer": 4.797303199768066,
             "type": 10
         }
     ],
@@ -691,7 +703,7 @@
                 "x": 260.0,
                 "y": 356.0
             },
-            "type": 4
+            "type": 5
         },
         {
             "position": {
@@ -803,7 +815,7 @@
                 "x": 772.0,
                 "y": 356.0
             },
-            "type": 5
+            "type": 4
         },
         {
             "position": {
@@ -817,7 +829,7 @@
                 "x": 836.0,
                 "y": 356.0
             },
-            "type": 4
+            "type": 5
         },
         {
             "position": {
@@ -2119,7 +2131,7 @@
                 "x": 452.0,
                 "y": 740.0
             },
-            "type": 5
+            "type": 4
         },
         {
             "position": {
@@ -3043,7 +3055,7 @@
                 "x": 260.0,
                 "y": 868.0
             },
-            "type": 5
+            "type": 4
         },
         {
             "position": {
@@ -3323,7 +3335,7 @@
                 "x": 292.0,
                 "y": 1092.0
             },
-            "type": 5
+            "type": 4
         },
         {
             "position": {
@@ -4203,23 +4215,23 @@
         {
             "position": {
                 "x": 1028.0,
-                "y": 1284.0
-            },
-            "type": 5
-        },
-        {
-            "position": {
-                "x": 1060.0,
                 "y": 1284.0
             },
             "type": 4
         },
         {
             "position": {
-                "x": 1092.0,
+                "x": 1060.0,
                 "y": 1284.0
             },
             "type": 5
+        },
+        {
+            "position": {
+                "x": 1092.0,
+                "y": 1284.0
+            },
+            "type": 4
         },
         {
             "position": {

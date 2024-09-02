@@ -5,6 +5,8 @@
 using namespace Entities;
 namespace Managers
 {
+    /*CLASSE INSPIRADA NA IMPLEMENTAÇAO DO MONITOR BURDA, MAS COM AS DEVIDAS MODIFICAÇOES*/
+
     Collision::Collision(List::EntityList *_staticEntities, List::EntityList *_movingEntities) : Obstacles(_staticEntities),
                                                                                                  MovingEntities(_movingEntities)
     {

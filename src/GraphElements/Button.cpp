@@ -9,6 +9,7 @@
 
 namespace GraphicalElements
 {
+    /*CLASSE BASEADA NA IMPLEMENTAÇAO DO MONITOR BURDA*/
 
     Button::Button(TupleF position, std::string info) : textInfo(position, info),
                                                         defaultTexture(nullptr),

@@ -122,10 +122,6 @@ namespace Entities
                     player1Distance = sqrt(pow((pos.x - pPos1.x), 2) + pow((pos.y - pPos1.y), 2));
 
                     return player1Distance < player2Distance ? player1Distance : player2Distance;
-
-                    /* cout << "pos inimigo  ->>  " << pos.x << "  /  " << pos.y << endl;
-                     cout << "pos p1  ->>  " << pPos1.x << "  /  " << pPos1.y << endl;
-                     cout << "distancia -->" << player1Distance << endl;*/
                 }
             }
 
@@ -159,7 +155,6 @@ namespace Entities
                     if (owner->isAtking())
                     {
                         reciveDmg(owner->getAtkDamage());
-                        // cout << "reciveu dano" << endl;
                         isTraped(1.0f);
                         if (facingLeft)
                             set_velocity(TupleF(50.0f, -50.0f));

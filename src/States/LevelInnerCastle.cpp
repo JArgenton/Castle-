@@ -248,7 +248,7 @@ namespace States
         {
             pos(1302.0f, 800.0f);
         }
-        boss = static_cast<Characters::Enemies::BigBoss *>(Create(&Level::eFactory, pos, ID::BOSS));
+        boss = static_cast<Characters::Enemies::EliteKnight *>(Create(&Level::eFactory, pos, ID::BOSS));
         static_cast<Characters::Enemies::Enemy *>(boss)->setPosition(pos);
 
         if (boss)

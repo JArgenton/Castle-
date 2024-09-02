@@ -4,6 +4,7 @@
 #define FRAME_RATE_LIMIT 60
 namespace Managers
 {
+    /*CLASSE TEVE COMO BASE IDEIAS DO MINITOR BURDA E AUXILIO DE INTELIGENCIAS ARTIFICIAIS, MAS COM AS DEVIDAS MODIFICAÇOES*/
 
     Graphics *Graphics::instance = nullptr;
 

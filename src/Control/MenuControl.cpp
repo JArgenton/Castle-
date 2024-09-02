@@ -17,7 +17,6 @@ namespace Control
 
     void MenuControl::notifyPressed(std::string key)
     {
-        // cout << "key: " << key << endl;
         if (pMenu == NULL)
         {
             std::cout << "ERRO ponteiro nulo MenuControl::notify()." << std::endl;

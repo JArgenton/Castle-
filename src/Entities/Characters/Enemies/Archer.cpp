@@ -2,12 +2,11 @@
 #include "States/Level.hpp"
 #include "Utilis/geometry.hpp"
 #define ARCHER_DMG 10
-#define ARCHER_TIME 10.0f
-#define ARCHER_ATK_COOLDOWN 20.0f
-#define ARCHER_HEALTH 50
-#define ARCHER_WIDGHT 70.0f
-#define ARCHER_HEIGHT 70.0f
-#define ARCHER_POINTS 200
+#define ATK_DURATION 1.0f
+#define ARCHER_ATK_COOLDOWN 1.0f
+#define ARCHER_HEALTH 150
+#define ARCHER_WIDGHT 32.0f
+#define ARCHER_HEIGHT 64.0f
 
 #define ATACK_PATH "assets/Skeleton_Archer/Shot_1.png"
 #define WALK_PATH "assets/Skeleton_Archer/Evasion.png"
@@ -28,6 +27,8 @@ namespace Entities
 
             Archer::~Archer()
             {
+                pPlayer1 = nullptr;
+                pPlayer2 = nullptr;
             }
 
             void Archer::shoot()
@@ -37,7 +38,7 @@ namespace Entities
                 TupleF pPos = getPlayerPosition();
                 pPos.y -= 40;
                 TupleF projectilePosition;
-                // Calcule a posição central do arqueiro
+
                 if (facingLeft)
                 {
                     projectilePosition = TupleF(archerPosition.x - archerSize.x, archerPosition.y - archerSize.y / 2);
@@ -54,20 +55,17 @@ namespace Entities
 
             void Archer::update(const float dt)
             {
-
                 execute();
-                // Atualiza o archer
+
                 Character::incrementAtkTimer(dt);
                 incrementDmgTimer(dt);
-                // Atualiza posição do archer
 
                 velocity.y += GRAVITY;
-
                 body->move(velocity.x * dt, velocity.y * dt);
+
                 updateSprite(dt);
                 render();
             }
-
             void Archer::atack()
             {
                 if (canAtk())
@@ -80,16 +78,14 @@ namespace Entities
             void Archer::initialize()
             {
 
-                dmgCooldown = 0.5;
-
-                set_health(150);
-                set_atkCooldown(1.0f);
-                set_atkDuration(1.0f);
-                atkTimer = 2.0f;
-                coolDownTimer = 2.5f;
+                set_health(ARCHER_HEALTH);
+                set_atkCooldown(ARCHER_ATK_COOLDOWN);
+                set_atkDuration(ATK_DURATION);
+                atkTimer = 0.0;
+                coolDownTimer = 0.0f;
 
                 set_atkDamage(ARCHER_DMG);
-                setSize(32.0f, 64.0f);
+                setSize(ARCHER_WIDGHT, ARCHER_HEIGHT);
 
                 sprite.addNewAnimation(AnimationID::attack, ATACK_PATH, 15, 0.3);
                 sprite.addNewAnimation(AnimationID::walk, WALK_PATH, 6, 0.5);
@@ -131,6 +127,7 @@ namespace Entities
                     sprite.update(AnimationID::idle, facingLeft, pos, dt);
                 }
             }
+
             void Archer::toDamage(Player *pP)
             {
                 pP->isTraped(1.0f);

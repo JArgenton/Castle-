@@ -8,7 +8,7 @@
 #include "States/LevelInnerClastle.hpp"
 
 namespace States
-{
+{ /*CLASSE INSPIRADA NA IMPLEMENTAÇAO DO MONITOR BURDA, MAS COM AS DEVIDAS MODIFICAÇOES*/
 
     Game::Game() : pGraphicManager(Managers::Graphics::get_instance()),
                    pEventManager(Managers::EventsManager::getInstance())

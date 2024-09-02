@@ -3,6 +3,7 @@
 #include <iostream>
 
 namespace Control
+/*CODIGO INSPIRADO NA IMPLEMENTAÇAO DO MONITOR BURDA*/
 {
 
     TextInput::TextInput() : Observer() {}

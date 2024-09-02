@@ -68,11 +68,11 @@ O projeto inclui um `Makefile` para simplificar o processo de compilação no am
 - **Level**:
   - Responsável pelo salvamento dos dados das fases e pela atualização e gerenciamento das entidades utilizando as listas do namespace `Lists`.
 
-## Padrões de Design Utilizados
+## Padrões de Projeto Utilizados
 
 - **Flyweight**: Otimiza o uso de recursos gráficos, especialmente na distribuição de texturas (`sf::Textures`).
 - **Mediator**: Facilita a interação e comunicação entre diferentes entidades do jogo.
 - **Observer**: Monitora e responde a eventos e inputs do jogador.
 - **Factory**: Abstrai e centraliza a criação das entidades do jogo, permitindo a geração de objetos e introduzindo aleatoriedade nas fases.
-
+- **Singleton**: Garante que exista apenas uma instância  de um obj, que pode ser acessada globalmente em qualquer parte do código.
 

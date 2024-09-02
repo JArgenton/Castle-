@@ -1,4 +1,5 @@
 # Castle-: Jogo em C++ utilizando SFML
+**TRABALHO PARA A DISCIPLINA DE TÉCNICAS DE PROGRAMAÇÃO DO CURSO DE ENGENHARIA DE COMPUTAÇÃO DA UTFPR**
 
 ## Descrição Geral
 
@@ -15,7 +16,6 @@ O projeto inclui um `Makefile` para simplificar o processo de compilação no am
      ```
    - O `Makefile` irá compilar automaticamente todos os arquivos `.cpp` encontrados no diretório `src` e gerar o executável `bin/program`.
 
-**TRABALHO PARA A DISCIPLINA DE TÉCNICAS DE PROGRAMAÇÃO DO CURSO DE ENGENHARIA DE COMPUTAÇÃO DA UTFPR**
 
 ## Autores
 

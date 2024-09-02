@@ -50,7 +50,7 @@ namespace States
 
                 endLevel();
             }
-            else if (movingEntities.getSize() <= 5)
+            else if (movingEntities.getSize() <= 4)
             {
                 endLevel();
             }

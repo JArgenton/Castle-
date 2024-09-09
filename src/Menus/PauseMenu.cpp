@@ -4,6 +4,8 @@
 #define BACKGROUND "assets/BackGrounds/OutSideCastle.png" // arte por ia copilot
 // por que ela desconfigurou sozinha? °-°
 
+// inspirado na configuração do monitor Burda
+
 namespace Menus
 {
     PauseMenu::PauseMenu(States::Game *pG) : Menu(),

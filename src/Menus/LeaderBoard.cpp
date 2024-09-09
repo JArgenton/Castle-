@@ -7,6 +7,7 @@
 
 namespace Menus
 {
+    // Inspirado na implementação do monitor burda
     LeaderBoard::LeaderBoard(States::StateMachine *pStateMachine) : Menu(),
                                                                     State(pStateMachine, States::stateID::LEARDERBOARD)
     {

@@ -4,6 +4,8 @@
 
 #define BACKGROUND_MENU "assets/BackGrounds/castle5.jpeg"
 
+// inspirado na implementação do monitor Burda
+
 namespace Menus
 {
 

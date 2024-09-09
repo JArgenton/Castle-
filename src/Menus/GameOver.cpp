@@ -8,6 +8,7 @@
 
 namespace Menus
 {
+    // Inspirado na implementação do monitor Burda
     GameOver::GameOver(States::StateMachine *pSM, States::Level *plvl) : Menu(),
                                                                          State(pSM, States::stateID::GAMEOVER),
                                                                          title(TupleF(0, 0), "GAME OVER"),

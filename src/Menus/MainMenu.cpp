@@ -4,6 +4,7 @@
 
 namespace Menus
 {
+    // inspirado na implementação do monitor Burda
 
     MainMenuState::MainMenuState(States::Game *pG) : Menu(),
                                                      State(static_cast<States::StateMachine *>(pG), States::stateID::MAINMENU),
